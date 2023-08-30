@@ -13,7 +13,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "ci.sicadevd.mobile"
+        applicationId "ci.projccb.mobile"
         minSdkVersion 21
         versionCode 100
         versionName "2.1.1"

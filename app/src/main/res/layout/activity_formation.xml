@@ -233,7 +233,7 @@
 <!--                        app:hintText="Choisir les themes"-->
 <!--                        android:layout_height="@dimen/_37sdp"/>-->
 
-                    <ci.sicadevd.mobile.activities.forms.views.MultiSelectSpinner
+                    <ci.projccb.mobile.activities.forms.views.MultiSelectSpinner
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_37sdp"
                         android:layout_margin="@dimen/_8sdp"
