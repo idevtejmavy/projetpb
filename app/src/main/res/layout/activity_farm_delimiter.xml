@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageMapTypeFarmDelimiter"
@@ -61,7 +61,7 @@
                 android:layout_height="@dimen/_35sdp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageMapTypeActionFarmDelimiter"
@@ -152,6 +152,7 @@
                 android:layout_height="@dimen/_1sdp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:padding="@dimen/_5sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -189,6 +190,7 @@
                 android:layout_height="@dimen/_1sdp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:padding="@dimen/_5sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -217,18 +219,20 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Titulaire: "
                 android:textSize="@dimen/_9ssp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:id="@+id/labelOwnerFarmDelimiter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="BOKA DIDIER CEDRIC"
                 android:textSize="@dimen/_9ssp"
-                android:textColor="@color/black"/>
+                />
 
         </LinearLayout>
 
@@ -238,18 +242,20 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Périmetre: "
                 android:textSize="@dimen/_9ssp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:id="@+id/labelDistanceFarmDelimiter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0m"
                 android:textSize="@dimen/_9ssp"
-                android:textColor="@color/black"/>
+                />
 
         </LinearLayout>
 
@@ -260,18 +266,20 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Surface: "
                 android:textSize="@dimen/_9ssp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:id="@+id/labelSurfaceFarmDelimiter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0ha"
                 android:textSize="@dimen/_9ssp"
-                android:textColor="@color/black"/>
+                />
 
         </LinearLayout>
 
@@ -282,36 +290,40 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lat: "
                 android:textSize="@dimen/_9ssp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:id="@+id/labelLatFarmDelimiter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.0"
                 android:textSize="@dimen/_9ssp"
-                android:textColor="@color/black"/>
+                />
 
             <Space
                 android:layout_width="@dimen/_10sdp"
                 android:layout_height="@dimen/_1sdp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lng: "
                 android:textSize="@dimen/_9ssp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:id="@+id/labelLngFarmDelimiter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0.0"
                 android:textSize="@dimen/_9ssp"
-                android:textColor="@color/black"/>
+                />
 
         </LinearLayout>
 
@@ -464,7 +476,7 @@
             <LinearLayout
                 android:id="@+id/linearOrdinaireTypeMappingContainerFarmDelimiter"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
@@ -476,6 +488,7 @@
                     android:src="@drawable/ic_ordinaire_black"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ordinaire"
@@ -488,7 +501,7 @@
             <LinearLayout
                 android:id="@+id/linearSatelliteTypeMappingContainerFarmDelimiter"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
@@ -500,6 +513,7 @@
                     android:src="@drawable/ic_satellite_black"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Satellite"
@@ -512,7 +526,7 @@
             <LinearLayout
                 android:id="@+id/linearTerrainTypeMappingContainerFarmDelimiter"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
@@ -524,6 +538,7 @@
                     android:src="@drawable/ic_terrain_black"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Terrain"

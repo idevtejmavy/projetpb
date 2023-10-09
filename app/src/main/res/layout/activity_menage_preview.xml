@@ -9,7 +9,7 @@
     tools:context=".activities.infospresenters.MenagePreviewActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -34,29 +33,21 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RECAPITULATIF MENAGE"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageDraftBtn"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
 
     </RelativeLayout>
 
@@ -70,7 +61,7 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:background="@android:drawable/editbox_background_normal"
+            android:background="@drawable/rounded_cardview_with_border"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -84,23 +75,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Code producteur : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelCodeProducteurMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="XXX-XXXX-XXXX-XXX"
                     android:layout_weight="2.5"/>
@@ -111,23 +104,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Producteur : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelProducteurMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -138,23 +133,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Localité : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelLocaliteMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -165,23 +162,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quartier : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelQuartierMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -192,23 +191,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Source energie : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelEnergieMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -220,23 +221,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Combien de bois en semaine : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelEnergieBoisWeekCountMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -247,23 +250,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Où vous jetez les ordures : "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelOrdureLieuMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -274,23 +279,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Vous separez les dechets "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelSeparationDechetYesNoMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -301,23 +308,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Comment vous gerez l'eau des toilettes"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelGestionEauMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -328,23 +337,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Comment vous gerez l'eau des vaiselles"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelGestionVaisselleMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -355,23 +366,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Il existe un WC pour le menage"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelWCYesNoMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -382,23 +395,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Comment vous trouvez l'eau portable"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labellieuEauPortableMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -409,23 +424,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Vous traitez vos champs vous meme"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelTraiterChampsMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -446,6 +463,7 @@
                     android:weightSum="4">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Avec quel type de machine: "
@@ -453,12 +471,13 @@
                         android:layout_weight="1.5"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/labelTraiteYourselfMachineMenagePreview"
                         android:gravity="center_vertical"
                         android:layout_width="0dp"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        
                         android:layout_height="match_parent"
                         android:text="Promduceur"
                         android:layout_weight="2.5"/>
@@ -473,6 +492,7 @@
                     android:weightSum="4">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="L'atomisateur est en bon état : "
@@ -480,12 +500,13 @@
                         android:layout_weight="1.5"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/labelTraiteChampsMachineAtomisateurStatusMenagePreview"
                         android:gravity="center_vertical"
                         android:layout_width="0dp"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        
                         android:layout_height="match_parent"
                         android:text="Promduceur"
                         android:layout_weight="2.5"/>
@@ -501,6 +522,7 @@
                     android:weightSum="4">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Equipement de protection"
@@ -508,12 +530,13 @@
                         android:layout_weight="1.5"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/labelEquipementProtectionMenagePreview"
                         android:gravity="center_vertical"
                         android:layout_width="0dp"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        
                         android:layout_height="match_parent"
                         android:text="Promduceur"
                         android:layout_weight="2.5"/>
@@ -536,6 +559,7 @@
                     android:weightSum="4">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Nom de la personne qui traite vos champs"
@@ -543,12 +567,13 @@
                         android:layout_weight="1.5"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/labelTraitYourselfFarmNoOtherNameMenagePreview"
                         android:gravity="center_vertical"
                         android:layout_width="0dp"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        
                         android:layout_height="wrap_content"
                         android:text="Promduceur"
                         android:layout_weight="2.5"/>
@@ -563,6 +588,7 @@
                     android:weightSum="4">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Numéro de la personne"
@@ -570,12 +596,13 @@
                         android:layout_weight="1.5"/>
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/labelTraitYourselfFarmNoOtherNumberMenagePreview"
                         android:gravity="center_vertical"
                         android:layout_width="0dp"
                         android:textSize="@dimen/_13ssp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        
                         android:layout_height="match_parent"
                         android:text="Promduceur"
                         android:layout_weight="2.5"/>
@@ -589,23 +616,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Avez vous une machine de pulverisation"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelMachinePulverisationMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -617,23 +646,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Vous empruntez une machine"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelEmpruntMachineMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -644,23 +675,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ta femme fait une activité rentable"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelFemmeActiviteYesNoMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -673,23 +706,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Activité de votre femme"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelFemmeActiviteYesNomMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -700,23 +735,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Superficie cacao de ta femme"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelFemmeCacaoSuperficieMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -728,23 +765,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Peux-tu donner une partie de ton champs à ta femme"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelProducteurFemmeDonChampsYesNoMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -756,23 +795,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Combien d'hectars"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelProducteurFemmeDonChampsYesHectarMenagePreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="Promduceur"
                     android:layout_weight="2.5"/>
@@ -787,19 +828,24 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="2">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickSaveMenagePreview"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="2"
-                    android:background="@drawable/submit_button_bg"
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ENREGISTRER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/ic_save_work"
+                    app:iconGravity="start" />
 
             </LinearLayout>
 

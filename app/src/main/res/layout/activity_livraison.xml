@@ -9,7 +9,7 @@
     tools:context=".activities.forms.LivraisonActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,24 +25,24 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
-            android:gravity="center_horizontal"
             android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@drawable/fav_bandama" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_gravity="center_horizontal"
+android:textColor="@color/text_color_white"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="FICHE LIVRAISON"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
@@ -52,11 +52,11 @@
             android:id="@+id/imageDraftBtn"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
+            android:visibility="visible"
+            android:src="@drawable/baseline_send_and_archive_white" />
 
     </RelativeLayout>
 
@@ -93,7 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/_20sdp"
-                    android:background="@drawable/rounded_cardview_with_border"
+                    android:background="@drawable/rounded_cardview_with_border_brown"
                     android:orientation="vertical">
 
                     <TextView
@@ -103,6 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/text_color_white"
                         android:text="Information Expéditeur">
 
                     </TextView>
@@ -113,25 +114,24 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Nom du Délégué*"/>
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="6.5"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:drawable/edit_text">
+                            android:background="@drawable/rounded_background">
 
                             <Space
                                 android:layout_width="@dimen/_5sdp"
@@ -154,17 +154,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Nom*"/>
 
@@ -177,11 +177,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -191,17 +191,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Contact*"/>
 
@@ -214,11 +214,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="number|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -228,17 +228,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Email*"/>
 
@@ -251,11 +251,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -265,17 +265,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Adresse*"/>
 
@@ -288,11 +288,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -320,7 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/_20sdp"
-                    android:background="@drawable/rounded_cardview_with_border"
+                    android:background="@drawable/rounded_cardview_with_border_brown"
                     android:orientation="vertical">
 
                     <TextView
@@ -330,6 +330,7 @@
                         android:textSize="@dimen/_10sdp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_white"
                         android:text="Information Destinataire">
 
                     </TextView>
@@ -340,25 +341,24 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Selectionner un magasin de section*"/>
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="6.5"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:drawable/edit_text">
+                            android:background="@drawable/rounded_background">
 
                             <Space
                                 android:layout_width="@dimen/_5sdp"
@@ -381,17 +381,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Nom*"/>
 
@@ -404,11 +404,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -418,17 +418,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Contact*"/>
 
@@ -441,11 +441,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="number|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -455,17 +455,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Email*"/>
 
@@ -478,11 +478,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -492,17 +492,17 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Adresse*"/>
 
@@ -515,11 +515,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -533,25 +533,24 @@
 
             <LinearLayout
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:weightSum="10"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:textSize="@dimen/_10sdp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold"
                     android:text="Choix de la localité*"/>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="6.5"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -585,7 +584,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/_20sdp"
-                    android:background="@drawable/rounded_cardview_with_border"
+                    android:background="@drawable/rounded_cardview_with_border_brown"
                     android:orientation="vertical">
 
                     <TextView
@@ -595,6 +594,7 @@
                         android:textSize="@dimen/_10sdp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_white"
                         android:text="Information de Livraison">
 
                     </TextView>
@@ -605,25 +605,24 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Choix du producteur"/>
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="6.5"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:drawable/edit_text">
+                            android:background="@drawable/rounded_background">
 
                             <Space
                                 android:layout_width="@dimen/_5sdp"
@@ -645,25 +644,24 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Choix de la parcelle"/>
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="6.5"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:drawable/edit_text">
+                            android:background="@drawable/rounded_background">
 
                             <Space
                                 android:layout_width="@dimen/_5sdp"
@@ -685,25 +683,24 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:textSize="@dimen/_10sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:text="Choix du type de parcelle"/>
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="6.5"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:drawable/edit_text">
+                            android:background="@drawable/rounded_background">
 
                             <Space
                                 android:layout_width="@dimen/_5sdp"
@@ -726,16 +723,16 @@
 
                     <LinearLayout
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:weightSum="10"
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="0dp"
-                            android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                            android:layout_width="match_parent"
+                            android:paddingLeft="@dimen/_12sdp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+
                             android:textStyle="bold"
                             android:textSize="@dimen/_10sdp"
                             android:text="Numéro de scellé *"/>
@@ -749,11 +746,11 @@
                             android:ellipsize="end"
                             android:textAllCaps="true"
                             android:textSize="@dimen/_13ssp"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:inputType="textCapCharacters|textNoSuggestions"
                             android:layout_weight="6.5"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@android:drawable/edit_text"/>
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"/>
 
                     </LinearLayout>
 
@@ -776,10 +773,11 @@
                             android:layout_height="wrap_content">
 
                             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                                 android:layout_width="wrap_content"
                                 android:textSize="@dimen/_10sdp"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/black"
+    
                                 android:textStyle="bold"
                                 android:text="Quantité"/>
 
@@ -797,8 +795,8 @@
                                 android:height="0dp"
                                 android:inputType="number|textNoSuggestions"
                                 android:layout_weight="6.5"
-                                android:layout_height="@dimen/_50sdp"
-                                android:background="@android:drawable/edit_text"/>
+                                android:layout_height="@dimen/_37sdp"
+                                android:background="@drawable/rounded_background"/>
 
                         </LinearLayout>
 
@@ -812,10 +810,11 @@
                             android:layout_height="wrap_content">
 
                             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                                 android:layout_width="wrap_content"
                                 android:textSize="@dimen/_10sdp"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/black"
+    
                                 android:textStyle="bold"
                                 android:text="Résultat(FCFA)"/>
 
@@ -833,8 +832,8 @@
                                android:height="0dp"
                                android:inputType="number|textNoSuggestions"
                                android:layout_weight="6.5"
-                               android:layout_height="@dimen/_50sdp"
-                               android:background="@android:drawable/edit_text"/>
+                               android:layout_height="@dimen/_37sdp"
+                               android:background="@drawable/rounded_background"/>
 
                         </LinearLayout>
 
@@ -853,7 +852,7 @@
                             android:paddingStart="@dimen/_10sdp"
                             android:paddingEnd="@dimen/_10sdp"
                             android:text="Ajouter"
-                            android:textColor="@color/white"
+                            
                             android:textSize="@dimen/_9ssp" />
 
                     <Space
@@ -877,16 +876,16 @@
 
             <LinearLayout
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:weightSum="10"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold"
                     android:textSize="@dimen/_10sdp"
                     android:text="Réduction(%)"/>
@@ -900,11 +899,10 @@
                     android:ellipsize="end"
                     android:textAllCaps="true"
                     android:textSize="@dimen/_13ssp"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:inputType="number|textNoSuggestions"
-                    android:layout_weight="6.5"
-                    android:layout_height="@dimen/_50sdp"
-                    android:background="@android:drawable/edit_text"/>
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"/>
 
             </LinearLayout>
 
@@ -925,14 +923,16 @@
                     android:weightSum="2">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/_10sdp"
                         android:text="Sous-total(FCFA)" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
@@ -947,23 +947,25 @@
                     android:weightSum="2">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/tvSousTotal"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/_10sdp"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold"
                         tools:text="950" />
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:id="@+id/tvTotalReduce"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
                         android:textSize="@dimen/_10sdp"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold"
                         tools:text="1 0245.4" />
 
@@ -977,25 +979,24 @@
 
             <LinearLayout
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:weightSum="10"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_weight="3.5"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold"
                     android:textSize="@dimen/_10sdp"
                     android:text="Status de paiement*"/>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="6.5"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1021,28 +1022,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:textSize="@dimen/_10sdp"
                     android:text="Date estimée de livraison"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editDateLivraison"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:editable="false"
                         android:ellipsize="end"
                         android:focusable="false"
@@ -1072,29 +1072,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickCancelLivraison"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg_noir"
+                    android:backgroundTint="@color/divider"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ANNULER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_cancel_send_white"
+                    app:iconGravity="start" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickSaveLivraison"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg"
-                    android:text="ENREGISTRER"
-                    android:textColor="@color/white" />
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="VÉRIFIER"
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_schedule_send_prev_white"
+                    app:iconGravity="start" />
 
             </LinearLayout>
         </LinearLayout>

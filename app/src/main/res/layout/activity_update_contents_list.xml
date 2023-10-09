@@ -9,7 +9,7 @@
     tools:context=".activities.lists.UpdateContentsListActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -34,15 +33,16 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleUpdateContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LES MODIFICATIONS"
-                android:textColor="@color/white"
+
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
@@ -91,6 +91,7 @@
                 app:srcCompat="@drawable/ic_parcel"/>
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:textSize="@dimen/_12ssp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -129,7 +130,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_weight="2.75"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/rounded_background"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:hint="Recherche par nom ..."

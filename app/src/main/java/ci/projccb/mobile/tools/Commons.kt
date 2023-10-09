@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import ci.projccb.mobile.services.SynchronisationIntentService
@@ -17,10 +19,34 @@ import android.os.Build
 import android.text.InputFilter
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import ci.projccb.mobile.R
+import ci.projccb.mobile.activities.DashboardAgentActivity
+import ci.projccb.mobile.activities.forms.CalculEstimationActivity
+import ci.projccb.mobile.activities.forms.FormationActivity
+import ci.projccb.mobile.activities.forms.InspectionActivity
+import ci.projccb.mobile.activities.forms.LivraisonActivity
+import ci.projccb.mobile.activities.forms.ParcelleActivity
+import ci.projccb.mobile.activities.forms.ProducteurActivity
+import ci.projccb.mobile.activities.forms.ProducteurMenageActivity
+import ci.projccb.mobile.activities.forms.SsrtClmsActivity
+import ci.projccb.mobile.activities.forms.SuiviApplicationActivity
+import ci.projccb.mobile.activities.forms.SuiviParcelleActivity
+import ci.projccb.mobile.activities.forms.UniteAgricoleProducteurActivity
+import ci.projccb.mobile.activities.lists.DatasDraftedListActivity
+import ci.projccb.mobile.activities.lists.FormationsListActivity
+import ci.projccb.mobile.activities.lists.LivraisonsListActivity
+import ci.projccb.mobile.activities.lists.MenageresListActivity
+import ci.projccb.mobile.activities.lists.ParcellesListActivity
+import ci.projccb.mobile.activities.lists.ProducteursListActivity
+import ci.projccb.mobile.activities.lists.SuiviPacellesListActivity
+import ci.projccb.mobile.activities.lists.UpdateContentsListActivity
 import ci.projccb.mobile.repositories.datas.CommonData
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.json.JSONException
@@ -260,6 +286,98 @@ class Commons {
                     break
                 }
             }
+        }
+
+        fun blockUpdateForFeature(fromMenu: String): Boolean {
+            var isUpdated = true
+            when (fromMenu.uppercase()) {
+                "INSPECTION",
+                "SSRTE",
+                "LOCALITE",
+                "INFOS_PRODUCTEUR",
+                "MENAGE",
+                "SUIVI_PARCELLE",
+                "FORMATION",
+                "CALCUL_ESTIMATION",
+                "SUIVI_APPLICATION",
+                "LIVRAISON" -> {
+                    isUpdated = false
+                }
+
+            }
+
+            return isUpdated
+        }
+
+        fun redirectMenu(fromMenu: String, actionMenu: String, activity: Activity) {
+            when (actionMenu.uppercase()) {
+                "ADD" -> {
+                    when (fromMenu.uppercase()) {
+                        "LOCALITE" -> Commons.showMessage("Cette fonctionnalité est désactivé", activity, finished = true, callback = {}, positive = "OKAY", deconnec = false, showNo = false) // ActivityUtils.startActivity(LocaliteActivity::class.java)
+                        "PRODUCTEUR" -> ActivityUtils.startActivity(ProducteurActivity::class.java)
+                        "INFOS_PRODUCTEUR" -> ActivityUtils.startActivity(
+                            UniteAgricoleProducteurActivity::class.java)
+                        "MENAGE" -> ActivityUtils.startActivity(ProducteurMenageActivity::class.java)
+                        "PARCELLE" -> ActivityUtils.startActivity(ParcelleActivity::class.java)
+                        "SUIVI_PARCELLE" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
+                        "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)
+                        "SSRTE" -> ActivityUtils.startActivity(SsrtClmsActivity::class.java)
+                        "FORMATION" -> ActivityUtils.startActivity(FormationActivity::class.java)
+                        "CALCUL_ESTIMATION" -> ActivityUtils.startActivity(CalculEstimationActivity::class.java)
+                        "SUIVI_APPLICATION" -> ActivityUtils.startActivity(SuiviApplicationActivity::class.java)
+                        "LIVRAISON" -> ActivityUtils.startActivity(LivraisonActivity::class.java)
+                    }
+                }
+
+                "UPDATE" -> {
+                    val intentUpdateContent = Intent(activity, UpdateContentsListActivity::class.java)
+                    intentUpdateContent.putExtra("fromContent", fromMenu)
+                    ActivityUtils.startActivity(intentUpdateContent)
+                }
+
+                "DRAFTS" -> {
+                    val intentDraft = Intent(activity, DatasDraftedListActivity::class.java)
+                    intentDraft.putExtra("fromMenu", fromMenu)
+                    ActivityUtils.startActivity(intentDraft)
+                }
+
+                "DATAS" -> {
+                    when (fromMenu.uppercase()) {
+                        "LOCALITE" -> Commons.showMessage("Cette fonctionnalité est désactivé", activity, finished = true, callback = {}, positive = "OKAY", deconnec = false, showNo = false) //ActivityUtils.startActivity(LocalitesListActivity::class.java)
+                        "PRODUCTEUR" -> ActivityUtils.startActivity(ProducteursListActivity::class.java)
+                        //"INFOS_PRODUCTEUR" -> ActivityUtils.startActivity(UniteAgricoleProducteurActivity::class.java)
+                        "MENAGE" -> ActivityUtils.startActivity(MenageresListActivity::class.java)
+                        "PARCELLE" -> ActivityUtils.startActivity(ParcellesListActivity::class.java)
+                        "SUIVI_PARCELLE" -> ActivityUtils.startActivity(SuiviPacellesListActivity::class.java)
+                        //"INSPECTION" -> ActivityUtils.startActivity(EvaluationActivity::class.java)
+                        //"SSRTE" -> ActivityUtils.startActivity(SsrtClmsActivity::class.java)
+                        "FORMATION" -> ActivityUtils.startActivity(FormationsListActivity::class.java)
+                        //"CALCUL_ESTIMATION" -> ActivityUtils.startActivity(CalculEstimationActivity::class.java)
+                        //"SUIVI_APPLICATION" -> ActivityUtils.startActivity(SuiviApplicationActivity::class.java)
+                        "LIVRAISON" -> ActivityUtils.startActivity(LivraisonsListActivity::class.java)
+                    }
+                }
+            }
+        }
+
+        fun modifyIcColor(
+            dashboardAgentActivity: Activity,
+            imgProfileDashboard: AppCompatImageView,
+            white: Int
+        ) {
+            val color = ContextCompat.getColor(dashboardAgentActivity, white)
+            val colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            imgProfileDashboard.colorFilter = colorFilter
+        }
+
+        fun modifyIcColor(
+            dashboardAgentActivity: Context,
+            imgProfileDashboard: ImageView,
+            white: Int
+        ) {
+            val color = ContextCompat.getColor(dashboardAgentActivity, white)
+            val colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            imgProfileDashboard.colorFilter = colorFilter
         }
 
     }

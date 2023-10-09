@@ -40,7 +40,7 @@ class GpsService : Service() {
 
         if (Build.VERSION.SDK_INT >= 26) {
             val CHANNEL_ID = "field_connect"
-            val channel = NotificationChannel(CHANNEL_ID, "FieldConnect", NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(CHANNEL_ID, "CCB", NotificationManager.IMPORTANCE_DEFAULT)
 
             notificationManager = (getSystemService(NOTIFICATION_SERVICE) as NotificationManager)
             notificationManager?.createNotificationChannel(channel)

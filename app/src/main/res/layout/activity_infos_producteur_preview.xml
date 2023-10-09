@@ -9,7 +9,7 @@
     tools:context=".activities.infospresenters.InfosProducteurPreviewActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -34,29 +33,21 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RECAPITULATIF INFOS PRODUCTEUR"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageDraftBtn"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
 
     </RelativeLayout>
 
@@ -70,7 +61,7 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:background="@android:drawable/editbox_background_normal"
+            android:background="@drawable/rounded_cardview_with_border"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -84,23 +75,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Code :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelCodeInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -111,23 +104,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Producteur :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelProducteurInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -138,23 +133,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Avez-vous des forets ou jachère ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelJachereYesNoInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -166,23 +163,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quelle est la superficie des forets ou jachères ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelJachereYesSuperficieInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -193,23 +192,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Avez-vous d’autres cultures ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelOthersFarmsYesNoInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -221,23 +222,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Autres cultures"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelOthersFarmsInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -248,23 +251,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nombre de Travailleurs"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelNbreWorkersInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -275,23 +280,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nombre de Travailleurs Permanents"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelNbreWorkersDefinedInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -302,23 +309,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nombre de Travailleurs Non Permanents"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelNbreWorkersUndefinedInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -329,23 +338,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nombre d’enfants de 5 à 17ans présents dans le ménage ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelChildUnder18InfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -356,23 +367,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Parmi ces enfants, combien sont scolarisés ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelChildSchoolInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -383,23 +396,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Parmi les scolarisés, combien n’ont pas d’extrait de naissance ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelChildScoolExtraitInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -410,23 +425,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Citez les 2 maladies plus fréquentes chez les enfants"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelDeseasesInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -437,23 +454,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quand une personne est blessée à la maison, que fais-tu ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelActionPeopleInjuryInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -464,23 +483,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quel type de documents de tes champs possèdes-tu ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelPaperFarmsInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -491,23 +512,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Comment gères-tu tes reçus d’achat ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelRecuHolderInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -518,23 +541,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="As-tu un Compte Mobile Money ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelMobileMoneyYesNoInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -546,23 +571,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Quel est votre operateur ? "
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelMobileMoneyOperateurInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -574,23 +601,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Numéro du Compte Mobile Money"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelMobieMoneyNumberInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -603,23 +632,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Accepterais tu qu’on paye ton cacao par ces moyens ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelBuyMethodInfoProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -630,23 +661,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="As-tu un compte dans une banque ?"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelBanqueYesNoInfosProducteurPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -661,19 +694,24 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="2">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickSaveInfosProducteurPreview"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="2"
-                    android:background="@drawable/submit_button_bg"
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ENREGISTRER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/ic_save_work"
+                    app:iconGravity="start" />
 
             </LinearLayout>
 

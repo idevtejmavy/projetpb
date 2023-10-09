@@ -7,29 +7,34 @@
     android:layout_height="match_parent"
     tools:context=".activities.ConfigurationActivity">
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/loaderConfiguration"
+        app:indicatorDirectionLinear="startToEnd"
+        android:indeterminate="true"
+        android:progress="100"
+        app:indicatorColor="@color/ccb_green"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_centerInParent="true" />
+
     <LinearLayout
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
+        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
             android:layout_margin="@dimen/_16sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/labelIndicatorConfiguration"
-            android:textSize="@dimen/_13ssp"
-            android:textColor="#000"
+            android:textSize="@dimen/_11ssp"
             android:lines="2"
             android:gravity="center"
             android:maxLines="2"
-            android:text="Configuration en cours..."/>
-
-        <ProgressBar
-            android:id="@+id/loaderConfiguration"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"/>
+            android:text="Configuration en cours…"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:visibility="gone"
@@ -41,6 +46,7 @@
             android:layout_gravity="center_horizontal"
             android:text="Mise à jour"
             android:textAllCaps="true"
+            android:textColor="@color/text_color_white"
             android:textSize="@dimen/_13ssp" />
 
     </LinearLayout>

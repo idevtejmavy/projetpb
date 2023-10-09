@@ -15,8 +15,8 @@ android {
     defaultConfig {
         applicationId "ci.projccb.mobile"
         minSdkVersion 21
-        versionCode 100
-        versionName "2.1.1"
+        versionCode 8
+        versionName "CCB-v1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -116,6 +116,28 @@ dependencies {
      * WORKMANAGER Kotlin + coroutines
      */
     implementation "androidx.work:work-runtime-ktx:$work_version"
+
+    //carroussel viewpager
+    implementation 'com.github.sparrow007:carouselrecyclerview:1.2.6'
+
+    //glide for image
+//    kapt "android.arch.lifecycle:compiler:1.0.0"
+//    implementation("com.github.bumptech.glide:glide:4.16.0")
+//    implementation 'com.github.bumptech.glide:annotations:4.14.2'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
+    implementation 'com.squareup.picasso:picasso:2.8'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+
+    //indicator
+    implementation 'me.relex:circleindicator:2.1.6'
+
+    //navigation drawer
+    implementation 'co.zsmb:materialdrawer-kt:3.0.0'
+
+    //expandle menu
+    //implementation project(":expandablenavigation")
+   implementation("com.github.nirwannursabda:expandable-navigation:0.1.2")
 
 }
 

@@ -9,7 +9,7 @@
     tools:context=".activities.forms.SuiviParcelleActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -34,15 +33,16 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FICHE SUIVI PARCELLE"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
@@ -51,12 +51,11 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageDraftBtn"
             android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
+            android:layout_height="@dimen/_45sdp"            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
+            android:visibility="visible"
+            android:src="@drawable/baseline_send_and_archive_white" />
 
     </RelativeLayout>
 
@@ -84,22 +83,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Localite *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -120,22 +118,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Nom et Prénom Producteur *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -159,22 +156,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Choisir sa parcelle concernée *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -198,22 +194,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Campagne *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -237,22 +232,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Y-a-t-il un court d’eau dans la parcelle ? *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -288,18 +282,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
+                        android:paddingLeft="@dimen/_12sdp"
                         android:text="Lequel ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text">
+                        android:background="@drawable/rounded_background">
 
                         <Space
                             android:layout_width="@dimen/_5sdp"
@@ -325,22 +321,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Ya-t-il une pente dans la Parcelle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -362,10 +357,11 @@
                 android:layout_height="@dimen/_10sdp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre d’arbre a Ombrage observé dans la Parcelle"
-                android:textColor="@color/black"
+                
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -399,7 +395,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="3.25"
-                                android:background="@android:drawable/edit_text"
+                                android:background="@drawable/rounded_background"
                                 android:ellipsize="end"
                                 android:hint="Variété"
                                 android:imeOptions="actionDone"
@@ -420,7 +416,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="1.5"
-                                android:background="@android:drawable/edit_text"
+                                android:background="@drawable/rounded_background"
                                 android:ellipsize="end"
                                 android:hint="Nombre"
                                 android:imeOptions="actionDone"
@@ -445,7 +441,7 @@
                             android:paddingStart="@dimen/_5sdp"
                             android:paddingEnd="@dimen/_5sdp"
                             android:text="Valider"
-                            android:textColor="@color/white"
+                            
                             android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
@@ -479,23 +475,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Quelle variété d’arbre ombrage souhaiterais-tu avoir ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editVarieteArbreSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="textCapCharacters|textNoSuggestions"
@@ -515,23 +510,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Nombre de sauvageons observé dans la parcelle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editNbreSauvageonsSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
@@ -560,18 +554,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
+                        android:paddingLeft="@dimen/_12sdp"
                         android:text="As-tu bénéficié d’arbres agro-forestiers l’an dernier ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text">
+                        android:background="@drawable/rounded_background">
 
                         <Space
                             android:layout_width="@dimen/_5sdp"
@@ -619,7 +615,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="@dimen/_40sdp"
                                     android:layout_weight="3.25"
-                                    android:background="@android:drawable/edit_text"
+                                    android:background="@drawable/rounded_background"
                                     android:ellipsize="end"
                                     android:hint="Arbre"
                                     android:imeOptions="actionDone"
@@ -640,7 +636,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="@dimen/_40sdp"
                                     android:layout_weight="1.5"
-                                    android:background="@android:drawable/edit_text"
+                                    android:background="@drawable/rounded_background"
                                     android:ellipsize="end"
                                     android:hint="Nombre"
                                     android:imeOptions="actionDone"
@@ -665,7 +661,7 @@
                                 android:paddingStart="@dimen/_5sdp"
                                 android:paddingEnd="@dimen/_5sdp"
                                 android:text="Valider"
-                                android:textColor="@color/white"
+                                
                                 android:textSize="@dimen/_9ssp" />
 
                         </LinearLayout>
@@ -724,7 +720,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="3.25"
-                                android:background="@android:drawable/edit_text"
+                                android:background="@drawable/rounded_background"
                                 android:ellipsize="end"
                                 android:hint="Type"
                                 android:imeOptions="actionDone"
@@ -745,7 +741,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="1.5"
-                                android:background="@android:drawable/edit_text"
+                                android:background="@drawable/rounded_background"
                                 android:ellipsize="end"
                                 android:hint="Nombre"
                                 android:imeOptions="actionDone"
@@ -770,7 +766,7 @@
                             android:paddingStart="@dimen/_5sdp"
                             android:paddingEnd="@dimen/_5sdp"
                             android:text="Valider"
-                            android:textColor="@color/white"
+                            
                             android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
@@ -804,22 +800,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Activité de Taille dans la parcelle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -844,22 +839,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Activité d’Egourmandage dans la parcelle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -884,22 +878,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Activité désherbage Manuel dans la parcelle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -924,22 +917,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Activité Récolte Sanitaire dans la parcelle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -964,23 +956,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Intrant NPK utilisé l'année derniere"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editIntrantNPKSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
@@ -1001,23 +992,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Intrant Fiente utilisé l'année derniere"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editIntrantFienteSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:hint="Quantié"
@@ -1038,23 +1028,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Intrant Composte utilisé l'année derniere"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editNombreComposteSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:hint="Quantié"
                     android:imeOptions="actionDone"
@@ -1075,22 +1064,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présense de Bio-Agresseur ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1115,22 +1103,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présence de Pourriture Brune"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1155,22 +1142,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présense d'insectes parasites ou ravageurs ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1217,7 +1203,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="2.5"
-                                android:background="@android:drawable/edit_text"
+                                android:background="@drawable/rounded_background"
                                 android:ellipsize="end"
                                 android:hint="Nom insecte"
                                 android:imeOptions="actionDone"
@@ -1236,7 +1222,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2.45"
-                                android:background="@android:drawable/edit_text">
+                                android:background="@drawable/rounded_background">
 
                                 <Space
                                     android:layout_width="@dimen/_5sdp"
@@ -1266,7 +1252,7 @@
                             android:paddingStart="@dimen/_5sdp"
                             android:paddingEnd="@dimen/_5sdp"
                             android:text="Valider"
-                            android:textColor="@color/white"
+                            
                             android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
@@ -1300,22 +1286,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présense de fourmis rouges ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1340,22 +1325,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présense d'araignées ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1380,22 +1364,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présense de ver de terres ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1420,22 +1403,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présense de mantes religieuses ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1462,10 +1444,11 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Insecticide utilisé dans la parcelle"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -1479,7 +1462,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_weight="6.25"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:hint="Nom insecticide"
                         android:imeOptions="actionDone"
@@ -1500,7 +1483,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_weight="3.25"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:hint="Nombre"
                         android:imeOptions="actionDone"
@@ -1525,10 +1508,11 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fongicide utilisé dans la parcelle"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -1542,7 +1526,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_weight="6.25"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:hint="Nom insecticide"
                         android:imeOptions="actionDone"
@@ -1563,7 +1547,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_weight="3.25"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:hint="Nombre"
                         android:imeOptions="actionDone"
@@ -1588,10 +1572,11 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Herbicide utilisé dans la parcelle"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -1605,7 +1590,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_weight="6.25"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:hint="Nom insecticide"
                         android:imeOptions="actionDone"
@@ -1626,7 +1611,7 @@
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_45sdp"
                         android:layout_weight="3.25"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:hint="Nombre"
                         android:imeOptions="actionDone"
@@ -1646,10 +1631,11 @@
                 android:layout_height="@dimen/_10sdp" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Citez les animaux que vous rencontrez dans les champs"
-                android:textColor="@color/black"
+                
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -1682,7 +1668,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_40sdp"
                                 android:layout_weight="5"
-                                android:background="@android:drawable/edit_text"
+                                android:background="@drawable/rounded_background"
                                 android:ellipsize="end"
                                 android:hint="Nom"
                                 android:imeOptions="actionDone"
@@ -1707,7 +1693,7 @@
                             android:paddingStart="@dimen/_5sdp"
                             android:paddingEnd="@dimen/_5sdp"
                             android:text="Valider"
-                            android:textColor="@color/white"
+                            
                             android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
@@ -1741,22 +1727,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Présence de SholenShoot ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1781,23 +1766,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Nombre de désherbage manuel dans l'année"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editDesherbageManuelSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
@@ -1817,27 +1801,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Date de visite"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editDateSuivi"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:editable="false"
                         android:ellipsize="end"
                         android:focusable="false"
@@ -1867,29 +1850,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickCancelSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg_noir"
+                    android:backgroundTint="@color/divider"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ANNULER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_cancel_send_white"
+                    app:iconGravity="start" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickSaveSuivi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg"
-                    android:text="ENREGISTRER"
-                    android:textColor="@color/white" />
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="VÉRIFIER"
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_schedule_send_prev_white"
+                    app:iconGravity="start" />
 
             </LinearLayout>
 

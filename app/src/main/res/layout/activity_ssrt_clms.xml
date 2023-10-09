@@ -9,7 +9,7 @@
     tools:context=".activities.forms.SsrtClmsActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -34,15 +33,16 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FICHE SSRTE"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
@@ -52,11 +52,11 @@
             android:id="@+id/imageDraftBtn"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
+            android:visibility="visible"
+            android:src="@drawable/baseline_send_and_archive_white" />
 
     </RelativeLayout>
 
@@ -65,6 +65,7 @@
         android:layout_height="@dimen/_35sdp" />
 
     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
         android:scrollHorizontally="true"
         android:id="@+id/labelInfosScrollerSsrt"
         android:freezesText="true"
@@ -76,7 +77,7 @@
         android:textSize="@dimen/_12ssp"
         android:marqueeRepeatLimit="marquee_forever"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/black"
+        
         android:text="Seul les personnes de 3 à 17ans partageant le même repas et la même maison du producteur sont concernées par cette enquête. Commencer du plus grand au plus petit"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
@@ -96,11 +97,12 @@
         android:weightSum="10">
 
         <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3.5"
             android:text="Localité *"
-            android:textColor="@color/black"
+            
             android:textStyle="bold" />
 
         <LinearLayout
@@ -108,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6.5"
-            android:background="@android:drawable/edit_text">
+            android:background="@drawable/rounded_background">
 
             <Space
                 android:layout_width="@dimen/_5sdp"
@@ -150,22 +152,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Localité *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -189,22 +190,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Producteur *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -228,23 +228,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Nom du membre"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editMembreNomlSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="textCapCharacters"
@@ -264,23 +263,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Prenoms du membre"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editMembrePrenomlSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
@@ -300,22 +298,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Genre *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -340,27 +337,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Date de naissance"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editDateNaissancelSsrt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:editable="false"
                         android:ellipsize="end"
                         android:focusable="false"
@@ -390,22 +386,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Lien de parenté avec le producteur*"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -430,24 +425,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Saisir l'autre lien"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:textAllCaps="true"
                     android:id="@+id/editAutreLienParentSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:hint=""
                     android:inputType="textCapWords"
@@ -466,22 +460,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Va-t-il à l'école ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -504,22 +497,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Quel est le niveau ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -542,22 +534,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Quel est la classe ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -579,22 +570,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Ton école est-elle située dans le village ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -618,23 +608,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="À Combien de Km du village est-elle située ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editVillageDistanceSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="phone"
@@ -652,23 +641,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Donne le nom de cette école ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editSchoolNameSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="textCapWords"
@@ -685,22 +673,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Comment te rends-tu dans cette école ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -724,22 +711,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="A tu été à l’école par le passé ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -763,22 +749,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Quelle niveau d’étude as-tu atteint ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -802,22 +787,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Pourquoi ne vas-tu pas à l’école ou arrêté l’école ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -832,7 +816,6 @@
                     <ci.projccb.mobile.activities.forms.views.MultiSelectSpinner
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_37sdp"
-                        android:layout_margin="@dimen/_8sdp"
                         android:id="@+id/selectNoSchoolRaisonSsrt"
                         />
 
@@ -848,22 +831,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Au cours de ces 2 dernières années lequel de ces travaux a tu effectués ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -878,7 +860,6 @@
                     <ci.projccb.mobile.activities.forms.views.MultiSelectSpinner
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_37sdp"
-                        android:layout_margin="@dimen/_8sdp"
                         android:id="@+id/selectRecentWorkSsrt"
                         />
 
@@ -892,22 +873,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Ou a tu effectué ces travaux ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -922,7 +902,6 @@
                     <ci.projccb.mobile.activities.forms.views.MultiSelectSpinner
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_37sdp"
-                        android:layout_margin="@dimen/_8sdp"
                         android:id="@+id/selectRecentWorkLieuSsrt"
                         />
 
@@ -936,26 +915,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Au cours de ces 2 dernières années lequel de ces travaux a tu effectués ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
-
-                    <Space
-                        android:layout_width="@dimen/_5sdp"
-                        android:layout_height="@dimen/_10sdp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
 <!--                    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch-->
 <!--                        app:hintText="Selectionnez les travaux"-->
@@ -966,7 +940,6 @@
                     <ci.projccb.mobile.activities.forms.views.MultiSelectSpinner
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_37sdp"
-                        android:layout_margin="@dimen/_8sdp"
                         android:id="@+id/selectRecentWorkLightSsrt"
                         />
 
@@ -980,22 +953,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Ou a tu effectué ces travaux ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -1010,7 +982,6 @@
                     <ci.projccb.mobile.activities.forms.views.MultiSelectSpinner
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_37sdp"
-                        android:layout_margin="@dimen/_8sdp"
                         android:id="@+id/selectRecentWorkLieuLightSsrt"
                         />
 
@@ -1024,27 +995,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Date de l'enquete"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editDateEnqueteSsrt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:editable="false"
                         android:ellipsize="end"
                         android:focusable="false"
@@ -1074,29 +1044,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickCancelSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg_noir"
+                    android:backgroundTint="@color/divider"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ANNULER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_cancel_send_white"
+                    app:iconGravity="start" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickReviewEnqueteSsrt"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg"
-                    android:text="RESUMÉ"
-                    android:textColor="@color/white" />
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="VÉRIFIER"
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_schedule_send_prev_white"
+                    app:iconGravity="start" />
 
             </LinearLayout>
 

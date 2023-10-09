@@ -10,7 +10,7 @@
     tools:context=".activities.forms.ProducteurMenageActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -26,7 +26,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -35,15 +34,16 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FICHE MENAGE"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
@@ -53,11 +53,11 @@
             android:id="@+id/imageDraftBtn"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
+            android:visibility="visible"
+            android:src="@drawable/baseline_send_and_archive_white" />
 
     </RelativeLayout>
 
@@ -85,22 +85,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Localite *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -124,22 +123,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Producteur *"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -163,23 +161,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Quartier"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editQuartierMenage"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="textCapCharacters|textNoSuggestions"
@@ -199,22 +196,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Source d'energie du menage"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -249,19 +245,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Combien de bois par semaine"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editNbreBoisSemaineMenage"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:imeOptions="actionDone"
                         android:inputType="number"
@@ -283,22 +280,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Comment gérez-vous les ordures ménagères ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -322,22 +318,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Pratiquez-vous la séparation des déchets ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -362,22 +357,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Comment gérez-vous l’eau de toilette ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -401,22 +395,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Comment gérez-vous l’eau de vaisselle ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -440,22 +433,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Existe-t-il un WC pour le menage ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -480,22 +472,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Ou procurez-vous de l'eau potable ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -519,22 +510,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Vous traitez vous-même vos champs ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -570,18 +560,19 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Avec quel type de machine ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text">
+                        android:background="@drawable/rounded_background">
 
                         <Space
                             android:layout_width="@dimen/_5sdp"
@@ -619,18 +610,19 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Votre atomisateur est-il en bon etat ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text">
+                        android:background="@drawable/rounded_background">
 
                         <Space
                             android:layout_width="@dimen/_5sdp"
@@ -668,18 +660,19 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Où gardez-vous cette machine ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text">
+                        android:background="@drawable/rounded_background">
 
                         <Space
                             android:layout_width="@dimen/_5sdp"
@@ -716,19 +709,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Donnez son numero de telepone"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editChampsNoNumeroMenage"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
@@ -752,19 +746,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Donnez le nom du traiteur"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editTraiteurMenage"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
@@ -787,22 +782,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Avez-vous des Equipements de Protection Individuel ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -827,22 +821,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Votre partenaire fait une activté qui produit de l'argent ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text">
+                    android:background="@drawable/rounded_background">
 
                     <Space
                         android:layout_width="@dimen/_5sdp"
@@ -878,19 +871,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Quelle est l'activité?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editFemmeActiviteMenage"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:imeOptions="actionDone"
                         android:inputType="textCapCharacters|textNoSuggestions"
@@ -912,23 +906,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:paddingLeft="@dimen/_12sdp"
                     android:text="Superficie du cacao de votre partenaire ?"
-                    android:textColor="@color/black"
+                    
                     android:textStyle="bold" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/editSuperficieCacaoMenage"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_weight="6.5"
-                    android:background="@android:drawable/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
                     android:ellipsize="end"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
@@ -960,18 +953,19 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Peux-tu donner une partie de ton cacao à ta partenaire ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text">
+                        android:background="@drawable/rounded_background">
 
                         <Space
                             android:layout_width="@dimen/_5sdp"
@@ -1009,19 +1003,20 @@
                     android:weightSum="10">
 
                     <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3.5"
                         android:text="Combien d'hectare ?"
-                        android:textColor="@color/black"
+                        
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/editDonSuperficieCacaoMenage"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_50sdp"
+                        android:layout_height="@dimen/_37sdp"
                         android:layout_weight="6.5"
-                        android:background="@android:drawable/edit_text"
+                        android:background="@drawable/rounded_background"
                         android:ellipsize="end"
                         android:imeOptions="actionDone"
                         android:inputType="numberDecimal"
@@ -1044,29 +1039,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickCancelMenage"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg_noir"
+                    android:backgroundTint="@color/divider"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ANNULER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_cancel_send_white"
+                    app:iconGravity="start" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickSaveMenage"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/submit_button_bg"
-                    android:text="ENREGISTRER"
-                    android:textColor="@color/white" />
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="VÉRIFIER"
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/baseline_schedule_send_prev_white"
+                    app:iconGravity="start" />
 
             </LinearLayout>
 

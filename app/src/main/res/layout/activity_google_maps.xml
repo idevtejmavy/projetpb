@@ -12,7 +12,7 @@
     <RelativeLayout
         android:id="@+id/linealToolbarParcelleDelimitation"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp">
+        android:layout_height="@dimen/_37sdp">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_35sdp"
@@ -26,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/ic_icons_launcher" />
+            app:srcCompat="@mipmap/ic_launcher_trans" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageMapsTypeAction"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/_7sdp"
             app:srcCompat="@drawable/ic_tiles" />
@@ -55,6 +55,7 @@
             map:mapType="satellite"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
@@ -62,7 +63,7 @@
             android:singleLine="true"
             android:visibility="gone"
             android:text="Délimitez la parcelle, veuillez vous rassurer d'aligner les points pour plus de précision."
-            android:textColor="@color/white" />
+             />
 
         <LinearLayout
             android:layout_width="@dimen/_50sdp"
@@ -183,65 +184,71 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Titulaire: "
                     android:textSize="@dimen/_9ssp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelDelimiterOwner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="BOKA DIDIER CEDRIC"
                     android:textSize="@dimen/_9ssp"
-                    android:textColor="@color/black"/>
+                    />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Metre: "
                     android:textSize="@dimen/_9ssp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelDelimiterDistance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0m"
                     android:textSize="@dimen/_9ssp"
-                    android:textColor="@color/black"/>
+                    />
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Surface: "
                     android:textSize="@dimen/_9ssp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelDelimiterSurface"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0m\u00B2"
                     android:textSize="@dimen/_9ssp"
-                    android:textColor="@color/black"/>
+                    />
 
             </LinearLayout>
 
@@ -259,7 +266,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/submit_button_bg"
             android:text="ENREGISTRER"
-            android:textColor="@color/white"
+            
             android:layout_height="match_parent"/>
 
     </LinearLayout>

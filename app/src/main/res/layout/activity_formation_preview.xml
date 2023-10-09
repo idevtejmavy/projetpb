@@ -9,7 +9,7 @@
     tools:context=".activities.infospresenters.FormationPreviewActivity">
 
     <RelativeLayout
-        android:background="@color/green"
+        android:background="@color/ccb_gris"
         android:id="@+id/linealToolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_70sdp">
@@ -25,7 +25,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingEnd="@dimen/_10sdp"
             android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:orientation="vertical">
@@ -34,29 +33,20 @@
                 android:layout_width="@dimen/_48sdp"
                 android:layout_height="@dimen/_48sdp"
                 android:layout_gravity="center_horizontal"
-                app:srcCompat="@drawable/ic_icons_launcher" />
+                app:srcCompat="@mipmap/ic_launcher_trans" />
 
             <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/labelTitleMenuAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RECAPITULATIF FORMATION"
-                android:textColor="@color/white"
+                
                 android:textSize="@dimen/_13ssp"
                 android:textStyle="bold" />
 
         </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageDraftBtn"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_45sdp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:padding="@dimen/_7sdp"
-            android:visibility="gone"
-            android:src="@drawable/ic_draft" />
 
     </RelativeLayout>
 
@@ -70,7 +60,7 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:background="@android:drawable/editbox_background_normal"
+            android:background="@drawable/rounded_cardview_with_border"
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -84,23 +74,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Localité :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelLocaliteNomFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="LOCALITE"
                     android:layout_weight="2.5"/>
@@ -111,23 +103,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Campagne :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelCampagneNomFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="LOCALITE"
                     android:layout_weight="2.5"/>
@@ -138,23 +132,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Date de formation :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelDateFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="LOCALITE"
                     android:layout_weight="2.5"/>
@@ -165,23 +161,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Theme :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelThemeFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"/>
 
@@ -191,23 +189,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lieu de formation :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelLieuFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="wrap_content"
                     android:layout_weight="2.5"/>
 
@@ -217,24 +217,26 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Liste de presence :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelListePresenceFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:maxLines="10"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_weight="2.5"/>
@@ -245,23 +247,25 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Visiteurs :"
                     android:textSize="@dimen/_13ssp"
                     android:layout_weight="1.5"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+android:textColor="@color/text_color_white"
                     android:id="@+id/labelVisiteursFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="match_parent"
                     android:text="LOCALITE"
                     android:layout_weight="2.5"/>
@@ -272,11 +276,12 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:weightSum="4">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
+android:textColor="@color/text_color_white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Photo :"
                     android:textSize="@dimen/_13ssp"
@@ -285,9 +290,9 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imagePhotoFormationPreview"
                     android:gravity="center_vertical"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
+                    
                     android:layout_height="@dimen/_100sdp"
                     android:text="LOCALITE"
                     android:layout_weight="2.5"/>
@@ -303,18 +308,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/clickSaveFormationPreview"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_35sdp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:layout_weight="2"
-                    android:background="@drawable/submit_button_bg"
+                    android:backgroundTint="@color/ccb_green"
+                    android:elevation="0dp"
+                    android:paddingHorizontal="20dp"
                     android:text="ENREGISTRER"
-                    android:textColor="@color/white" />
+                    app:cornerRadius="50dp"
+                    app:icon="@drawable/ic_save_work"
+                    app:iconGravity="start" />
 
             </LinearLayout>
 

@@ -224,8 +224,6 @@ class MenusActionRedirectionActivity : AppCompatActivity(R.layout.activity_menus
                 }
             }
         }
-
-
     }
 
 }

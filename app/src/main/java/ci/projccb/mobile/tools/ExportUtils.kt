@@ -135,7 +135,7 @@ object ExportUtils {
         gpxBuilder.append(System.getProperty("line.separator"))
         gpxBuilder.append("        <name>Mapping de parcelle</name>")
         gpxBuilder.append(System.getProperty("line.separator"))
-        gpxBuilder.append("        <copyright author=\"FieldConnect\"/>")
+        gpxBuilder.append("        <copyright author=\"CCB\"/>")
         gpxBuilder.append(System.getProperty("line.separator"))
         gpxBuilder.append("    </metadata>")
         gpxBuilder.append(System.getProperty("line.separator"))

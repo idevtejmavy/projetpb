@@ -9,6 +9,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ci.projccb.mobile.R
@@ -148,7 +149,7 @@ class AuthentificationActivity : AppCompatActivity() {
                                 val roles = agentResponseBody?.menu
                                 val agentModel = agentResponseBody?.results
 
-                                //roles?.addAll(arrayOf(
+//                                roles?.addAll(arrayOf(
 //                                    "LIVRAISON",
 //                                    "PRODUCTEUR",
 //                                    "PARCELLE",
@@ -204,7 +205,7 @@ class AuthentificationActivity : AppCompatActivity() {
 
         agentDoa = CcbRoomDatabase.getDatabase(this)?.agentDoa()
 
-        progressDialog = ProgressDialog(this)
+        progressDialog = ProgressDialog(this, R.style.custom_progress_style)
         progressDialog!!.setMessage("Connexion en cours...")
 
         imgBackAuth.setOnClickListener {
