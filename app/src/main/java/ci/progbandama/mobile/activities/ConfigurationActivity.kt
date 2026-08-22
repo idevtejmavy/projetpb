@@ -157,12 +157,13 @@ class ConfigurationActivity : AppCompatActivity() {
         withContext(IO) {
             val userUpdate = async {
                 agentDoa?.deleteAll()
-                coopDao?.deleteAll()
 
                 try {
                     val userRoles = ApiClient.apiService.getUserRoles(CommonData(userid = agentID, cooperativeIde = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID, agentID)))
                     val responseRoles: Response<AgentAuthResponse> = userRoles.execute()
                     val agentResponseBody: AgentAuthResponse? = responseRoles.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (agentResponseBody != null) coopDao?.deleteAll()
 
 
                     var roles = mutableListOf<String>() //agentResponseBody?.menu //
@@ -322,12 +323,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getLocalites() {
         withContext(IO) {
             val localitesUpdate = async {
-                localiteDao?.deleteAll()
 
                 try {
                     val clientLocalite = ApiClient.apiService.getLocalites(CommonData(userid = agentID, table = "localites"))
                     val responseLocalites: Response<MutableList<LocaliteModel>> = clientLocalite.execute()
                     val localitesList: MutableList<LocaliteModel>? = responseLocalites.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (localitesList != null) localiteDao?.deleteAll()
 
                     localitesList?.map {
                         val localite = LocaliteModel(
@@ -365,12 +367,13 @@ class ConfigurationActivity : AppCompatActivity() {
         withContext(IO) {
             val producteursUpdate = async {
                 //producteurDao?.deleteAgentDatas(SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString())
-                producteurDao?.deleteAll()
 
                 try {
                     val clientProducteurs = ApiClient.apiService.getProducteurs(agent = AgentModel(userId = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID)))//agentModel?.id
                     val responseProducteurs: Response<MutableList<ProducteurModel>> = clientProducteurs.execute()
                     val produteursList: MutableList<ProducteurModel>? = responseProducteurs.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (produteursList != null) producteurDao?.deleteAll()
 
                     produteursList?.map {
 
@@ -775,13 +778,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getStaffApplicateurs() {
         withContext(IO) {
             val dataUpdate = async {
-                concernesDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID),
                         role = "applicateur", is_different = false))
                     var responseData: Response<MutableList<ConcernesModel>> = clientData.execute()
                     val dataList: MutableList<ConcernesModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) concernesDao?.deleteAll()
 
 //                    clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
 //                    responseData = clientData.execute()
@@ -830,12 +834,13 @@ class ConfigurationActivity : AppCompatActivity() {
 
         withContext(IO) {
             val dataUpdate = async {
-                transporteurDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getTransporteurList()
                     var responseData: Response<MutableList<TransporteurModel>> = clientData.execute()
                     val dataList: MutableList<TransporteurModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) transporteurDao?.deleteAll()
 
                     val entrepriseNameList = mutableListOf<String>()
 
@@ -893,7 +898,8 @@ class ConfigurationActivity : AppCompatActivity() {
 
         withContext(IO) {
             val dataUpdate = async {
-                entrepriseDao?.deleteAll()
+                // Correctif D3 : ne pas vider la table si l'appelant n'a rien fourni
+                if (listOfEntreprise.isNotEmpty()) entrepriseDao?.deleteAll()
 
                 try {
 
@@ -924,13 +930,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getStaffFormation() {
         withContext(IO) {
             val dataUpdate = async {
-                staffFormationDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID),
                         role = "manager", is_different = true))
                     var responseData: Response<MutableList<ConcernesModel>> = clientData.execute()
                     val dataList: MutableList<ConcernesModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) staffFormationDao?.deleteAll()
 
 //                    clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
 //                    responseData = clientData.execute()
@@ -974,12 +981,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getVehicule() {
         withContext(IO) {
             val dataUpdate = async {
-                vehiculeDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getVehiculeList()
                     var responseData: Response<MutableList<VehiculeModel>> = clientData.execute()
                     val dataList: MutableList<VehiculeModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) vehiculeDao?.deleteAll()
 
                     dataList?.map {
                         val data = VehiculeModel(
@@ -1015,12 +1023,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getRemorque() {
         withContext(IO) {
             val dataUpdate = async {
-                remorqueDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getRemorqueList()
                     var responseData: Response<MutableList<RemorqueModel>> = clientData.execute()
                     val dataList: MutableList<RemorqueModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) remorqueDao?.deleteAll()
 
                     dataList?.map {
                         val data = RemorqueModel(
@@ -1054,12 +1063,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getLivraisonVerMagCentral() {
         withContext(IO) {
             val dataUpdate = async {
-                livraisonVerMagCentralDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getLivraisonVerMagCentralList()
                     var responseData: Response<MutableList<LivraisonVerMagCentralModel>> = clientData.execute()
                     val dataList: MutableList<LivraisonVerMagCentralModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) livraisonVerMagCentralDao?.deleteAll()
 
                     dataList?.map { data ->
                         val data = LivraisonVerMagCentralModel(
@@ -1107,12 +1117,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getStaffDelegue() {
         withContext(IO) {
             val dataUpdate = async {
-                delegueDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
                     var responseData: Response<MutableList<ConcernesModel>> = clientData.execute()
                     val dataList: MutableList<ConcernesModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) delegueDao?.deleteAll()
 
 //                    clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
 //                    responseData = clientData.execute()
@@ -1154,12 +1165,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getListFormation() {
         withContext(IO) {
             val dataUpdate = async {
-                formationDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getFormationByUser(table = CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID)))
                     var responseData: Response<MutableList<FormationModelExt>> = clientData.execute()
                     val dataList: MutableList<FormationModelExt>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) formationDao?.deleteAll()
 
 //                    clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
 //                    responseData = clientData.execute()
@@ -1209,12 +1221,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getSections() {
         withContext(IO) {
             val dataUpdate = async {
-                sectionsDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getSections(CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID) ))
                     var responseData: Response<MutableList<SectionModel>> = clientData.execute()
                     val dataList: MutableList<SectionModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) sectionsDao?.deleteAll()
 
                     dataList?.map {
                         val data = SectionModel(
@@ -1248,12 +1261,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getProgrammes() {
         withContext(IO) {
             val dataUpdate = async {
-                programmesDao?.deleteAll()
 
                 try {
                     var clientData = ApiClient.apiService.getProgrammes()
                     var responseData: Response<MutableList<ProgrammeModel>> = clientData.execute()
                     val dataList: MutableList<ProgrammeModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (dataList != null) programmesDao?.deleteAll()
 
                     dataList?.map {
                         val data = ProgrammeModel(
@@ -1726,7 +1740,6 @@ class ConfigurationActivity : AppCompatActivity() {
         withContext(IO) {
             val dataUpdate = async {
                 //themeFormationDao?.deleteAll()
-                typeFormationDao?.deleteAll()
 
 
                 try {
@@ -1734,6 +1747,8 @@ class ConfigurationActivity : AppCompatActivity() {
                     val responseData: Response<MutableList<TypeFormationModel>> = clientData.execute()
 
                     val datasList: MutableList<TypeFormationModel>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasList != null) typeFormationDao?.deleteAll()
 
                     datasList?.map { typeFormation ->
                         val dataTypeFormationModel = TypeFormationModel(
@@ -1848,12 +1863,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getCampagnes() {
         withContext(IO) {
             val campagneFetchDatas = async {
-                campagneDao?.deleteAll()
 
                 try {
                     val clientCampagneData = ApiClient.apiService.getCampagnes()
                     val responseCampagneData: Response<MutableList<CampagneModel>> = clientCampagneData.execute()
                     val datasCampagneList: MutableList<CampagneModel>? = responseCampagneData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasCampagneList != null) campagneDao?.deleteAll()
 
                     datasCampagneList?.map { model ->
                         model?.let {
@@ -1892,12 +1908,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getApplicateurs() {
         withContext(IO) {
             val applicateursFetchDatas = async {
-                applicateurDao?.deleteAll()
 
                 try {
                     val clientApplicateurData = ApiClient.apiService.getApplicateurs(CommonData(cooperativeIdex = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID)))
                     val responseApplicateurData: Response<MutableList<ApplicateurModel>> = clientApplicateurData.execute()
                     val datasCampagneList: MutableList<ApplicateurModel>? = responseApplicateurData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasCampagneList != null) applicateurDao?.deleteAll()
 
                     datasCampagneList?.map {
                         val dataApplicateurModel = ApplicateurModel(
@@ -2030,14 +2047,18 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getInspections() {
         withContext(IO) {
             val fetchDatas = async {
-                // Correctif D1 : envoyer avant de purger
-                if (envoyerInspectionsEnAttente()) inspectionDao?.deleteAll()
-                else inspectionDao?.deleteSynced()
+                // Correctif D1 : transmettre les saisies locales avant toute purge
+                val inspectionsToutesTransmises = envoyerInspectionsEnAttente()
 
                 try {
                     val clientData = ApiClient.apiService.getInspections(table = CommonData(cooperativeIde = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID)))
                     val responseData: Response<MutableList<InspectionDTOExt>> = clientData.execute()
                     val datasList: MutableList<InspectionDTOExt>? = responseData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasList != null) {
+                        if (inspectionsToutesTransmises) inspectionDao?.deleteAll()
+                        else inspectionDao?.deleteSynced()
+                    }
 
                     datasList?.map {
 //                        LogUtils.d(it.certificat, GsonUtils.fromJson<MutableList<String>>(it.certificat, object : TypeToken<MutableList<String>>(){}.type))
@@ -2091,13 +2112,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getQuestionnaires() {
         withContext(IO) {
             val questionnairesFetch = async {
-                questionnaireDao?.deleteAll()
 
 
                 try {
                     val clientQuestionnaireData = ApiClient.apiService.getQuestionnaires()
                     val responseQuestionnaireData: Response<MutableList<InspectionQuestionnairesModel>> = clientQuestionnaireData.execute()
                     val datasQuestionnaireList: MutableList<InspectionQuestionnairesModel>? = responseQuestionnaireData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasQuestionnaireList != null) questionnaireDao?.deleteAll()
 
                     datasQuestionnaireList?.map {
                         val dataQuestionnaireModel = InspectionQuestionnairesModel(
@@ -2130,12 +2152,13 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getNotations() {
         withContext(IO) {
             val notationsFetch = async {
-                notationDao?.deleteAll()
 
                 try {
                     val clientNotationData = ApiClient.apiService.getNotations()
                     val responseNotationData: Response<MutableList<NotationModel>> = clientNotationData.execute()
                     val datasNotationList: MutableList<NotationModel>? = responseNotationData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasNotationList != null) notationDao?.deleteAll()
 
                     datasNotationList?.map {
                         val dataNotationModel = NotationModel(
@@ -2171,13 +2194,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getMagasinsCentral() {
         withContext(IO) {
             val magasinsFetch = async {
-                magasinDao?.deleteAll()
                 var magasinList = mutableListOf<MagasinModel>()
 
                 try {
                     val clientMagasinData = ApiClient.apiService.getMagasinsCentraux(commonData = CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)))
                     val responseMagasinData: Response<MutableList<MagasinModel>> = clientMagasinData.execute()
                     val datasMagasinList: MutableList<MagasinModel>? = responseMagasinData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasMagasinList != null) magasinDao?.deleteAll()
 
                     datasMagasinList?.map {
                         val dataMagasinModel = MagasinCentralModel(
@@ -2214,13 +2238,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getMagasinsSection() {
         withContext(IO) {
             val magasinsFetch = async {
-                magasinSectionDao?.deleteAll()
                 var magasinList = mutableListOf<MagasinModel>()
 
                 try {
                     val clientMagasinData = ApiClient.apiService.getMagasins(commonData = CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)))
                     val responseMagasinData: Response<MutableList<MagasinModel>> = clientMagasinData.execute()
                     val datasMagasinList: MutableList<MagasinModel>? = responseMagasinData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasMagasinList != null) magasinSectionDao?.deleteAll()
 
                     datasMagasinList?.map {
                         magasinSectionDao?.insert(it)
@@ -2248,13 +2273,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getThemesFormationSelection() {
         withContext(IO) {
             val themeFormationFetch = async {
-                themeFormationDao?.deleteAll()
 
 
                 try {
                     val clieThemeFormationData = ApiClient.apiService.getThemes()
                     val responseThemeFormationData: Response<MutableList<ThemeFormationModel>> = clieThemeFormationData.execute()
                     val datasThemeFormationList: MutableList<ThemeFormationModel>? = responseThemeFormationData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasThemeFormationList != null) themeFormationDao?.deleteAll()
 
                     datasThemeFormationList?.map {
                         val dataThemeFormationModel = ThemeFormationModel(
@@ -2291,13 +2317,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getSousThemesFormationSelection() {
         withContext(IO) {
             val themeFormationFetch = async {
-                sousThemeFormationDao?.deleteAll()
 
 
                 try {
                     val clientSousThemeFormationData = ApiClient.apiService.getSousThemes()
                     val responseThemeFormationData: Response<MutableList<SousThemeFormationModel>> = clientSousThemeFormationData.execute()
                     val datasSousThemeFormationList: MutableList<SousThemeFormationModel>? = responseThemeFormationData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasSousThemeFormationList != null) sousThemeFormationDao?.deleteAll()
 
                     datasSousThemeFormationList?.map {
                         val dataSousThemeFormationModel = SousThemeFormationModel(
@@ -2334,7 +2361,6 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getTypeFormationsSection() {
         withContext(IO) {
             val magasinsFetch = async {
-                typeFormationDao?.deleteAll()
 
                 try {
                     val clientTypeFormationData = ApiClient.apiService.getDatasList(
@@ -2346,6 +2372,8 @@ class ConfigurationActivity : AppCompatActivity() {
 
                     val responseTypeFormationData: Response<MutableList<CommonData>> = clientTypeFormationData.execute()
                     val datasTypeFormationList: MutableList<CommonData>? = responseTypeFormationData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasTypeFormationList != null) typeFormationDao?.deleteAll()
 
                     datasTypeFormationList?.map {
                         val dataTypeFormationModel = TypeFormationModel(
@@ -2380,13 +2408,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getArbreList() {
         withContext(IO) {
             val arbreListFetch = async {
-                arbreDao?.deleteAll()
 
                 try {
                     val clientArbreListData = ApiClient.apiService.getArbreList()
 
                     val responseArbreListData: Response<MutableList<ArbreModel>> = clientArbreListData.execute()
                     val datasArbreListList: MutableList<ArbreModel>? = responseArbreListData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasArbreListList != null) arbreDao?.deleteAll()
 
                     datasArbreListList?.map {
                         val dataArbreListModel = ArbreModel(
@@ -2422,13 +2451,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getApprovisionnementList() {
         withContext(IO) {
             val approvisionnementListFetch = async {
-                approvisionnementDao?.deleteAll()
 
                 try {
                     val clientArbreListData = ApiClient.apiService.getApprovisionnement(table = CommonData(cooperativeIde = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID)))
 
                     val responseArbreListData: Response<MutableList<ApprovisionnementModel>> = clientArbreListData.execute()
                     val datasArbreListList: MutableList<ApprovisionnementModel>? = responseArbreListData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasArbreListList != null) approvisionnementDao?.deleteAll()
 
                     datasArbreListList?.map {
                         val dataArbreListModel = ApprovisionnementModel(
@@ -2467,15 +2497,19 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getProductEvalArbrList() {
         withContext(IO) {
             val distArbreListFetch = async {
-                // Correctif D1 : envoyer avant de purger
-                if (envoyerEvaluationsArbreEnAttente()) evaluationArbreDao?.deleteAll()
-                else evaluationArbreDao?.deleteSynced()
+                // Correctif D1 : transmettre les saisies locales avant toute purge
+                val evaluationsToutesTransmises = envoyerEvaluationsArbreEnAttente()
 
                 try {
                     val clientProductEvalListData = ApiClient.apiService.getProductEvalList(CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID)))
 
                     val responseProductEvalListData: Response<QuantiteArbrDistribuer> = clientProductEvalListData.execute()
                     val datasProductEval: QuantiteArbrDistribuer? = responseProductEvalListData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasProductEval != null) {
+                        if (evaluationsToutesTransmises) evaluationArbreDao?.deleteAll()
+                        else evaluationArbreDao?.deleteSynced()
+                    }
 
                     var variableKey: MutableMap<String, MutableMap<String, String>> = mutableMapOf()
                     datasProductEval?.evaluations?.map {
@@ -2530,13 +2564,14 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getProductArbrDistribPostPlantingList() {
         withContext(IO) {
             val postPlantListFetch = async {
-                postPlantingArbrDistribDao?.deleteAll()
 
                 try {
                     val clientPostPlantingArbrDistribData = ApiClient.apiService.getProducteursPostPlantingArbrDistribList(CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID)))
 
                     val responseProductPostPlantingArbrDistribDataData: Response<MutableList<PostPlantingArbrDistribSecModel>> = clientPostPlantingArbrDistribData.execute()
                     val datasProductPostPlanting: MutableList<PostPlantingArbrDistribSecModel>? = responseProductPostPlantingArbrDistribDataData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasProductPostPlanting != null) postPlantingArbrDistribDao?.deleteAll()
 
 
                     datasProductPostPlanting?.map {
@@ -2577,7 +2612,6 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getLiensParenteSection() {
         withContext(IO) {
             val liensParenteFetch = async {
-                lienParenteDao?.deleteAll()
 
                 try {
                     val clientLienParenteData = ApiClient.apiService.getDatasList(
@@ -2589,6 +2623,8 @@ class ConfigurationActivity : AppCompatActivity() {
 
                     val responseLienParenteData: Response<MutableList<CommonData>> = clientLienParenteData.execute()
                     val datasLienParenteList: MutableList<CommonData>? = responseLienParenteData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasLienParenteList != null) lienParenteDao?.deleteAll()
 
                     datasLienParenteList?.map {
                         val dataLienParenteModel = LienParenteModel(
@@ -2624,7 +2660,6 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getMoyenTransportSection() {
         withContext(IO) {
             val moyenTransportFetch = async {
-                moyenTransportDao?.deleteAll()
 
                 try {
                     val clientMoyenTransportData = ApiClient.apiService.getDatasList(
@@ -2636,6 +2671,8 @@ class ConfigurationActivity : AppCompatActivity() {
 
                     val responseMoyenTransportData: Response<MutableList<CommonData>> = clientMoyenTransportData.execute()
                     val datasMoyenTransportList: MutableList<CommonData>? = responseMoyenTransportData.body()
+                    // Correctif D3 : purge seulement apres reception confirmee
+                    if (datasMoyenTransportList != null) moyenTransportDao?.deleteAll()
 
                     datasMoyenTransportList?.map {
                         val dataMoyenTransportModel = MoyenTransportModel(
