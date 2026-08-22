@@ -1,0 +1,17 @@
+[{
+        "id": "1",
+        "nom": "Bois de chauffe"
+    },
+    {
+        "id": "5",
+        "nom": "Charbon"
+    },
+    {
+        "id": "4",
+        "nom": "Four à pétrole"
+    },
+    {
+        "id": "2",
+        "nom": "Gaz"
+    }
+]

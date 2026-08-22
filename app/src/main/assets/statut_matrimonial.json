@@ -1,0 +1,29 @@
+[{
+  "id": "1",
+  "nom": "Celibataire"
+},
+  {
+    "id": "2",
+    "nom": "Concubinage"
+  },
+  {
+    "id": "3",
+    "nom": "Marié (mariage civil)"
+  },
+  {
+    "id": "4",
+    "nom": "Mariage réligieux"
+  },
+  {
+    "id": "5",
+    "nom": "Mariage traditionnel"
+  },
+  {
+    "id": "6",
+    "nom": "Divorcé"
+  },
+  {
+    "id": "7",
+    "nom": "Veuf(ve)"
+  }
+]

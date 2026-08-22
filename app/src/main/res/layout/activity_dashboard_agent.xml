@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/progband_light_green"
+        android:fitsSystemWindows="true"
+        tools:context=".activities.DashboardAgentActivity">
+
+        <LinearLayout
+            android:padding="@dimen/_16sdp"
+            android:id="@+id/linear_toolbar_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:weightSum="5">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgMenuDashboard"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="end"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_weight=".8"
+                android:visibility="visible"
+                android:contentDescription="Menu opener"
+                app:srcCompat="@mipmap/ic_launcher_trans" />
+
+            <LinearLayout
+                android:background="@drawable/background_present"
+                android:padding="@dimen/_2sdp"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_weight="3.4"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="@color/black"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:shadowDx="150"
+                    android:shadowDy="200"
+                    android:text="Connectée …"
+                    android:textColor="@color/bggreen"
+                    android:textSize="@dimen/_12ssp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelUserDashboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    tools:text="EBI BROU BESSATE" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBackDashboard"
+                android:background="@drawable/border_shape"
+                android:backgroundTint="@color/progband_gris_sec"
+                android:layout_width="0dp"
+                android:minWidth="@dimen/_60sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_weight=".8"
+                android:padding="@dimen/_10sdp"
+                app:srcCompat="@drawable/baseline_logout" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:padding="@dimen/_16sdp"
+            android:id="@+id/linearMenuLoaderDashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:textColor="@color/text_color_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Une erreur est survenue pendrant la generation du menu" />
+
+        </LinearLayout>
+
+
+        <ScrollView
+            android:padding="@dimen/_2sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/simple_divider"
+            android:layout_below="@+id/linear_toolbar_dashboard"
+            android:scrollIndicators="none"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/lexpand0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.skydoves.expandablelayout.ExpandableLayout
+                        android:tag="expand0"
+                        android:id="@+id/expandIdentif"
+                        android:layout_marginHorizontal="@dimen/_35sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        app:expandable_spinner_gravity="start"
+                        app:expandable_animation="bounce"
+                        app:expandable_duration="300"
+                        app:expandable_isExpanded="false"
+                        app:expandable_spinner_size="@dimen/_20sdp"
+                        app:expandable_parentLayout="@layout/showed_view"
+                        app:expandable_secondLayout="@layout/hided_view" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lexpand1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.skydoves.expandablelayout.ExpandableLayout
+                        android:tag="expand1"
+                        android:id="@+id/expandIdentif2"
+                        android:layout_marginHorizontal="@dimen/_35sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        app:expandable_spinner_gravity="start"
+                        app:expandable_animation="bounce"
+                        app:expandable_duration="300"
+                        app:expandable_isExpanded="false"
+                        app:expandable_spinner_size="@dimen/_20sdp"
+                        app:expandable_parentLayout="@layout/showed_view2"
+                        app:expandable_secondLayout="@layout/hided_view2" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lexpand2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.skydoves.expandablelayout.ExpandableLayout
+                        android:tag="expand2"
+                        android:id="@+id/expandIdentif3"
+                        android:layout_marginHorizontal="@dimen/_35sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        app:expandable_spinner_gravity="start"
+                        app:expandable_animation="bounce"
+                        app:expandable_duration="300"
+                        app:expandable_isExpanded="false"
+                        app:expandable_spinner_size="@dimen/_20sdp"
+                        app:expandable_parentLayout="@layout/showed_view3" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lexpand3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.skydoves.expandablelayout.ExpandableLayout
+                        android:tag="expand3"
+                        android:id="@+id/expandIdentif4"
+                        android:layout_marginHorizontal="@dimen/_35sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        app:expandable_spinner_gravity="start"
+                        app:expandable_animation="bounce"
+                        app:expandable_duration="300"
+                        app:expandable_isExpanded="false"
+                        app:expandable_spinner_size="@dimen/_20sdp"
+                        app:expandable_parentLayout="@layout/showed_view4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lexpand4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.skydoves.expandablelayout.ExpandableLayout
+                        android:tag="expand4"
+                        android:id="@+id/expandIdentif5"
+                        android:layout_marginHorizontal="@dimen/_35sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        app:expandable_spinner_gravity="start"
+                        app:expandable_animation="bounce"
+                        app:expandable_duration="300"
+                        app:expandable_isExpanded="false"
+                        app:expandable_spinner_size="@dimen/_20sdp"
+                        app:expandable_parentLayout="@layout/showed_view5" />
+                </LinearLayout>
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/lexpand5"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <com.skydoves.expandablelayout.ExpandableLayout-->
+<!--                        android:tag="expand5"-->
+<!--                        android:id="@+id/expandIdentif6"-->
+<!--                        android:layout_marginHorizontal="@dimen/_35sdp"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        app:expandable_spinner_gravity="start"-->
+<!--                        app:expandable_animation="bounce"-->
+<!--                        app:expandable_duration="300"-->
+<!--                        app:expandable_isExpanded="false"-->
+<!--                        app:expandable_spinner_size="@dimen/_20sdp"-->
+<!--                        app:expandable_parentLayout="@layout/showed_view6" />-->
+<!--                </LinearLayout>-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/lexpand6"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+<!--                    <com.skydoves.expandablelayout.ExpandableLayout-->
+<!--                        android:tag="expand6"-->
+<!--                        android:id="@+id/expandIdentif7"-->
+<!--                        android:layout_marginHorizontal="@dimen/_35sdp"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="3dp"-->
+<!--                        app:expandable_spinner_gravity="start"-->
+<!--                        app:expandable_animation="bounce"-->
+<!--                        app:expandable_duration="300"-->
+<!--                        app:expandable_isExpanded="false"-->
+<!--                        app:expandable_spinner_size="@dimen/_20sdp"-->
+<!--                        app:expandable_parentLayout="@layout/showed_view7" />-->
+<!--                </LinearLayout>-->
+
+
+<!--                <com.skydoves.expandablelayout.ExpandableLayout-->
+<!--                    android:tag="expand6"-->
+<!--                    android:id="@+id/expandIdentif7"-->
+<!--                    android:layout_marginHorizontal="@dimen/_35sdp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="3dp"-->
+<!--                    app:expandable_spinner_gravity="start"-->
+<!--                    app:expandable_animation="bounce"-->
+<!--                    app:expandable_duration="300"-->
+<!--                    app:expandable_isExpanded="false"-->
+<!--                    app:expandable_spinner_size="@dimen/_50sdp"-->
+<!--                    app:expandable_parentLayout="@layout/showed_view7" />-->
+
+                <LinearLayout
+                    android:id="@+id/containerFeatureDash"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_6sdp" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewFeature"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:scrollbars="none"
+                        tools:listitem="@layout/home_item"
+                        tools:itemCount="2"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_16sdp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Space
+            android:id="@+id/simple_divider"
+            android:layout_above="@id/bottom_container"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_5sdp" />
+
+        <LinearLayout
+            android:padding="@dimen/_16sdp"
+            android:id="@+id/bottom_container"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:background="@drawable/border_shape_selector"
+                android:backgroundTint="@color/progband_gris_sec"
+                android:id="@+id/linearSync"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:layout_weight=".8"
+                android:padding="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_sync" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:background="@drawable/border_shape_selector"
+                android:backgroundTint="@color/progband_gris_sec"
+                android:id="@+id/imgProfileDashboard"
+                android:layout_width="@dimen/_88sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:layout_weight=".8"
+                android:padding="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_shutdown" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_marginTop="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:id="@+id/nav_view"
+        android:backgroundTint="@color/progband_green"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        >
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80sdp"
+                android:background="@drawable/background_present_nav"
+                android:backgroundTint="@color/progband_gris"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_2sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingRight="@dimen/_2sdp"
+                android:paddingBottom="@dimen/_2sdp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                android:weightSum="10">
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:id="@+id/imageAccount"
+                    android:layout_width="50dp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:contentDescription="logo account"
+                    android:paddingTop="@dimen/_8sdp"
+                    app:srcCompat="@drawable/baseline_account_circle_white" />
+
+                <LinearLayout
+                    android:layout_weight="8.0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="10"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="7.5"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/_2sdp"
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:text="Connectée …"
+                            android:textSize="@dimen/_11ssp"
+                            android:textColor="@color/progband_green"/>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_weight="2.5"
+                            android:layout_marginRight="@dimen/_6sdp"
+                            android:foreground="?android:attr/selectableItemBackground"
+                            android:id="@+id/imgProfileDashboardNDrawer"
+                            android:layout_width="0dp"
+                            android:padding="@dimen/_3sdp"
+                            android:maxWidth="@dimen/_12sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            app:srcCompat="@drawable/ic_shutdown"
+                            />
+
+                    </LinearLayout>
+
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_2sdp" />
+
+                    <TextView
+                        android:id="@+id/titleAccount"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_extrabold"
+                        android:textFontWeight="200"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/text_color_white"
+                        tools:text="Koudio Mano" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_2sdp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/labelCoopDashboard"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textStyle="bold"
+                        tools:text="COOP NAME" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Space
+                android:layout_above="@id/bottom_container"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp" />
+
+            <ScrollView
+                android:padding="@dimen/_16sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollIndicators="none"
+                android:scrollbars="none"
+                android:visibility="visible">
+
+                <com.techatmosphere.expandablenavigation.view.ExpandableNavigationListView
+                    android:id="@+id/expandable_navigation1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:nestedScrollingEnabled="true"
+                    android:groupIndicator="@null"
+                    android:divider="@drawable/divider_menu"
+                    />
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

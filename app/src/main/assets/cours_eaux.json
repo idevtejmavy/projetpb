@@ -1,0 +1,25 @@
+[{
+        "id": "1",
+        "nom": "Bas-fond"
+    },
+    {
+        "id": "2",
+        "nom": "Marigot"
+    },
+    {
+        "id": "3",
+        "nom": "Rivière"
+    },
+    {
+        "id": "4",
+        "nom": "Source d’eau"
+    },
+    {
+        "id": "5",
+        "nom": "Puit"
+    },
+    {
+        "id": "6",
+        "nom": "Autre"
+    }
+]

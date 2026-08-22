@@ -1,0 +1,30 @@
+[
+
+    {
+        "id": "1",
+        "nom": "CNI"
+    },{
+        "id": "2",
+        "nom": "Carte Consulaire"
+    },
+    {
+        "id": "3",
+        "nom": "Passeport"
+    },{
+        "id": "4",
+        "nom": "Attestation"
+    },{
+        "id": "5",
+        "nom": "Extrait de naissance"
+    },{
+        "id": "6",
+        "nom": "Permis de conduire"
+    },{
+        "id": "7",
+        "nom": "CMU"
+    },
+    {
+        "id": "1",
+        "nom": "Non disponible"
+    }
+]

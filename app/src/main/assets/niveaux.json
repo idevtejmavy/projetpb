@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "nom": "Primaire"
+    },
+    {
+        "id": "2",
+        "nom": "Collège (6e à 3ème)"
+    },
+    {
+        "id": "3",
+        "nom": "Lycée (2nde à Tle)"
+    },
+    {
+        "id": "4",
+        "nom": "Supérieur (BAC et Plus)"
+    },
+    {
+        "id": "5",
+        "nom": "Aucun"
+    }
+]

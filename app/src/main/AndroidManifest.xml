@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ci.progbandama.mobile"
+    tools:ignore="LockedOrientationActivity">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission." /> -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <application
+        android:name="ci.progbandama.mobile.Application"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:screenOrientation="portrait"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ProgBandMobile"
+        android:usesCleartextTraffic="true"
+        tools:ignore="HardcodedDebugMode"
+        tools:targetApi="n">
+
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.LivraisonCentralPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.DistributionArbrePreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.EvaluationPostPlantPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.VisiteurFormationPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.EvaluationBesoinPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.LivraisonCentralActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.VisiteurFormationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.EvaluationArbreActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.DistributionArbreActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.PostPlantingEvalActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.cartographies.FarmDelimiterActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.tests.TestExportKmlActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.contents.UpdateProducteurContentActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.contents.UpdateParcelleContentActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.UpdateContentsListActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.MenusActionRedirectionActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.DatasDraftedListActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.DatasSyncListActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.DatasSendingListActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.InfosProducteurPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.InspectionPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.InspectionPreviewUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.tests.TestLabActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.EnqueteSsrtPreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.CalculEstimationPreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.UniteAgricoleProducteurActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.InspectionActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.SsrtClmsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.CalculEstimationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.SuiviApplicationPreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.SuiviApplicationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.SuiviParcellePreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.LivraisonPreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.FormationPreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.MenagePreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.LocalitePreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.ParcellePreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.cartographies.ParcelleMappingActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.ProducteurPreviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.tests.GoogleMapsActivity"
+            android:exported="true"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.ConfigurationBaseUrlActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.POSDashboardActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.LivraisonsListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.FormationsListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.LivraisonActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.FormationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.SuiviPacellesListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.SuiviParcelleActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.ParcelleActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.ParcellesListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.MenageresListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.ProducteurMenageActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.LocalitesListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.lists.ProducteursListActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.LocaliteActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.SettingsActivity"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.forms.ProducteurActivity"
+            android:noHistory="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.DashboardAgentActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.ConfigurationActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.AuthentificationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name="ci.progbandama.mobile.activities.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--
+<receiver
+            android:name=".broadcasts.LoopAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name=".broadcasts.BootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        -->
+        <service
+            android:name="ci.progbandama.mobile.services.SynchronisationIntentService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            tools:ignore="ForegroundServicePermission" />
+
+        <service
+            android:name="ci.progbandama.mobile.services.GpsService"
+            android:foregroundServiceType="location"
+            android:exported="false"
+            tools:ignore="ForegroundServicePermission" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBwIB5W5-fA6oy7iWfPbYYO8qgpZQaFzgQ" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="ci.progbandama.mobile.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+<!--        <meta-data-->
+<!--            android:name="firebase_crashlytics_collection_enabled"-->
+<!--            android:value="true" />-->
+
+<!--        <provider-->
+<!--            android:name="com.google.firebase.provider.FirebaseInitProvider"-->
+<!--            android:authorities="${applicationId}.firebaseinitprovider"-->
+<!--            tools:node="remove"/>-->
+    </application>
+
+</manifest>

@@ -1,0 +1,7 @@
+# Copier ce fichier en app_config.properties et renseigner les valeurs reelles.
+# app_config.properties est ignore par git : il contient les secrets de signature.
+applicationId=your.application.id
+keystorePath=CHEMIN\VERS\ccb_keys_signed.jks
+KEYSTORE_PWD=
+KEYSTORE_ALIAS=
+KEYSTORE_ALIAS_PWD=

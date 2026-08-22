@@ -1,0 +1,29 @@
+[{
+        "id": "1",
+        "nom": "Attestation coutumières"
+    },
+    {
+        "id": "2",
+        "nom": "Cadastre"
+    },
+    {
+        "id": "3",
+        "nom": "Titre foncier"
+    },
+    {
+        "id": "4",
+        "nom": "Certificat foncier"
+    },
+    {
+        "id": "5",
+        "nom": "Contrat agraire"
+    },
+    {
+        "id": "6",
+        "nom": "Aucun document"
+    },
+    {
+        "id": "7",
+        "nom": "Attestation de plantation"
+    }
+]
