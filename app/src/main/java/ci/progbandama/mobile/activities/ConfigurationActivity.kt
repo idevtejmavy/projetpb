@@ -141,17 +141,101 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
-    suspend fun configFlow() {
-        // Check if device already used
-        if (SPUtils.getInstance().getString(Constants.APP_FIRST_LAUNCH, "yes") == "yes") {
-            getUserRoles()
-        } else {
-            if (SPUtils.getInstance().getInt(Constants.AGENT_ID, 0) == agentID) {
-                synchronizeLocalite()
-            } else {
-                getUserRoles()
+
+    // =========================================================================
+    // CORRECTIF D5 - Envoyer TOUT ce qui est en attente avant la mise a jour
+    //
+    // La chaine d'envoi prealable de cette classe (synchronizeLocalite ...
+    // synchronisationLivraisons) ne couvrait que 7 types de donnees sur 17, et
+    // dupliquait une logique deja presente dans SynchronisationIntentService.
+    // On delegue desormais au service, seul detenteur de la chaine complete.
+    // =========================================================================
+
+    /** Nombre de lignes non transmises, par type de donnee (types vides omis). */
+    private fun compterDonneesEnAttente(): LinkedHashMap<String, Int> {
+        val compte = linkedMapOf<String, Int>()
+        val base = ProgBandRoomDatabase.getDatabase(applicationContext) ?: return compte
+        val idTexte = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString()
+        val idEntier = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID)
+
+        fun ajouter(libelle: String, taille: () -> Int) {
+            try {
+                val n = taille()
+                if (n > 0) compte[libelle] = n
+            } catch (ex: Exception) {
+                LogUtils.e(ex.message)
             }
         }
+
+        ajouter("Localites") { base.localiteDoa().getUnSyncedAll(idTexte).size }
+        ajouter("Producteurs") { base.producteurDoa().getUnSyncedAll(idTexte).size }
+        ajouter("Menages") { base.producteurMenageDoa().getUnSyncedAll(idTexte).size }
+        ajouter("Parcelles") { base.parcelleDao().getUnSyncedAll(idTexte).size }
+        ajouter("Suivis de parcelle") { base.suiviParcelleDao().getUnSyncedAll(idTexte).size }
+        ajouter("Formations") { base.formationDao().getUnSyncedAll(idTexte).size }
+        ajouter("Visiteurs de formation") { base.visiteurFormationDao().getUnSyncedAll(idEntier).size }
+        ajouter("Evaluations besoins arbres") { base.evaluationArbreDao().getUnSyncedAll(idEntier).size }
+        ajouter("Distributions d'arbres") { base.distributionArbreDao().getUnSyncedAll(idTexte).size }
+        ajouter("Post-planting") { base.postplantingDao().getUnSyncedAll(idTexte).size }
+        ajouter("Livraisons") { base.livraisonDao().getUnSyncedAll(idTexte).size }
+        ajouter("Livraisons magasin central") { base.livraisonCentralDao().getUnSyncedAll(idTexte).size }
+        ajouter("Estimations") { base.estimationDao().getUnSyncedAll().size }
+        ajouter("Applications phytosanitaires") { base.suiviApplicationDao().getUnSyncedAll().size }
+        ajouter("Enquetes SSRT/CLMRS") { base.enqueteSsrtDao().getUnSyncedAll().size }
+        ajouter("Inspections") { base.inspectionDao().getUnSyncedAll(idTexte).size }
+        ajouter("Infos producteur") { base.infosProducteurDao().getUnSyncedAll(idTexte).size }
+
+        return compte
+    }
+
+    /**
+     * Declenche l'envoi complet et attend qu'il se termine.
+     *
+     * @return true si plus aucune donnee n'est en attente. Si false, la mise a jour peut
+     *         se poursuivre sans danger : les correctifs D2 et D3 garantissent que les
+     *         donnees non transmises survivent au rafraichissement.
+     */
+    private suspend fun envoyerDonneesEnAttente(): Boolean {
+        var restant = compterDonneesEnAttente().values.sum()
+        if (restant == 0) return true
+
+        configCompletedOrError("- envoi de $restant donnee(s) en attente")
+        Commons.synchronisation("all", this)
+
+        val delaiMaxMs = 300_000L
+        val pasMs = 2_000L
+        var attenduMs = 0L
+        var serviceDemarre = false
+
+        while (attenduMs < delaiMaxMs) {
+            delay(pasMs)
+            attenduMs += pasMs
+            if (SyncLock.estEnvoiEnCours) serviceDemarre = true
+
+            val maintenant = compterDonneesEnAttente().values.sum()
+            if (maintenant == 0) return true
+            if (maintenant != restant) {
+                restant = maintenant
+                configCompletedOrError("- envoi en cours, $restant donnee(s) restante(s)")
+            }
+            // Le service a demarre puis rendu le verrou sans tout transmettre :
+            // inutile d'attendre davantage.
+            if (serviceDemarre && !SyncLock.estEnvoiEnCours) break
+        }
+
+        val reste = compterDonneesEnAttente()
+        if (reste.isNotEmpty()) {
+            LogUtils.e("Donnees toujours en attente apres envoi : $reste")
+        }
+        return reste.values.sum() == 0
+    }
+
+    suspend fun configFlow() {
+        // Correctif D5 : l'envoi prealable est desormais realise par envoyerDonneesEnAttente(),
+        // qui delegue a SynchronisationIntentService (17 types de donnees). Les fonctions
+        // synchronizeLocalite() ... synchronisationLivraisons() de cette classe n'en couvraient
+        // que 7 et ne sont plus appelees.
+        getUserRoles()
     }
 
     suspend fun getUserRoles() {
@@ -2989,6 +3073,10 @@ class ConfigurationActivity : AppCompatActivity() {
 
 
     // region SYNCHRONIZE USER DATAS
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun synchronizeLocalite() {
         var flagLocaliteSynchroErreur = false
 
@@ -3048,6 +3136,10 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun synchronizeProducteurs() {
         var flagProducteurSynchroErreur = false
         withContext(IO) {
@@ -3138,6 +3230,10 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun sychronisationParcelles() {
         var flagParcelleSynchroErreur = false
 
@@ -3202,6 +3298,10 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun synchronisationSuiviParcelles() {
         var flagSuiviParcelleSynchroError = false
 
@@ -3271,6 +3371,10 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun synchronisationMenages() {
         var flagMenageSynchroError = false
 
@@ -3327,6 +3431,10 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun synchtonisationFormations() {
         var flagFormationSynchroError = false
         var suncFormationsFlag = false
@@ -3425,6 +3533,10 @@ class ConfigurationActivity : AppCompatActivity() {
     }
 
 
+    // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais
+    // delegue a SynchronisationIntentService via envoyerDonneesEnAttente(), qui couvre
+    // 17 types de donnees au lieu de 7. Cette fonction n'est plus appelee ; elle est
+    // conservee le temps d'une recette complete, puis a supprimer avec la chaine entiere.
     suspend fun synchronisationLivraisons() {
         var flagLivraisonSynchroError = false
 
@@ -3571,8 +3683,21 @@ class ConfigurationActivity : AppCompatActivity() {
         }
 
         MainScope().launch {
+            // Correctif D5 : transmettre tout ce qui est en attente avant de rafraichir.
+            // L'envoi est porte par le service, qui prend puis rend le verrou D4 ;
+            // on ne verrouille donc la mise a jour qu'ensuite.
+            val toutTransmis = envoyerDonneesEnAttente()
+
             // Correctif D4 : ne pas rafraichir la base pendant qu'un envoi est en cours
-            if (attendreFinEnvoiPuisVerrouiller()) configFlow()
+            if (!attendreFinEnvoiPuisVerrouiller()) return@launch
+
+            if (!toutTransmis) {
+                // Sans danger : D2 et D3 garantissent que les donnees non transmises
+                // survivent au rafraichissement. Le detail par module sera presente
+                // par l'ecran de controle (etape E6).
+                configCompletedOrError("- certaines donnees restent en attente d'envoi")
+            }
+            configFlow()
         }
     }
 
