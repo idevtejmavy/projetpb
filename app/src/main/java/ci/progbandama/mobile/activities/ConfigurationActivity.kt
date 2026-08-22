@@ -20,6 +20,7 @@ import ci.progbandama.mobile.tools.Commons.Companion.toModifString
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.DonneesEnAttente
 import ci.progbandama.mobile.tools.SyncLock
+import ci.progbandama.mobile.tools.ReferentielsPfte
 import ci.progbandama.mobile.tools.Roles
 import com.blankj.utilcode.util.*
 import com.blankj.utilcode.util.LogUtils
@@ -3056,12 +3057,81 @@ class ConfigurationActivity : AppCompatActivity() {
             if (oneIssue) {
                 configCompletedOrError("Une erreur est survenue, veuillez recommencer la mise à jour svp.", hasError = true, hisSynchro = true)
             } else {
-                configCompletedOrError("Fiche incomplete (parcelles)", hasOtherDatas = false)
+                configCompletedOrError("Fiche incomplete (parcelles)")
+                // Lot 1 : les referentiels PFTE cloturent desormais la mise a jour.
+                getReferentielsPfte()
             }
         }
     }
     // endregion
 
+
+
+    // region REFERENTIELS PFTE (lot 1 - socle commun)
+
+    /**
+     * Telecharge les onze listes de reference du programme PFTE.
+     *
+     * Elles alimentent les listes deroulantes des modules Enquete Menage, Visite Plantation
+     * et Suivi Enfant Travailleur, qui les partagent toutes. Une seule table locale generique
+     * les accueille : voir RefPfteModel.
+     *
+     * Derniere etape de la chaine de telechargement : elle cloture la mise a jour.
+     */
+    suspend fun getReferentielsPfte() {
+        withContext(IO) {
+            val recuperation = async {
+                val dao = database?.refPfteDao()
+                val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString()
+                val manquantes = mutableListOf<String>()
+
+                for (table in ReferentielsPfte.TABLES) {
+                    try {
+                        val reponse = ApiClient.apiService
+                            .getDatasList(CommonData(userid = agentID, table = table))
+                            .execute()
+                        val valeurs = reponse.body()
+
+                        // Correctif D3 : on ne purge qu'apres reception confirmee.
+                        if (valeurs == null) {
+                            manquantes.add(table)
+                            continue
+                        }
+
+                        val modeles = valeurs.mapNotNull { v ->
+                            val id = v.id
+                            val nom = v.nom
+                            if (id == null || nom.isNullOrBlank()) null
+                            else ReferentielsPfte.versModele(table, id, nom, agent)
+                        }
+
+                        dao?.effacerTable(table)
+                        if (modeles.isNotEmpty()) dao?.insertAll(modeles)
+
+                        val attendu = ReferentielsPfte.EFFECTIFS_ATTENDUS[table]
+                        if (attendu != null && modeles.size != attendu) {
+                            LogUtils.e("Referentiel $table : ${modeles.size} valeurs recues, $attendu attendues")
+                        }
+                    } catch (ex: Exception) {
+                        // Une liste indisponible ne doit pas interrompre la mise a jour :
+                        // les autres restent exploitables, celle-ci sera retentee au prochain passage.
+                        manquantes.add(table)
+                        LogUtils.e("Referentiel $table : ${ex.message}")
+                        FirebaseCrashlytics.getInstance().recordException(ex)
+                    }
+                }
+
+                if (manquantes.isNotEmpty()) {
+                    LogUtils.e("Referentiels PFTE non recuperes : $manquantes")
+                }
+            }
+
+            recuperation.join()
+            configCompletedOrError("Référentiels PFTE", hasOtherDatas = false)
+        }
+    }
+
+    // endregion
 
     // region SYNCHRONIZE USER DATAS
     // SUPPLANTEE par le correctif D5 (22/08/2026) : l'envoi prealable est desormais

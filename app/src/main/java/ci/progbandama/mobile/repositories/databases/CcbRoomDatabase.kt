@@ -89,6 +89,7 @@ import ci.progbandama.mobile.tools.ListConverters
         PostPlantingModel::class,
         PostPlantingArbrDistribModel::class,
         SyncErreurModel::class,
+        RefPfteModel::class,
     ],
 //    autoMigrations = [
 //        AutoMigration(from = Constants.LAST_BUILD_VERSION, to = Constants.BUILD_VERSION)
@@ -163,6 +164,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
     abstract fun postplantingDao(): PostplantingDao
     abstract fun postPlantingArbrDistribDao(): PostPlantingArbrDistribDao
     abstract fun syncErreurDao(): SyncErreurDao
+    abstract fun refPfteDao(): RefPfteDao
 
 
     companion object {
@@ -249,6 +251,32 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
         }
 
         /**
+         * Creation de la table des listes de reference PFTE.
+         *
+         * Migration reelle, comme la precedente : la base etant construite avec
+         * fallbackToDestructiveMigration(), une montee de version sans migration effacerait
+         * les brouillons et les saisies non transmises des agents.
+         */
+        val MIGRATION_78_79 = object : Migration(78, 79) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `ref_pfte` (" +
+                            "`uid` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                            "`tableRef` TEXT NOT NULL, " +
+                            "`idRef` INTEGER NOT NULL, " +
+                            "`nom` TEXT NOT NULL, " +
+                            "`parentId` INTEGER NOT NULL, " +
+                            "`ordre` INTEGER NOT NULL, " +
+                            "`agentId` TEXT NOT NULL)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_ref_pfte_tableRef_idRef` " +
+                            "ON `ref_pfte` (`tableRef`, `idRef`)"
+                )
+            }
+        }
+
+        /**
          * Creation de la table des refus serveur.
          *
          * Migration REELLE, et non un corps vide comme les precedentes : la base est
@@ -319,6 +347,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
 //                        MIGRATION_75_76,
                         MIGRATION_76_77,
                         MIGRATION_77_78,
+                        MIGRATION_78_79,
                         )
                     .build()
                 INSTANCE = instance
