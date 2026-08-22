@@ -205,7 +205,9 @@ class DashboardAgentActivity : AppCompatActivity(),
                 if (total == 0) {
                     binding.labelEnAttenteDashboard.visibility = View.GONE
                 } else {
-                    binding.labelEnAttenteDashboard.text = "$total en attente"
+                    binding.labelEnAttenteDashboard.text =
+                        if (total > 1) "$total données en attente d'envoi"
+                        else "$total donnée en attente d'envoi"
                     binding.labelEnAttenteDashboard.visibility = View.VISIBLE
                     binding.labelEnAttenteDashboard.setOnClickListener {
                         Commons.showMessage(
