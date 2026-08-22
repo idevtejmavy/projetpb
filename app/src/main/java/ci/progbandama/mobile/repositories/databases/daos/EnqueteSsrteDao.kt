@@ -32,6 +32,11 @@ interface EnqueteSsrteDao {
     @Query("DELETE FROM ssrte_clms")
     fun deleteAgentDatas()
 
+    /** Suppression ciblee, utilisee pour ramener une donnee en attente vers les brouillons. */
+    @Transaction
+    @Query("DELETE FROM ssrte_clms WHERE uid = :uid")
+    fun deleteByUid(uid: Int?)
+
     @Transaction
     @Query("SELECT * FROM ssrte_clms WHERE (isSynced = 0 AND producteursId = :producteurUid)")
     fun getUnSyncedByProdUid(producteurUid: String?): MutableList<EnqueteSsrtModel>

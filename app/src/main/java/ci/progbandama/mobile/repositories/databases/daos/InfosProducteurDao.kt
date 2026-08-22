@@ -32,6 +32,11 @@ interface InfosProducteurDao {
     @Query("DELETE FROM infos_producteur WHERE uid = :uid")
     fun deleteProducteurInfo(uid: Int?)
 
+    /** Suppression ciblee, utilisee pour ramener une donnee en attente vers les brouillons. */
+    @Transaction
+    @Query("DELETE FROM infos_producteur WHERE uid = :uid")
+    fun deleteByUid(uid: Int?)
+
     @Transaction
     @Query("DELETE FROM infos_producteur WHERE agentId = :agentID")
     fun deleteAgentDatas(agentID: String?)
