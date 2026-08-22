@@ -712,6 +712,7 @@
     <string name="la_liste_des_encadreurs_semble_vide_veuillez_proc_der_la_synchronisation_des_donn_es_svp">La liste des encadreurs semble vide, veuillez procéder à la synchronisation des données svp.</string>
     <string name="voulez_vous_vraiment_mettre_ce_contenu_au_brouillon_afin_de_reprendre_ulterieurement">Voulez-vous vraiment mettre ce contenu au brouillon afin de reprendre ulterieurement ?</string>
     <string name="contenu_ajout_aux_brouillons">Contenu ajouté aux brouillons !</string>
+    <string name="brouillon_non_enregistre">Le brouillon n’a pas pu être enregistré. Votre saisie est toujours à l’écran : réessayez avant de quitter.</string>
     <string name="oui">OUI</string>
     <string name="ok">OK</string>
     <string name="selectionnez_la_date_svp">Selectionnez la date, svp !</string>
