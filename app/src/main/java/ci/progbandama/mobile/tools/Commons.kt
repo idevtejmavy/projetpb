@@ -643,6 +643,13 @@ class Commons {
 
 
         fun synchronisation(type: String, context: Context) {
+            // Correctif D4 : inutile de demarrer le service pendant une mise a jour, il
+            // renoncerait aussitot. On evite ainsi une promotion en premier plan pour rien.
+            if (SyncLock.estMiseAJourEnCours) {
+                LogUtils.d("Synchronisation ignoree : mise a jour des donnees en cours")
+                return
+            }
+
             val sync = Intent(context, SynchronisationIntentService::class.java)
             sync.putExtra("type", type)
 

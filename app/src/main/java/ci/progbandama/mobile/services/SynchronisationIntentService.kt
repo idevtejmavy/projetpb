@@ -1647,14 +1647,16 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
 
     @Deprecated("Deprecated in Java")
-    override fun onHandleIntent(intent: Intent?) {
-        // Correctif D4 : ne jamais envoyer pendant qu'une mise a jour des donnees tourne.
-        // L'envoi est de toute facon replanifie (retour sur le tableau de bord, alarme,
-        // demarrage de l'appareil), le renoncement est donc sans consequence.
-        if (!SyncLock.debuterEnvoi()) {
-            LogUtils.d("Envoi reporte : une mise a jour des donnees est en cours")
-            return
-        }
+    /**
+     * Promotion du service en premier plan.
+     *
+     * Commons.synchronisation() demarre ce service via startForegroundService() : Android
+     * exige alors que startForeground() soit appele dans les secondes qui suivent, sinon il
+     * tue l'application (ForegroundServiceDidNotStartInTimeException).
+     *
+     * Cet appel doit donc preceder TOUT retour anticipe, verrou D4 compris.
+     */
+    private fun promouvoirEnPremierPlan() {
         try {
             if (Build.VERSION.SDK_INT >= 26) {
                 val CHANNEL_ID = "field_connect"
@@ -1668,7 +1670,24 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                     .build()
                 startForeground(1, notification)
             }
+        } catch (ex: Exception) {
+            LogUtils.e(ex.message)
+            FirebaseCrashlytics.getInstance().recordException(ex)
+        }
+    }
 
+    override fun onHandleIntent(intent: Intent?) {
+        // Obligatoire avant tout retour anticipe : voir promouvoirEnPremierPlan().
+        promouvoirEnPremierPlan()
+
+        // Correctif D4 : ne jamais envoyer pendant qu'une mise a jour des donnees tourne.
+        // L'envoi est de toute facon replanifie (retour sur le tableau de bord, alarme,
+        // demarrage de l'appareil), le renoncement est donc sans consequence.
+        if (!SyncLock.debuterEnvoi()) {
+            LogUtils.d("Envoi reporte : une mise a jour des donnees est en cours")
+            return
+        }
+        try {
             contextAct = this.applicationContext
 
             if (FirebaseApp.getApps(this).isEmpty()) {
