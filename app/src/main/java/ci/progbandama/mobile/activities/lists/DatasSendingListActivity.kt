@@ -275,6 +275,31 @@ class DatasSendingListActivity : AppCompatActivity() {
                     commonDataListCloned.addAll(commonDataList)
                 }
 
+                "ENQUETE_MENAGE" -> {
+                    binding.labelTitleMenuAction.apply {
+                        setText("ENQUETES MENAGE ${this.text}")
+                    }
+                    progbandBase.enqueteMenageDao()
+                        .getAll(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())
+                        .filter { it.isSynced == false }
+                        .forEach { enquete ->
+                            // Le nom du producteur est retenu a la saisie : le mobile ne relit pas
+                            // le serveur, et la liste doit rester lisible hors ligne.
+                            val producteur = enquete.producteurNom.orEmpty()
+                                .ifBlank { enquete.producteurId.orEmpty() }
+                            commonDataList.add(
+                                CommonData(id = enquete.uid, value = fromGlobalMenu.toUpperCase()).apply {
+                                    listOfValue = arrayListOf(
+                                        "CODE: ", "${enquete.uid}",
+                                        "Producteur: ",
+                                        "$producteur\nDate: ${Commons.convertDate(enquete.dateEnquete, false)}"
+                                    )
+                                }
+                            )
+                        }
+                    commonDataListCloned.addAll(commonDataList)
+                }
+
                 "AGRO_EVALUATION" -> {
                     binding.labelTitleMenuAction.apply {
                         setText("EVALUATIONS DES ARBRES ${this.text}")

@@ -1020,4 +1020,25 @@
     <string name="enquete_non_enregistree">L’enquête n’a pas pu être enregistrée. Votre saisie est toujours à l’écran : réessayez avant de quitter.</string>
     <string name="referentiels_pfte_manquants">Les listes de référence du programme PFTE ne sont pas encore sur cet appareil. Lancez une mise à jour des données avant de commencer une enquête.</string>
 
+
+    <!-- Recapitulatif et ecrans de suivi - Enquete Menage -->
+    <string name="date_de_l_enquete">Date de l’enquête</string>
+    <string name="nom_de_l_enqueteur">Nom de l’enquêteur</string>
+    <string name="autre_raison_du_refus">Autre raison du refus</string>
+    <string name="total_des_personnes_du_menage">Total des personnes du ménage</string>
+    <string name="autre_lien_de_parente">Autre lien de parenté</string>
+    <string name="autre_raison">Autre raison</string>
+    <string name="autre_raison_de_non_scolarisation">Autre raison de non-scolarisation</string>
+    <string name="autre_mesure">Autre mesure</string>
+    <string name="autre_theme">Autre thème</string>
+    <string name="nombre_d_hommes_sensibilises">Nombre d’hommes sensibilisés</string>
+    <string name="nombre_de_femmes_sensibilisees">Nombre de femmes sensibilisées</string>
+    <string name="nombre_de_garcons_sensibilises">Nombre de garçons sensibilisés</string>
+    <string name="nombre_de_filles_sensibilisees">Nombre de filles sensibilisées</string>
+    <string name="total_des_personnes_sensibilisees">Total des personnes sensibilisées</string>
+    <string name="recapitulatif_enquete_menage">RÉCAPITULATIF DE L’ENQUÊTE</string>
+    <string name="relisez_avant_d_enregistrer">Relisez cette enquête avant de l’enregistrer : une fois transmise, elle ne pourra plus être corrigée depuis le téléphone.</string>
+    <string name="enregistrer_l_enquete">Enregistrer l’enquête</string>
+    <string name="enquetes_menage">ENQUÊTES MÉNAGE</string>
+
 </resources>

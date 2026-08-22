@@ -10,6 +10,7 @@ import ci.progbandama.mobile.adapters.DataDraftedAdapter
 import ci.progbandama.mobile.databinding.ActivityDatasDraftedListBinding
 import ci.progbandama.mobile.models.DataDraftedModel
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
+import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.tools.Constants
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
@@ -37,6 +38,9 @@ class DatasDraftedListActivity : AppCompatActivity(R.layout.activity_datas_draft
                 .replace("formation_visiteur", "visiteur_formation")
                 .replace("livraison_magcentral", "suivi_livraison_central")
                 .replace("ssrteclmrs", "ssrte")
+                // Les modules PFTE portent un type distinct du nom de leur menu : plusieurs
+                // formulaires du programme partagent des noms voisins, le suffixe les separe.
+                .replace("enquete_menage", BrouillonPfte.TYPE_ENQUETE_MENAGE)
                 .lowercase()
             LogUtils.d(fromGlobalMenu, replaceID)
             val draftedDataList = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()?.getAllByType(

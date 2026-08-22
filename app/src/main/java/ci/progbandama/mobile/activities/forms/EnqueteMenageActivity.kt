@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.FileProvider
 import ci.progbandama.mobile.R
 import ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+import ci.progbandama.mobile.activities.infospresenters.EnqueteMenagePreviewActivity
 import ci.progbandama.mobile.databinding.ActivityEnqueteMenageBinding
 import ci.progbandama.mobile.models.DataDraftedModel
 import ci.progbandama.mobile.models.EnfantMenageModel
@@ -808,39 +809,21 @@ class EnqueteMenageActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Ouvre le recapitulatif.
+     *
+     * L'enquete n'est pas ecrite ici : elle l'est apres relecture, dans le recapitulatif. C'est
+     * le dernier point ou l'agent peut corriger - le serveur n'offrant aucun endpoint de
+     * relecture, une enquete transmise n'est plus modifiable depuis le telephone.
+     */
     private fun enregistrer() {
         val enquete = construireEnquete() ?: return
         if (signalerManques(enquete)) return
 
-        Commons.showMessage(
-            message = getString(R.string.confirmer_enregistrement_enquete),
-            context = this,
-            finished = false,
-            callback = {
-                try {
-                    ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()?.insert(enquete)
-                    // Le brouillon n'est clos qu'une fois l'enquete en base : l'inverse la perdrait
-                    // si l'enregistrement echouait.
-                    BrouillonPfte.cloturer(this, brouillonOuvert?.uid)
-
-                    Commons.showMessage(
-                        message = getString(R.string.enquete_enregistree),
-                        context = this, finished = true,
-                        callback = { finish() },
-                        positive = getString(R.string.ok)
-                    )
-                } catch (ex: Exception) {
-                    LogUtils.e("Enregistrement de l'enquete menage : ${ex.message}")
-                    Commons.showMessage(
-                        message = getString(R.string.enquete_non_enregistree),
-                        context = this, finished = false, callback = { },
-                        positive = getString(R.string.ok)
-                    )
-                }
-            },
-            positive = getString(R.string.oui),
-            deconnec = false,
-            showNo = true
+        startActivity(
+            Intent(this, EnqueteMenagePreviewActivity::class.java)
+                .putExtra(EnqueteMenagePreviewActivity.EXTRA_ENQUETE, enquete)
+                .putExtra(EnqueteMenagePreviewActivity.EXTRA_BROUILLON, brouillonOuvert?.uid ?: 0)
         )
     }
 
