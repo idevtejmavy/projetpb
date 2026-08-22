@@ -343,6 +343,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <!-- E6 : indicateur global des donnees restant a envoyer -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelEnAttenteDashboard"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:background="@drawable/border_shape_selector"
+                android:backgroundTint="@color/progband_gris_sec"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="end"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginRight="@dimen/_2sdp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/_9ssp"
+                tools:text="4 en attente" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:background="@drawable/border_shape_selector"
                 android:backgroundTint="@color/progband_gris_sec"

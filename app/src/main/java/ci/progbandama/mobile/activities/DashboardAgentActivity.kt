@@ -43,6 +43,7 @@ import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.openUrl
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
 import ci.progbandama.mobile.tools.Constants
+import ci.progbandama.mobile.tools.DonneesEnAttente
 import ci.progbandama.mobile.tools.Data
 import ci.progbandama.mobile.tools.FetchData
 import com.blankj.utilcode.util.*
@@ -180,6 +181,48 @@ class DashboardAgentActivity : AppCompatActivity(),
     }
 
 
+
+    /**
+     * E6 - Met a jour l'indicateur global des donnees non transmises.
+     *
+     * Les compteurs par fonctionnalite existaient deja sur les cartes du menu, mais aucun
+     * total n'etait presente : un agent pouvait accumuler des saisies non envoyees sans
+     * jamais s'en apercevoir. Un appui sur l'indicateur affiche le detail par module.
+     */
+    private fun rafraichirIndicateurEnAttente() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val compte = try {
+                DonneesEnAttente.compter(
+                    this@DashboardAgentActivity,
+                    SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)
+                )
+            } catch (ex: Exception) {
+                LogUtils.e(ex.message); linkedMapOf<String, Int>()
+            }
+            val total = compte.values.sum()
+
+            MainScope().launch {
+                if (total == 0) {
+                    binding.labelEnAttenteDashboard.visibility = View.GONE
+                } else {
+                    binding.labelEnAttenteDashboard.text = "$total en attente"
+                    binding.labelEnAttenteDashboard.visibility = View.VISIBLE
+                    binding.labelEnAttenteDashboard.setOnClickListener {
+                        Commons.showMessage(
+                            DonneesEnAttente.resume(compte),
+                            this@DashboardAgentActivity,
+                            finished = false,
+                            callback = {},
+                            positive = "Compris !",
+                            deconnec = false,
+                            showNo = false
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         //refreshDatas()
@@ -187,6 +230,9 @@ class DashboardAgentActivity : AppCompatActivity(),
         askLocationPermission()
 
         setupLiveData()
+
+        // E6 : indicateur global des donnees restant a envoyer
+        rafraichirIndicateurEnAttente()
 
         CoroutineScope(Dispatchers.IO).launch {
             var networkFlag = false

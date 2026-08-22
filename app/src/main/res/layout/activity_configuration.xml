@@ -36,6 +36,21 @@ android:textColor="@color/text_color_white"
             android:maxLines="2"
             android:text="Configuration en cours…"/>
 
+        <!-- E6 : detail des donnees restant en attente d'envoi, par module -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelDetailEnAttente"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:textColor="@color/text_color_white"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_9ssp"
+            android:gravity="center"
+            android:maxLines="8"
+            tools:text="Producteurs : 3&#10;Parcelles : 1" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:visibility="gone"
             tools:visibility="visible"

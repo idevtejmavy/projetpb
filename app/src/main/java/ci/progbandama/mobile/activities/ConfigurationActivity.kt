@@ -18,6 +18,7 @@ import ci.progbandama.mobile.repositories.datas.CommonData
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
 import ci.progbandama.mobile.tools.Constants
+import ci.progbandama.mobile.tools.DonneesEnAttente
 import ci.progbandama.mobile.tools.SyncLock
 import ci.progbandama.mobile.tools.Roles
 import com.blankj.utilcode.util.*
@@ -151,41 +152,20 @@ class ConfigurationActivity : AppCompatActivity() {
     // On delegue desormais au service, seul detenteur de la chaine complete.
     // =========================================================================
 
-    /** Nombre de lignes non transmises, par type de donnee (types vides omis). */
-    private fun compterDonneesEnAttente(): LinkedHashMap<String, Int> {
-        val compte = linkedMapOf<String, Int>()
-        val base = ProgBandRoomDatabase.getDatabase(applicationContext) ?: return compte
-        val idTexte = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString()
-        val idEntier = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID)
+    /** Nombre de lignes non transmises, par type de donnee. Source unique : DonneesEnAttente. */
+    private fun compterDonneesEnAttente(): LinkedHashMap<String, Int> =
+        DonneesEnAttente.compter(this, SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID))
 
-        fun ajouter(libelle: String, taille: () -> Int) {
-            try {
-                val n = taille()
-                if (n > 0) compte[libelle] = n
-            } catch (ex: Exception) {
-                LogUtils.e(ex.message)
+    /** E6 : affiche le detail des donnees restant en attente, une ligne par module. */
+    private fun afficherDetailEnAttente(compte: Map<String, Int>) {
+        MainScope().launch {
+            if (compte.isEmpty()) {
+                binding.labelDetailEnAttente.visibility = View.GONE
+            } else {
+                binding.labelDetailEnAttente.text = DonneesEnAttente.resume(compte)
+                binding.labelDetailEnAttente.visibility = View.VISIBLE
             }
         }
-
-        ajouter("Localites") { base.localiteDoa().getUnSyncedAll(idTexte).size }
-        ajouter("Producteurs") { base.producteurDoa().getUnSyncedAll(idTexte).size }
-        ajouter("Menages") { base.producteurMenageDoa().getUnSyncedAll(idTexte).size }
-        ajouter("Parcelles") { base.parcelleDao().getUnSyncedAll(idTexte).size }
-        ajouter("Suivis de parcelle") { base.suiviParcelleDao().getUnSyncedAll(idTexte).size }
-        ajouter("Formations") { base.formationDao().getUnSyncedAll(idTexte).size }
-        ajouter("Visiteurs de formation") { base.visiteurFormationDao().getUnSyncedAll(idEntier).size }
-        ajouter("Evaluations besoins arbres") { base.evaluationArbreDao().getUnSyncedAll(idEntier).size }
-        ajouter("Distributions d'arbres") { base.distributionArbreDao().getUnSyncedAll(idTexte).size }
-        ajouter("Post-planting") { base.postplantingDao().getUnSyncedAll(idTexte).size }
-        ajouter("Livraisons") { base.livraisonDao().getUnSyncedAll(idTexte).size }
-        ajouter("Livraisons magasin central") { base.livraisonCentralDao().getUnSyncedAll(idTexte).size }
-        ajouter("Estimations") { base.estimationDao().getUnSyncedAll().size }
-        ajouter("Applications phytosanitaires") { base.suiviApplicationDao().getUnSyncedAll().size }
-        ajouter("Enquetes SSRT/CLMRS") { base.enqueteSsrtDao().getUnSyncedAll().size }
-        ajouter("Inspections") { base.inspectionDao().getUnSyncedAll(idTexte).size }
-        ajouter("Infos producteur") { base.infosProducteurDao().getUnSyncedAll(idTexte).size }
-
-        return compte
     }
 
     /**
@@ -226,6 +206,7 @@ class ConfigurationActivity : AppCompatActivity() {
         val reste = compterDonneesEnAttente()
         if (reste.isNotEmpty()) {
             LogUtils.e("Donnees toujours en attente apres envoi : $reste")
+            afficherDetailEnAttente(reste)
         }
         return reste.values.sum() == 0
     }
@@ -3693,9 +3674,17 @@ class ConfigurationActivity : AppCompatActivity() {
 
             if (!toutTransmis) {
                 // Sans danger : D2 et D3 garantissent que les donnees non transmises
-                // survivent au rafraichissement. Le detail par module sera presente
-                // par l'ecran de controle (etape E6).
-                configCompletedOrError("- certaines donnees restent en attente d'envoi")
+                // survivent au rafraichissement. L'agent voit le detail par module et
+                // dispose du bouton de reprise (E6).
+                val reste = compterDonneesEnAttente()
+                afficherDetailEnAttente(reste)
+                configCompletedOrError(
+                    "${reste.values.sum()} donnee(s) n'ont pas pu etre envoyees. " +
+                            "Elles sont conservees ; la mise a jour continue.",
+                    hasError = true,
+                    hisSynchro = true
+                )
+                delay(4_000L)
             }
             configFlow()
         }
