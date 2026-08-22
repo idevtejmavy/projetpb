@@ -42,6 +42,8 @@ import ci.progbandama.mobile.services.GpsService
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.openUrl
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
+import ci.progbandama.mobile.BuildConfig
+import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.DonneesEnAttente
 import ci.progbandama.mobile.tools.Data
@@ -1122,6 +1124,8 @@ class DashboardAgentActivity : AppCompatActivity(),
             //carouselRecyclerview?.adapter?.notifyDataSetChanged()
         }
 
+        ajouterTuileEnqueteMenageEnDebug()
+
         listOfFeatures.map {
             listOfFeatureCloned.add(it)
         }
@@ -1199,6 +1203,40 @@ class DashboardAgentActivity : AppCompatActivity(),
 
         if(listOfFeatureClonedNav.size > 0 && binding.expandableNavigation1.size > 0) binding.expandableNavigation1.setSelected(0)
 
+    }
+
+
+    /**
+     * Tuile temporaire de l'Enquete Menage - lot 3, en attendant le role serveur.
+     *
+     * Le tableau de bord ne montre que ce que les roles renvoyes par l'API autorisent. Le role
+     * ENQUETE_MENAGE n'existe pas encore cote back-office, le module serait donc inatteignable et
+     * impossible a recetter. Cette tuile comble l'attente et ne s'affiche qu'en build debug : en
+     * production, BuildConfig.DEBUG vaut false et la fonction sort immediatement.
+     *
+     * A SUPPRIMER des que le role est accorde. Le reste du cablage - redirections, brouillons,
+     * donnees en attente - est deja en place et fonctionnera sans rien changer d'autre.
+     */
+    private fun ajouterTuileEnqueteMenageEnDebug() {
+        if (!BuildConfig.DEBUG) return
+        if (listOfFeatures.any { it.type == "ENQUETE_MENAGE" }) return
+
+        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)
+        listOfFeatures.add(
+            FeatureModel(
+                "ENQUETE MENAGE",
+                countSync = ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()
+                    ?.countUnSynced(agent.toString()) ?: 0,
+                countDraft = BrouillonPfte.compter(this, BrouillonPfte.TYPE_ENQUETE_MENAGE),
+                type = "ENQUETE_MENAGE",
+                categorie = 3,
+                icon = R.drawable.ssrte_ic,
+                canAdd = true,
+                canEdit = true,
+                canViewDraft = true,
+                canViewSync = true
+            ).apply { this.image = image.plus("ssrte.png") }
+        )
     }
 
     private fun setViewFeatureListing() {
