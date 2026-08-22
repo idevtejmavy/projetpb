@@ -18,6 +18,7 @@ import ci.progbandama.mobile.repositories.datas.CommonData
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
 import ci.progbandama.mobile.tools.Constants
+import ci.progbandama.mobile.tools.SyncLock
 import ci.progbandama.mobile.tools.Roles
 import com.blankj.utilcode.util.*
 import com.blankj.utilcode.util.LogUtils
@@ -3570,7 +3571,47 @@ class ConfigurationActivity : AppCompatActivity() {
         }
 
         MainScope().launch {
-            configFlow()
+            // Correctif D4 : ne pas rafraichir la base pendant qu'un envoi est en cours
+            if (attendreFinEnvoiPuisVerrouiller()) configFlow()
         }
+    }
+
+    /**
+     * Correctif D4 - Attend qu'un eventuel envoi en cours se termine, puis prend le verrou.
+     *
+     * L'envoi est declenche automatiquement au retour sur le tableau de bord, c'est-a-dire
+     * sur l'ecran meme depuis lequel l'agent lance la mise a jour : les deux flux se
+     * chevauchent donc frequemment. On patiente plutot que de refuser l'action.
+     *
+     * @return false si l'envoi dure au-dela du delai d'attente ; la mise a jour est alors
+     *         abandonnee et l'agent invite a reessayer.
+     */
+    private suspend fun attendreFinEnvoiPuisVerrouiller(): Boolean {
+        val delaiMaxMs = 120_000L
+        val pasMs = 1_000L
+        var attenduMs = 0L
+
+        while (!SyncLock.debuterMiseAJour()) {
+            if (attenduMs == 0L) {
+                configCompletedOrError("- envoi des donnees en cours, veuillez patienter")
+            }
+            if (attenduMs >= delaiMaxMs) {
+                configCompletedOrError(
+                    "Un envoi de donnees est toujours en cours, veuillez reessayer dans quelques instants",
+                    hasError = true,
+                    hisSynchro = true
+                )
+                return false
+            }
+            delay(pasMs)
+            attenduMs += pasMs
+        }
+        return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Correctif D4 : le verrou est rendu des que l'ecran de mise a jour disparait.
+        SyncLock.terminerMiseAJour()
     }
 }

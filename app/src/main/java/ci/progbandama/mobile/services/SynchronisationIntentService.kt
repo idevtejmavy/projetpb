@@ -18,6 +18,7 @@ import ci.progbandama.mobile.repositories.datas.PesticidesAnneDerniereModel
 import ci.progbandama.mobile.repositories.datas.PesticidesApplicationModel
 import ci.progbandama.mobile.repositories.datas.PresenceAutreInsecteData
 import ci.progbandama.mobile.tools.Commons
+import ci.progbandama.mobile.tools.SyncLock
 import ci.progbandama.mobile.tools.Commons.Companion.returnStringList
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.ListConverters
@@ -1647,6 +1648,13 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
     @Deprecated("Deprecated in Java")
     override fun onHandleIntent(intent: Intent?) {
+        // Correctif D4 : ne jamais envoyer pendant qu'une mise a jour des donnees tourne.
+        // L'envoi est de toute facon replanifie (retour sur le tableau de bord, alarme,
+        // demarrage de l'appareil), le renoncement est donc sans consequence.
+        if (!SyncLock.debuterEnvoi()) {
+            LogUtils.d("Envoi reporte : une mise a jour des donnees est en cours")
+            return
+        }
         try {
             if (Build.VERSION.SDK_INT >= 26) {
                 val CHANNEL_ID = "field_connect"
@@ -1694,6 +1702,9 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
         } catch (ex: Exception) {
             LogUtils.e(ex.message)
                 FirebaseCrashlytics.getInstance().recordException(ex)
+        } finally {
+            // Correctif D4 : le verrou est rendu quoi qu'il arrive.
+            SyncLock.terminerEnvoi()
         }
     }
 
