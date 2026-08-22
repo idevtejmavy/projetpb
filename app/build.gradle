@@ -76,6 +76,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // Tests du lot "Fiabilisation de la mise a jour des donnees" :
+    // ApplicationProvider (androidx.test:core) et l'orchestrateur d'instrumentation.
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
 
     implementation 'com.blankj:utilcodex:1.31.0'
 
