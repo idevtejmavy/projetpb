@@ -70,6 +70,15 @@ interface InspectionDao {
     @Transaction
     @Query("DELETE FROM inspection")
     fun deleteAll()
+
+    /**
+     * Purge selective : ne supprime que les inspections deja transmises au serveur.
+     * A utiliser lors de la mise a jour des donnees pour ne jamais detruire une
+     * saisie locale en attente d'envoi.
+     */
+    @Transaction
+    @Query("DELETE FROM inspection WHERE isSynced = 1")
+    fun deleteSynced()
     @Transaction
     @Query("SELECT * FROM inspection WHERE isSynced = 0 AND agentId = :agentID")
     fun getUnSyncedAllLive(agentID: String?): LiveData<MutableList<InspectionDTO>>

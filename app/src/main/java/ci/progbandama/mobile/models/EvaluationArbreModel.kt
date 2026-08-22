@@ -88,6 +88,13 @@ interface EvaluationArbreDao {
     @Query("DELETE FROM evaluation_arbre")
     fun deleteAll()
 
+    /**
+     * Purge selective : ne supprime que les evaluations deja transmises au serveur.
+     */
+    @Transaction
+    @Query("DELETE FROM evaluation_arbre WHERE isSynced = 1")
+    fun deleteSynced()
+
     @Transaction
     @Query("DELETE FROM evaluation_arbre WHERE producteurId = :producteurId")
     fun deleteByProducteurId(producteurId: String?)

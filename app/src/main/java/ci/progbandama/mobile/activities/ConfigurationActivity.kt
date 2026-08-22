@@ -1928,10 +1928,111 @@ class ConfigurationActivity : AppCompatActivity() {
         }
     }
 
+
+    // =========================================================================
+    // CORRECTIF D1 - Ne jamais purger des donnees non transmises
+    //
+    // getInspections() et getProductEvalArbrList() appelaient deleteAll() sans
+    // qu'aucune etape de la chaine n'ait envoye ces donnees au prealable : une
+    // inspection ou une evaluation saisie hors ligne etait detruite si l'agent
+    // lancait une mise a jour avant le passage du service de synchronisation.
+    //
+    // On envoie desormais ce qui est en attente, puis on purge :
+    //   - tout transmis      -> deleteAll()    (comportement d'origine)
+    //   - transmission KO    -> deleteSynced() (les saisies locales survivent)
+    // =========================================================================
+
+    /**
+     * Envoie les inspections saisies localement et non encore transmises.
+     * @return true si toutes ont ete acquittees par le serveur.
+     */
+    private fun envoyerInspectionsEnAttente(): Boolean {
+        val dao = inspectionDao ?: return true
+        val enAttente = try {
+            dao.getUnSyncedAll(SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString())
+        } catch (ex: Exception) {
+            LogUtils.e(ex.message); FirebaseCrashlytics.getInstance().recordException(ex); return false
+        }
+        if (enAttente.isEmpty()) return true
+
+        var toutTransmis = true
+        val reponsesType = object : TypeToken<MutableList<QuestionResponseModel>>() {}.type
+
+        enAttente.forEach { inspection ->
+            try {
+                inspection.dateEvaluation = Commons.convertDate(inspection.dateEvaluation, toEng = true)
+                inspection.certificatList = mutableListOf()
+                inspection.certificatStr?.let { inspection.certificatList.add(it) }
+
+                var compteur = 1
+                ApiClient.gson.fromJson<MutableList<QuestionResponseModel>>(inspection.reponseStringify, reponsesType)
+                    ?.forEach {
+                        if (it.isTitle == false) {
+                            inspection.reponse[compteur.toString()] = it.noteLabel ?: ""
+                            inspection.commentaire[compteur.toString()] = it.commentaire ?: ""
+                            compteur++
+                        }
+                    }
+                inspection.reponseStringify = null
+
+                val reponse = ApiClient.apiService.synchronisationInspection(inspection).execute()
+                val idServeur = reponse.body()?.id
+                if (reponse.isSuccessful && idServeur != null) {
+                    dao.syncData(idServeur, true, inspection.uid)
+                } else {
+                    toutTransmis = false
+                }
+            } catch (ex: Exception) {
+                toutTransmis = false
+                LogUtils.e(ex.message)
+                FirebaseCrashlytics.getInstance().recordException(ex)
+            }
+        }
+        return toutTransmis
+    }
+
+    /**
+     * Envoie les evaluations des besoins en arbres saisies localement et non transmises.
+     * @return true si toutes ont ete acquittees par le serveur.
+     */
+    private fun envoyerEvaluationsArbreEnAttente(): Boolean {
+        val dao = evaluationArbreDao ?: return true
+        val enAttente = try {
+            dao.getUnSyncedAll(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID))
+        } catch (ex: Exception) {
+            LogUtils.e(ex.message); FirebaseCrashlytics.getInstance().recordException(ex); return false
+        }
+        if (enAttente.isEmpty()) return true
+
+        var toutTransmis = true
+        enAttente.forEach { evaluation ->
+            try {
+                evaluation.apply {
+                    especesarbreList = Commons.returnStringList(especesarbreStr)
+                    quantiteList = Commons.returnStringList(quantiteStr)
+                }
+                val reponse = ApiClient.apiService.synchronisationEvaluationBesoin(evaluation).execute()
+                val idServeur = reponse.body()?.id
+                if (reponse.isSuccessful && idServeur != null) {
+                    dao.syncData(id = idServeur, synced = true, localID = evaluation.uid)
+                } else {
+                    toutTransmis = false
+                }
+            } catch (ex: Exception) {
+                toutTransmis = false
+                LogUtils.e(ex.message)
+                FirebaseCrashlytics.getInstance().recordException(ex)
+            }
+        }
+        return toutTransmis
+    }
+
     suspend fun getInspections() {
         withContext(IO) {
             val fetchDatas = async {
-                inspectionDao?.deleteAll()
+                // Correctif D1 : envoyer avant de purger
+                if (envoyerInspectionsEnAttente()) inspectionDao?.deleteAll()
+                else inspectionDao?.deleteSynced()
 
                 try {
                     val clientData = ApiClient.apiService.getInspections(table = CommonData(cooperativeIde = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID)))
@@ -2366,7 +2467,9 @@ class ConfigurationActivity : AppCompatActivity() {
     suspend fun getProductEvalArbrList() {
         withContext(IO) {
             val distArbreListFetch = async {
-                evaluationArbreDao?.deleteAll()
+                // Correctif D1 : envoyer avant de purger
+                if (envoyerEvaluationsArbreEnAttente()) evaluationArbreDao?.deleteAll()
+                else evaluationArbreDao?.deleteSynced()
 
                 try {
                     val clientProductEvalListData = ApiClient.apiService.getProductEvalList(CommonData(userid = SPUtils.getInstance().getInt(Constants.AGENT_ID)))
