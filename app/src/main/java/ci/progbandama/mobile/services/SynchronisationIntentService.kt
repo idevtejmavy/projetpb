@@ -18,6 +18,7 @@ import ci.progbandama.mobile.repositories.datas.PesticidesAnneDerniereModel
 import ci.progbandama.mobile.repositories.datas.PesticidesApplicationModel
 import ci.progbandama.mobile.repositories.datas.PresenceAutreInsecteData
 import ci.progbandama.mobile.tools.Commons
+import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.tools.SyncLock
 import ci.progbandama.mobile.tools.Commons.Companion.returnStringList
 import ci.progbandama.mobile.tools.Constants
@@ -66,6 +67,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
     var suiviParcelleDao: SuiviParcelleDao? = null
     var suiviApplicationDao: SuiviApplicationDao? = null
     var enqueteSsrtDao: EnqueteSsrteDao? = null
+    var enqueteMenageDao: EnqueteMenageDao? = null
     var estimationDao: EstimationDao? = null
     var suncLocaliteFlag = true
     var suncProducteursFlag = true
@@ -694,12 +696,69 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
         }else recallServiceIntent()
 
+        // Enquete Menage : nouveau dernier maillon de la chaine d'envoi.
+        syncEnqueteMenage(enqueteMenageDao)
+
         if (Build.VERSION.SDK_INT >= 26) {
             stopForeground(true)
             notificationManager?.cancel(1)
         }
 
 
+    }
+
+    /**
+     * Envoi des Enquetes Menage (PFTE) - lot 3.
+     *
+     * Comme les autres formulaires rattaches a un producteur, l'envoi attend que les producteurs
+     * saisis hors ligne soient partis : une enquete pointant sur un producteur encore absent du
+     * serveur serait refusee.
+     *
+     * Les listes et les fiches enfant sont reportees depuis leurs colonnes texte juste avant
+     * l'envoi : ce sont les champs @Ignore du modele que le serveur attend, pas leur forme
+     * serialisee.
+     */
+    fun syncEnqueteMenage(enqueteMenageDao: EnqueteMenageDao?) {
+        if (enqueteMenageDao == null) return
+
+        val producteursEnAttente = producteurDao?.getUnSyncedAll(
+            agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()
+        )
+        if (producteursEnAttente?.size != 0) {
+            recallServiceIntent()
+            return
+        }
+
+        try {
+            enqueteMenageDao.getUnSyncedAll().forEach { enquete ->
+                enquete.dateEnquete = Commons.convertDate(enquete.dateEnquete, toEng = true)
+                enquete.datePlanification = Commons.convertDate(enquete.datePlanification, toEng = true)
+
+                enquete.raisonRefus = ListConverters.stringToMutableList(enquete.raisonRefusStringify)
+                enquete.themesSensibilisation = ListConverters.stringToMutableList(enquete.themesSensibilisationStringify)
+                enquete.outilsSensibilisation = ListConverters.stringToMutableList(enquete.outilsSensibilisationStringify)
+                enquete.enfants = BrouillonPfte.deserialiserListe(
+                    enquete.enfantsStringify, object : TypeToken<MutableList<EnfantMenageModel>>() {}
+                )
+
+                val reponse: Response<EnqueteMenageModel> =
+                    ApiClient.apiService.synchronisationEnqueteMenage(enquete).execute()
+                val identifiantServeur = reponse.body()?.id
+
+                // Sans identifiant en retour, l'enquete reste en attente : la marquer transmise
+                // la ferait disparaitre de la file sans qu'on sache si le serveur l'a acceptee.
+                if (identifiantServeur != null && identifiantServeur > 0) {
+                    enqueteMenageDao.syncData(identifiantServeur, true, enquete.uid)
+                } else {
+                    LogUtils.e("Enquete Menage ${enquete.uid} : reponse sans identifiant, conservee en attente")
+                }
+            }
+        } catch (uhex: UnknownHostException) {
+            FirebaseCrashlytics.getInstance().recordException(uhex)
+        } catch (ex: Exception) {
+            LogUtils.e(ex.message)
+            FirebaseCrashlytics.getInstance().recordException(ex)
+        }
     }
 
     fun syncEvaluationBesoin(evaluationArbreDao: EvaluationArbreDao) {
@@ -1714,6 +1773,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
             estimationDao = ProgBandRoomDatabase.getDatabase(this)?.estimationDao()
             suiviApplicationDao = ProgBandRoomDatabase.getDatabase(this)?.suiviApplicationDao()
             enqueteSsrtDao = ProgBandRoomDatabase.getDatabase(this)?.enqueteSsrtDao()
+            enqueteMenageDao = ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()
             inspectionDao = ProgBandRoomDatabase.getDatabase(this)?.inspectionDao()
             infosProducteurDao = ProgBandRoomDatabase.getDatabase(this)?.infosProducteurDao()
             livraisonCentralDao = ProgBandRoomDatabase.getDatabase(this)?.livraisonCentralDao()

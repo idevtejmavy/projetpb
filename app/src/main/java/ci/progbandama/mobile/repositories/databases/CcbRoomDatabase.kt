@@ -90,6 +90,7 @@ import ci.progbandama.mobile.tools.ListConverters
         PostPlantingArbrDistribModel::class,
         SyncErreurModel::class,
         RefPfteModel::class,
+        EnqueteMenageModel::class,
     ],
 //    autoMigrations = [
 //        AutoMigration(from = Constants.LAST_BUILD_VERSION, to = Constants.BUILD_VERSION)
@@ -165,6 +166,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
     abstract fun postPlantingArbrDistribDao(): PostPlantingArbrDistribDao
     abstract fun syncErreurDao(): SyncErreurDao
     abstract fun refPfteDao(): RefPfteDao
+    abstract fun enqueteMenageDao(): EnqueteMenageDao
 
 
     companion object {
@@ -251,11 +253,73 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
         }
 
         /**
-         * Creation de la table des listes de reference PFTE.
+         * Creation de la table des Enquetes Menage (lot 3).
          *
-         * Migration reelle, comme la precedente : la base etant construite avec
-         * fallbackToDestructiveMigration(), une montee de version sans migration effacerait
-         * les brouillons et les saisies non transmises des agents.
+         * Migration REELLE : la base est construite avec fallbackToDestructiveMigration(), une
+         * montee de version sans migration effacerait les brouillons et les saisies non
+         * transmises des agents.
+         */
+        val MIGRATION_79_80 = object : Migration(79, 80) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `enquete_menage` (" +
+                            "`uid` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                            "`id` INTEGER NOT NULL, " +
+                            "`userid` INTEGER, " +
+                            "`sectionId` TEXT, " +
+                            "`localiteId` TEXT, " +
+                            "`producteurId` TEXT, " +
+                            "`dateEnquete` TEXT, " +
+                            "`nomEnqueteur` TEXT, " +
+                            "`latitude` TEXT, " +
+                            "`longitude` TEXT, " +
+                            "`altitude` TEXT, " +
+                            "`precisionGps` TEXT, " +
+                            "`estProducteurRepondant` TEXT, " +
+                            "`nomRepondant` TEXT, " +
+                            "`titreRepondant` TEXT, " +
+                            "`producteurDisponible` TEXT, " +
+                            "`raisonIndisponibilite` TEXT, " +
+                            "`datePlanification` TEXT, " +
+                            "`autreRaisonRefus` TEXT, " +
+                            "`consentement` TEXT, " +
+                            "`situationMatrimoniale` TEXT, " +
+                            "`nombreAdultes` TEXT, " +
+                            "`nombreEnfants0a4` TEXT, " +
+                            "`nombreEnfants5a17` TEXT, " +
+                            "`aEnfantACharge` TEXT, " +
+                            "`nombreEnfantsACharge` TEXT, " +
+                            "`nombreEnfantsEnquetes` TEXT, " +
+                            "`autreThemeSensibilisation` TEXT, " +
+                            "`nombreHommesSensibilises` TEXT, " +
+                            "`nombreFemmesSensibilisees` TEXT, " +
+                            "`nombreGarconsSensibilises` TEXT, " +
+                            "`nombreFillesSensibilisees` TEXT, " +
+                            "`telephoneProducteurSensibilisation` TEXT, " +
+                            "`photoSensibilisation` TEXT, " +
+                            "`etatSoumission` TEXT, " +
+                            "`raisonRefusStringify` TEXT, " +
+                            "`themesSensibilisationStringify` TEXT, " +
+                            "`outilsSensibilisationStringify` TEXT, " +
+                            "`enfantsStringify` TEXT, " +
+                            "`isSynced` INTEGER NOT NULL, " +
+                            "`origin` TEXT, " +
+                            "`agentId` TEXT, " +
+                            "`sectionNom` TEXT, " +
+                            "`localiteNom` TEXT, " +
+                            "`producteurNom` TEXT)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_enquete_menage_uid` " +
+                            "ON `enquete_menage` (`uid`)"
+                )
+            }
+        }
+
+        /**
+         * Creation de la table generique des referentiels PFTE.
+         *
+         * Migration reelle, pour la meme raison que les precedentes.
          */
         val MIGRATION_78_79 = object : Migration(78, 79) {
             override fun migrate(database: SupportSQLiteDatabase) {
@@ -348,6 +412,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
                         MIGRATION_76_77,
                         MIGRATION_77_78,
                         MIGRATION_78_79,
+                        MIGRATION_79_80,
                         )
                     .build()
                 INSTANCE = instance

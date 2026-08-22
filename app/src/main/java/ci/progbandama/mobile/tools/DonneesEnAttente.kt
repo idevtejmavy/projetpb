@@ -51,6 +51,7 @@ object DonneesEnAttente {
         ajouter("Enquetes SSRT/CLMRS") { base.enqueteSsrtDao().getUnSyncedAll().size }
         ajouter("Inspections") { base.inspectionDao().getUnSyncedAll(idTexte).size }
         ajouter("Infos producteur") { base.infosProducteurDao().getUnSyncedAll(idTexte).size }
+        ajouter("Enquetes Menage") { base.enqueteMenageDao().getUnSyncedAll().size }
 
         return compte
     }

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.widget.Toast
 import ci.progbandama.mobile.activities.lists.DatasDraftedListActivity
 import ci.progbandama.mobile.models.DataDraftedModel
-import ci.progbandama.mobile.repositories.apis.ApiClient
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.SPUtils
@@ -34,7 +33,7 @@ object RepriseEnAttente {
         // ecran generique "donnees en attente"
         "INFOS_PRODUCTEUR", "PARCELLES", "ESTIMATION", "INSPECTION", "APPLICATION",
         "FORMATION_VISITEUR", "LIVRAISON", "LIVRAISON_MAGCENTRAL", "SSRTECLMRS",
-        "AGRO_EVALUATION", "AGRO_DISTRIBUTION", "POSTPLANTING",
+        "AGRO_EVALUATION", "AGRO_DISTRIBUTION", "POSTPLANTING", "ENQUETE_MENAGE",
         // ecrans de liste dedies (Producteurs, Parcelles, Menages, Formations, Localites)
         "PRODUCTEUR", "PARCELLE", "MENAGE", "FORMATION", "LOCALITE"
     )
@@ -52,6 +51,7 @@ object RepriseEnAttente {
         "FORMATION_VISITEUR" -> "visiteur_formation"
         "LIVRAISON_MAGCENTRAL" -> "suivi_livraison_central"
         "SSRTECLMRS" -> "ssrte"
+        "ENQUETE_MENAGE" -> BrouillonPfte.TYPE_ENQUETE_MENAGE
         else -> module.lowercase()
     }
 
@@ -128,6 +128,7 @@ object RepriseEnAttente {
                 "AGRO_EVALUATION" -> base.evaluationArbreDao().getUnSyncedAll(agentId).find { it.uid == uid }
                 "AGRO_DISTRIBUTION" -> base.distributionArbreDao().getUnSyncedAll(idTexte).find { it.uid == uid }
                 "POSTPLANTING" -> base.postplantingDao().getUnSyncedAll(idTexte).find { it.uid == uid }
+                "ENQUETE_MENAGE" -> base.enqueteMenageDao().getByUid(uid)
                 "PRODUCTEUR" -> base.producteurDoa().getUnSyncedAll(idTexte).find { it.uid == uid }
                 // uid declare en Long sur ce modele, contrairement aux autres.
                 "PARCELLE" -> base.parcelleDao().getUnSyncedAll(idTexte).find { it.uid.toInt() == uid }
@@ -147,7 +148,10 @@ object RepriseEnAttente {
             base.draftedDatasDao().insert(
                 DataDraftedModel(
                     uid = 0,
-                    datas = ApiClient.gson.toJson(modele),
+                    // Serialisation fidele plutot que celle de l'API : cette derniere ecarte les
+                    // champs sans @Expose, et surtout ne relit pas les champs deserialize = false.
+                    // Un brouillon issu d'une reprise doit se rouvrir complet - voir BrouillonPfte.
+                    datas = BrouillonPfte.gson.toJson(modele),
                     typeDraft = typeDraft(module),
                     agentId = idTexte
                 )
@@ -169,6 +173,7 @@ object RepriseEnAttente {
                 "AGRO_EVALUATION" -> base.evaluationArbreDao().deleteByUid(uid)
                 "AGRO_DISTRIBUTION" -> base.distributionArbreDao().deleteByUid(uid)
                 "POSTPLANTING" -> base.postplantingDao().deleteByUid(uid)
+                "ENQUETE_MENAGE" -> base.enqueteMenageDao().deleteByUid(uid)
                 "PRODUCTEUR" -> base.producteurDoa().deleteByUid(uid)
                 "PARCELLE" -> base.parcelleDao().deleteByUid(uid)
                 "MENAGE" -> base.producteurMenageDoa().deleteByUid(uid)

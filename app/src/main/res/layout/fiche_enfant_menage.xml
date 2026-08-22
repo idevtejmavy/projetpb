@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Fiche enfant d'une Enquete Menage - lot 3.
+
+     Gabarit repete par FichesEnfant, une fois par enfant enquete. Aucun android:tag ici :
+     les fiches ne passent pas par le binding par reflexion, qui ne descend pas dans les
+     sous-formulaires. Chaque fiche est lue et ecrite explicitement par le formulaire.
+
+     Les blocs conditionnels sont masques a l'ouverture et propres a CHAQUE fiche : deux
+     enfants du meme menage n'ont pas les memes champs ouverts.
+-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:cardBackgroundColor="@color/progband_gris"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelNumeroEnfant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Enfant n1"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/page_title_dim14"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btnRetirerEnfant"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="@dimen/_4sdp"
+                app:srcCompat="@drawable/baseline_delete_red_forever_24" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Nom et prenoms"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editNomEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_37sdp"
+            android:background="@drawable/rounded_background"
+            android:ellipsize="end"
+            android:hint="KOFFI AYA"
+            android:imeOptions="actionDone"
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:textSize="@dimen/page_input_content_dim13" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Date de naissance"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editDateNaissanceEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_37sdp"
+            android:background="@drawable/rounded_background"
+            android:ellipsize="end"
+            android:hint="JJ-MM-AAAA"
+            android:imeOptions="actionDone"
+            android:inputType="textCapCharacters"
+            android:focusable="false"
+            android:clickable="false"
+            android:maxLines="1"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:textSize="@dimen/page_input_content_dim13" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Sexe"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/selectSexeEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Lien de parente"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/selectLienParenteEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/blocAutreLienParenteEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Autre lien de parente"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editAutreLienParenteEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:background="@drawable/rounded_background"
+                android:ellipsize="end"
+                android:hint="Preciser"
+                android:imeOptions="actionDone"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/page_input_content_dim13" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Raison pour laquelle l'enfant ne vit pas avec ses parents"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/selectRaisonNeVitPasParentsEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/blocAutreRaisonNeVitPasParentsEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Autre raison"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editAutreRaisonNeVitPasParentsEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:background="@drawable/rounded_background"
+                android:ellipsize="end"
+                android:hint="Preciser"
+                android:imeOptions="actionDone"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/page_input_content_dim13" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Situation scolaire"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/selectSituationScolaireEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/blocNiveauScolaireEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Classe"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background">
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/selectNiveauScolaireEnfant"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blocRaisonNonScolarisationEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Raison(s) de non-scolarisation"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background">
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                    android:id="@+id/selectRaisonNonScolarisationEnfant"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blocAutreRaisonNonScolarisationEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Autre raison de non-scolarisation"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editAutreRaisonNonScolarisationEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:background="@drawable/rounded_background"
+                android:ellipsize="end"
+                android:hint="Preciser"
+                android:imeOptions="actionDone"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/page_input_content_dim13" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Dispose d'un extrait de naissance ?"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/selectExtraitNaissanceEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/blocRaisonPasExtraitEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Raison(s) de l'absence d'extrait"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background">
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                    android:id="@+id/selectRaisonPasExtraitEnfant"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Situation(s) PFTE constatee(s)"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                android:id="@+id/selectSituationsPfteEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/blocRaisonTravailAbusEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Raison(s) du travail ou de l'abus"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_background">
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                    android:id="@+id/selectRaisonTravailAbusEnfant"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blocAutreRaisonTravailAbusEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Autre raison"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editAutreRaisonTravailAbusEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:background="@drawable/rounded_background"
+                android:ellipsize="end"
+                android:hint="Preciser"
+                android:imeOptions="actionDone"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/page_input_content_dim13" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Mesure(s) au niveau de l'enfant"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                android:id="@+id/selectMesuresEnfantEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Mesure(s) au niveau du menage"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                android:id="@+id/selectMesuresMenageEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_12sdp"
+                android:text="Mesure(s) au niveau de la communaute"
+                android:textColor="@color/text_color_white"
+                android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background">
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+            <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                android:id="@+id/selectMesuresCommunauteEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:spinnerMode="dialog" />
+
+        </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/blocAutreMesureEnfant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Autre mesure"
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/editAutreMesureEnfant"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_37sdp"
+                android:background="@drawable/rounded_background"
+                android:ellipsize="end"
+                android:hint="Preciser"
+                android:imeOptions="actionDone"
+                android:inputType="textCapCharacters"
+                android:maxLines="1"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:textSize="@dimen/page_input_content_dim13" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -132,6 +132,15 @@ interface ApiService {
     @POST("apissrteclrms")
     fun synchronisationEnqueteSsrt(@Body enqueteSsrtModel: EnqueteSsrtModel): Call<EnqueteSsrtModel>
 
+    /**
+     * Enquete Menage (PFTE) - lot 3.
+     *
+     * Le controleur mobile ne valide rien et ne renvoie aucune liste : il n'existe aucun endpoint
+     * de lecture pour ce module. La reponse sert uniquement a recuperer l'identifiant serveur.
+     */
+    @POST("apienquetemenage")
+    fun synchronisationEnqueteMenage(@Body enqueteMenage: EnqueteMenageModel): Call<EnqueteMenageModel>
+
     @POST("apilocalite")
     fun synchronisationLocaliteC(@Body localiteModel: LocaliteModel): Call<LocaliteModel>
 
