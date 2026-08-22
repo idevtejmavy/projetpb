@@ -88,6 +88,7 @@ import ci.progbandama.mobile.tools.ListConverters
         ApprovisionnementModel::class,
         PostPlantingModel::class,
         PostPlantingArbrDistribModel::class,
+        SyncErreurModel::class,
     ],
 //    autoMigrations = [
 //        AutoMigration(from = Constants.LAST_BUILD_VERSION, to = Constants.BUILD_VERSION)
@@ -161,6 +162,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
     abstract fun approvisionnementDao(): ApprovisionnementDao
     abstract fun postplantingDao(): PostplantingDao
     abstract fun postPlantingArbrDistribDao(): PostPlantingArbrDistribDao
+    abstract fun syncErreurDao(): SyncErreurDao
 
 
     companion object {
@@ -246,6 +248,31 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         * Creation de la table des refus serveur.
+         *
+         * Migration REELLE, et non un corps vide comme les precedentes : la base est
+         * construite avec fallbackToDestructiveMigration(), donc sans cette migration la
+         * montee de version effacerait les brouillons et les saisies non transmises des
+         * agents. Voir le lot "Fiabilisation de la mise a jour des donnees".
+         */
+        val MIGRATION_77_78 = object : Migration(77, 78) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `sync_erreur` (" +
+                            "`uid` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                            "`module` TEXT NOT NULL, " +
+                            "`code` INTEGER NOT NULL, " +
+                            "`message` TEXT NOT NULL, " +
+                            "`heure` TEXT NOT NULL, " +
+                            "`agentId` TEXT NOT NULL)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_sync_erreur_module` ON `sync_erreur` (`module`)"
+                )
+            }
+        }
+
         val MIGRATION_76_77 = object : Migration(76, 77) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 // Ajout des nouvelles colonnes à la table EstimationModel
@@ -291,6 +318,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
 //                        MIGRATION_74_75,
 //                        MIGRATION_75_76,
                         MIGRATION_76_77,
+                        MIGRATION_77_78,
                         )
                     .build()
                 INSTANCE = instance

@@ -11,6 +11,7 @@ import ci.progbandama.mobile.activities.forms.*
 import ci.progbandama.mobile.databinding.MenagereItemsListBinding
 import ci.progbandama.mobile.repositories.datas.CommonData
 import ci.progbandama.mobile.tools.RepriseEnAttente
+import ci.progbandama.mobile.tools.SyncErreurs
 
 
 /**
@@ -55,6 +56,13 @@ class DataSendingAdapter(val context: Context, var draftedList: MutableList<Comm
             if( draftedData.listOfValue?.get(4).isNullOrEmpty() == false ) holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_donz)
         }
         else holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_error)
+
+        // Motif du dernier refus du serveur pour ce module, s'il y en a un.
+        val motif = SyncErreurs.messagePourModule(draftedData.value)
+        holder.itemView.findViewById<android.widget.TextView>(R.id.labelErreurEnvoi)?.apply {
+            text = motif
+            visibility = if (motif.isNullOrBlank()) android.view.View.GONE else android.view.View.VISIBLE
+        }
 
         // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
         // pour correction. Voir RepriseEnAttente.

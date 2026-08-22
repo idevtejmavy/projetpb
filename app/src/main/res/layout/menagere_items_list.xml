@@ -75,6 +75,22 @@ android:textColor="@color/text_color_white"
 
         </LinearLayout>
 
+    
+        <!-- Motif du dernier refus du serveur pour ce module (masque si le dernier envoi a abouti) -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelErreurEnvoi"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:textColor="@color/red_title"
+            android:textSize="@dimen/_8ssp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            tools:text="Envoi refusé : erreur 500 du serveur. La saisie est conservée. (13:38)" />
+
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageView

@@ -10,6 +10,7 @@ import ci.progbandama.mobile.databinding.ProducteurItemsListBinding
 import ci.progbandama.mobile.interfaces.RecyclerItemListener
 import ci.progbandama.mobile.models.ProducteurModel
 import ci.progbandama.mobile.tools.RepriseEnAttente
+import ci.progbandama.mobile.tools.SyncErreurs
 
 class ProducteurAdapter(private var producteurs: List<ProducteurModel>?) : RecyclerView.Adapter<ProducteurHolder>() {
 
@@ -37,6 +38,13 @@ class ProducteurAdapter(private var producteurs: List<ProducteurModel>?) : Recyc
         if (producteurModel.isSynced) holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_error)
     
+        // Motif du dernier refus du serveur pour ce module, s'il y en a un.
+        val motif = SyncErreurs.messagePourModule("PRODUCTEUR")
+        holder.itemView.findViewById<android.widget.TextView>(R.id.labelErreurEnvoi)?.apply {
+            text = motif
+            visibility = if (motif.isNullOrBlank()) android.view.View.GONE else android.view.View.VISIBLE
+        }
+
         // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
         // pour correction. Voir RepriseEnAttente.
         holder.itemView.setOnClickListener {

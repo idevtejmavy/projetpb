@@ -2,6 +2,7 @@ package ci.progbandama.mobile.repositories.apis
 
 import ci.progbandama.mobile.repositories.apis.services.ApiService
 import ci.progbandama.mobile.tools.Commons
+import ci.progbandama.mobile.tools.SyncErreurs
 import ci.progbandama.mobile.tools.SendErrorOnline
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -36,6 +37,35 @@ object ApiClient {
         return logging
     }
 
+
+    /**
+     * Consigne le motif des refus du serveur, pour que l'agent puisse les voir sous les
+     * elements restes en attente.
+     *
+     * Pose ici plutot que dans les dix-huit fonctions d'envoi de
+     * SynchronisationIntentService : le module est deduit du chemin appele, aucune de ces
+     * fonctions n'a donc eu besoin d'etre touchee.
+     */
+    private fun suiviDesRefus(): Interceptor = Interceptor { chain ->
+        val requete = chain.request()
+        val chemin = requete.url.encodedPath
+        try {
+            val reponse = chain.proceed(requete)
+            if (reponse.isSuccessful) {
+                SyncErreurs.effacer(chemin)
+            } else {
+                // peekBody ne consomme pas le flux : la reponse reste exploitable par Retrofit.
+                val corps = try { reponse.peekBody(4096).string() } catch (e: Exception) { null }
+                SyncErreurs.enregistrer(chemin, reponse.code, corps)
+            }
+            reponse
+        } catch (ex: Exception) {
+            // Panne reseau, delai depasse, hote injoignable : code 0.
+            SyncErreurs.enregistrer(chemin, 0, null)
+            throw ex
+        }
+    }
+
     private fun getUnsafeOkHttpClient(): OkHttpClient.Builder =
         try {
             // Create a trust manager that does not validate certificate chains
@@ -63,6 +93,7 @@ object ApiClient {
                 .writeTimeout(30, TimeUnit.MINUTES)
                 //.addInterceptor(interceptor = CustomInterceptor())
                 .addInterceptor(interceptor = getLoggin())
+                .addInterceptor(suiviDesRefus())
             builder
         } catch (e: Exception) {
             throw RuntimeException(e)
@@ -77,6 +108,7 @@ object ApiClient {
             .writeTimeout(30, TimeUnit.MINUTES)
             //.addInterceptor(interceptor = CustomInterceptor())
             .addInterceptor(interceptor = getLoggin())
+                .addInterceptor(suiviDesRefus())
             .build()
     }
 
