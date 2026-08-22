@@ -20,6 +20,7 @@ import ci.progbandama.mobile.tools.Commons.Companion.toModifString
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.DonneesEnAttente
 import ci.progbandama.mobile.tools.SyncLock
+import ci.progbandama.mobile.tools.MajLocale
 import ci.progbandama.mobile.tools.ReferentielsPfte
 import ci.progbandama.mobile.tools.Roles
 import com.blankj.utilcode.util.*
@@ -407,20 +408,24 @@ class ConfigurationActivity : AppCompatActivity() {
                     val localitesList: MutableList<LocaliteModel>? = responseLocalites.body()
                     // Correctif D3 : purge seulement apres reception confirmee
                     // Correctif D2 : purge selective, les saisies locales survivent
-                    if (localitesList != null) localiteDao?.deleteSynced()
-
-                    localitesList?.map {
-                        val localite = LocaliteModel(
-                            id = it.id,
-                            nom = it.nom,
-                            sectionId = it.sectionId,
-                            uid = 0,
-                            isSynced = true,
-                            agentId = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString(),
-                            origin = "remote"
+                    // Correctif E5 : purge et reinsertion dans une seule transaction
+                    MajLocale.remplacer(
+                        base = database,
+                        libelle = "localites",
+                        elements = localitesList,
+                        purge = { localiteDao?.deleteSynced() }
+                    ) {
+                        localiteDao?.insert(
+                            LocaliteModel(
+                                id = it.id,
+                                nom = it.nom,
+                                sectionId = it.sectionId,
+                                uid = 0,
+                                isSynced = true,
+                                agentId = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString(),
+                                origin = "remote"
+                            )
                         )
-
-                        localiteDao?.insert(localite)
                     }
                 } catch (ex: Exception) {
                     oneIssue = true
@@ -452,9 +457,13 @@ class ConfigurationActivity : AppCompatActivity() {
                     val produteursList: MutableList<ProducteurModel>? = responseProducteurs.body()
                     // Correctif D3 : purge seulement apres reception confirmee
                     // Correctif D2 : purge selective, les saisies locales survivent
-                    if (produteursList != null) producteurDao?.deleteSynced()
-
-                    produteursList?.map {
+                    // Correctif E5 : purge et reinsertion dans une seule transaction
+                    MajLocale.remplacer(
+                        base = database,
+                        libelle = "producteurs",
+                        elements = produteursList,
+                        purge = { producteurDao?.deleteSynced() }
+                    ) {
 
                         val producteur = ProducteurModel(
                             id = it.id,
@@ -1251,13 +1260,17 @@ class ConfigurationActivity : AppCompatActivity() {
                     val dataList: MutableList<FormationModelExt>? = responseData.body()
                     // Correctif D3 : purge seulement apres reception confirmee
                     // Correctif D2 : purge selective, les saisies locales survivent
-                    if (dataList != null) formationDao?.deleteSynced()
-
+                    // Correctif E5 : purge et reinsertion dans une seule transaction
 //                    clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
 //                    responseData = clientData.execute()
 //                    dataList?.addAll(responseData.body()?: arrayListOf())
 //                    LogUtils.d(dataList)
-                    dataList?.map {
+                    MajLocale.remplacer(
+                        base = database,
+                        libelle = "formations",
+                        elements = dataList,
+                        purge = { formationDao?.deleteSynced() }
+                    ) {
                         val formModel = FormationModel(
                             id = it.id,
                             isSynced = true,
@@ -3105,8 +3118,13 @@ class ConfigurationActivity : AppCompatActivity() {
                             else ReferentielsPfte.versModele(table, id, nom, agent)
                         }
 
-                        dao?.effacerTable(table)
-                        if (modeles.isNotEmpty()) dao?.insertAll(modeles)
+                        // Correctif E5 : effacement et reinsertion dans une seule transaction.
+                        // Sans elle, une coupure entre les deux laisserait la liste vide et
+                        // l'agent ne pourrait plus renseigner le champ correspondant hors ligne.
+                        MajLocale.enBloc(database, "referentiel $table") {
+                            dao?.effacerTable(table)
+                            if (modeles.isNotEmpty()) dao?.insertAll(modeles)
+                        }
 
                         val attendu = ReferentielsPfte.EFFECTIFS_ATTENDUS[table]
                         if (attendu != null && modeles.size != attendu) {
