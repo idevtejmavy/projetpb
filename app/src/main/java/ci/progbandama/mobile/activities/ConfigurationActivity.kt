@@ -329,7 +329,8 @@ class ConfigurationActivity : AppCompatActivity() {
                     val responseLocalites: Response<MutableList<LocaliteModel>> = clientLocalite.execute()
                     val localitesList: MutableList<LocaliteModel>? = responseLocalites.body()
                     // Correctif D3 : purge seulement apres reception confirmee
-                    if (localitesList != null) localiteDao?.deleteAll()
+                    // Correctif D2 : purge selective, les saisies locales survivent
+                    if (localitesList != null) localiteDao?.deleteSynced()
 
                     localitesList?.map {
                         val localite = LocaliteModel(
@@ -373,7 +374,8 @@ class ConfigurationActivity : AppCompatActivity() {
                     val responseProducteurs: Response<MutableList<ProducteurModel>> = clientProducteurs.execute()
                     val produteursList: MutableList<ProducteurModel>? = responseProducteurs.body()
                     // Correctif D3 : purge seulement apres reception confirmee
-                    if (produteursList != null) producteurDao?.deleteAll()
+                    // Correctif D2 : purge selective, les saisies locales survivent
+                    if (produteursList != null) producteurDao?.deleteSynced()
 
                     produteursList?.map {
 
@@ -1171,7 +1173,8 @@ class ConfigurationActivity : AppCompatActivity() {
                     var responseData: Response<MutableList<FormationModelExt>> = clientData.execute()
                     val dataList: MutableList<FormationModelExt>? = responseData.body()
                     // Correctif D3 : purge seulement apres reception confirmee
-                    if (dataList != null) formationDao?.deleteAll()
+                    // Correctif D2 : purge selective, les saisies locales survivent
+                    if (dataList != null) formationDao?.deleteSynced()
 
 //                    clientData = ApiClient.apiService.getStaff(table = CommonData(cooperativeId = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID), role = "delegue"))
 //                    responseData = clientData.execute()
@@ -3010,6 +3013,11 @@ class ConfigurationActivity : AppCompatActivity() {
                             producteur.localitesId = dataSync.id.toString()
                             producteurDao?.insert(producteur)
                         }
+
+                        // Correctif D2 : marquer la localite comme transmise, faute de quoi
+                        // deleteSynced() ne la supprimerait jamais et elle serait renvoyee
+                        // au serveur a chaque synchronisation (doublons).
+                        dataSync.id?.let { localiteDao?.syncData(it, true, data.uid) }
                     } catch (ex: Exception) {
                         ex.printStackTrace()
                         flagLocaliteSynchroErreur = true
@@ -3031,7 +3039,8 @@ class ConfigurationActivity : AppCompatActivity() {
             if (flagLocaliteSynchroErreur) {
                 configCompletedOrError(hasError = true, info = "impossible de synchroniser les localités")
             } else {
-                localiteDao?.deleteAll()
+                // Correctif D2 : purge selective apres transmission
+                localiteDao?.deleteSynced()
                 synchronizeProducteurs()
             }
         }
@@ -3120,7 +3129,8 @@ class ConfigurationActivity : AppCompatActivity() {
             if (flagProducteurSynchroErreur) {
                 configCompletedOrError(hasError = true, info = "Impossible de synchroniser les producteurs")
             } else {
-                producteurDao?.deleteAll()
+                // Correctif D2 : purge selective apres transmission
+                producteurDao?.deleteSynced()
                 sychronisationParcelles()
             }
         }
@@ -3183,7 +3193,8 @@ class ConfigurationActivity : AppCompatActivity() {
             if (flagParcelleSynchroErreur) {
                 configCompletedOrError(hasError = true, info = "Impossible de synchroniser les parcelles des producteurs")
             } else {
-                parcelleDao?.deleteAll()
+                // Correctif D2 : purge selective apres transmission
+                parcelleDao?.deleteSynced()
                 synchronisationSuiviParcelles()
             }
         }
@@ -3251,7 +3262,8 @@ class ConfigurationActivity : AppCompatActivity() {
             if (flagSuiviParcelleSynchroError) {
                 configCompletedOrError(hasError = true, info = "Impossible de synchroniser les suivis des parcelles")
             } else {
-                suiviParcelleDao?.deleteAll()
+                // Correctif D2 : purge selective apres transmission
+                suiviParcelleDao?.deleteSynced()
                 synchronisationMenages()
             }
         }
@@ -3305,7 +3317,8 @@ class ConfigurationActivity : AppCompatActivity() {
             if (flagMenageSynchroError) {
                 configCompletedOrError(hasError = true, info = "Impossible de synchroniser les menages des producteurs")
             } else {
-                menageDao?.deleteAll()
+                // Correctif D2 : purge selective apres transmission
+                menageDao?.deleteSynced()
                 //synchronisationMenages()
                 synchtonisationFormations()
             }
@@ -3458,7 +3471,8 @@ class ConfigurationActivity : AppCompatActivity() {
             if (flagLivraisonSynchroError) {
                 configCompletedOrError(hasError = true, info = "Impossible de synchroniser les livraisons")
             } else {
-                livraisonDao?.deleteAll()
+                // Correctif D2 : purge selective apres transmission
+                livraisonDao?.deleteSynced()
                 getUserRoles()
             }
 

@@ -47,4 +47,12 @@ interface LocaliteDao {
     @Query("DELETE FROM localite")
     fun deleteAll()
 
+    /**
+     * Purge selective : ne supprime que les lignes deja transmises au serveur.
+     * Une saisie locale en attente d'envoi survit ainsi a une mise a jour des donnees.
+     */
+    @Transaction
+    @Query("DELETE FROM localite WHERE isSynced = 1")
+    fun deleteSynced()
+
 }

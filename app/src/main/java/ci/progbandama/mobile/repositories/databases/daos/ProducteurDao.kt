@@ -64,6 +64,14 @@ interface ProducteurDao {
     @Transaction
     @Query("DELETE FROM producteur")
     fun deleteAll()
+
+    /**
+     * Purge selective : ne supprime que les lignes deja transmises au serveur.
+     * Une saisie locale en attente d'envoi survit ainsi a une mise a jour des donnees.
+     */
+    @Transaction
+    @Query("DELETE FROM producteur WHERE isSynced = 1")
+    fun deleteSynced()
     @Transaction
     @Query("SELECT * FROM producteur WHERE isSynced = 0 AND agentId = :agentID")
     fun getUnSyncedAllLive(agentID: String?): LiveData<MutableList<ProducteurModel>>

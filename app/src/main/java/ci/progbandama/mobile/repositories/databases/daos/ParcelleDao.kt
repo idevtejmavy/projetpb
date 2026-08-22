@@ -51,6 +51,14 @@ interface ParcelleDao {
     @Query("DELETE FROM parcelle")
     fun deleteAll()
 
+    /**
+     * Purge selective : ne supprime que les lignes deja transmises au serveur.
+     * Une saisie locale en attente d'envoi survit ainsi a une mise a jour des donnees.
+     */
+    @Transaction
+    @Query("DELETE FROM parcelle WHERE isSynced = 1")
+    fun deleteSynced()
+
     @Transaction
     @Query("DELETE FROM parcelle WHERE uid = :uid")
     fun deleteUid(uid: Long)

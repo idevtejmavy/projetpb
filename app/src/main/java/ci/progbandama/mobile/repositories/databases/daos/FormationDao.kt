@@ -36,6 +36,14 @@ interface FormationDao {
     @Query("DELETE FROM formation")
     fun deleteAll()
 
+    /**
+     * Purge selective : ne supprime que les lignes deja transmises au serveur.
+     * Une saisie locale en attente d'envoi survit ainsi a une mise a jour des donnees.
+     */
+    @Transaction
+    @Query("DELETE FROM formation WHERE isSynced = 1")
+    fun deleteSynced()
+
     @Transaction
     @Query("DELETE FROM formation WHERE uid = :uId")
     fun deleteByUid(uId: Int)

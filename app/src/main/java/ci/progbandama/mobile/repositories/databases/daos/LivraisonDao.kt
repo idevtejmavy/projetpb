@@ -36,6 +36,14 @@ interface LivraisonDao {
     @Query("DELETE FROM livraison")
     fun deleteAll()
 
+    /**
+     * Purge selective : ne supprime que les lignes deja transmises au serveur.
+     * Une saisie locale en attente d'envoi survit ainsi a une mise a jour des donnees.
+     */
+    @Transaction
+    @Query("DELETE FROM livraison WHERE isSynced = 1")
+    fun deleteSynced()
+
     @Transaction
     @Query("SELECT * FROM livraison WHERE (isSynced = 0 AND producteursId = :producteurUid)")
     fun getUnSyncedByProdUid(producteurUid: String?): MutableList<LivraisonModel>
