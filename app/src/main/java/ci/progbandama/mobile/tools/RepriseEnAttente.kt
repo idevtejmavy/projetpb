@@ -1,10 +1,15 @@
 package ci.progbandama.mobile.tools
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import ci.progbandama.mobile.activities.lists.DatasDraftedListActivity
 import ci.progbandama.mobile.models.DataDraftedModel
 import ci.progbandama.mobile.repositories.apis.ApiClient
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.SPUtils
 
 /**
  * Reprise d'une donnee en attente d'envoi.
@@ -26,9 +31,12 @@ object RepriseEnAttente {
 
     /** Modules dont les donnees en attente peuvent etre reprises. */
     val MODULES_SUPPORTES = setOf(
+        // ecran generique "donnees en attente"
         "INFOS_PRODUCTEUR", "PARCELLES", "ESTIMATION", "INSPECTION", "APPLICATION",
         "FORMATION_VISITEUR", "LIVRAISON", "LIVRAISON_MAGCENTRAL", "SSRTECLMRS",
-        "AGRO_EVALUATION", "AGRO_DISTRIBUTION", "POSTPLANTING"
+        "AGRO_EVALUATION", "AGRO_DISTRIBUTION", "POSTPLANTING",
+        // ecrans de liste dedies (Producteurs, Parcelles, Menages, Formations, Localites)
+        "PRODUCTEUR", "PARCELLE", "MENAGE", "FORMATION", "LOCALITE"
     )
 
     fun estSupporte(module: String?) = module?.uppercase() in MODULES_SUPPORTES
@@ -45,6 +53,52 @@ object RepriseEnAttente {
         "LIVRAISON_MAGCENTRAL" -> "suivi_livraison_central"
         "SSRTECLMRS" -> "ssrte"
         else -> module.lowercase()
+    }
+
+
+    /**
+     * Point d'entree unique des ecrans de liste : demande confirmation, effectue la reprise,
+     * puis amene l'agent sur les brouillons du module.
+     *
+     * Regroupe ici plutot que duplique dans les huit adaptateurs concernes.
+     */
+    fun proposerReprise(context: Context, module: String?, uid: Int?) {
+        if (!estSupporte(module)) {
+            Toast.makeText(context, "Cette donnée ne peut pas être reprise", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (uid == null || uid == 0) {
+            Toast.makeText(context, "Donnée introuvable", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        Commons.showMessage(
+            message = "Reprendre cette saisie pour la corriger ? Elle quitte la file d'envoi " +
+                    "et repart dans vos brouillons ; elle ne sera transmise qu'après un " +
+                    "nouvel enregistrement.",
+            context = context,
+            finished = false,
+            showNo = true,
+            positive = "Reprendre",
+            callback = {
+                val ok = reprendre(
+                    context,
+                    module!!.uppercase(),
+                    uid,
+                    SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)
+                )
+                if (ok) {
+                    Toast.makeText(context, "Saisie déplacée vers les brouillons", Toast.LENGTH_LONG).show()
+                    val versBrouillons = Intent(context, DatasDraftedListActivity::class.java)
+                    versBrouillons.putExtra("fromMenu", module.lowercase())
+                    context.startActivity(versBrouillons)
+                    (context as? Activity)?.finish()
+                } else {
+                    Toast.makeText(context, "Reprise impossible pour cette donnée", Toast.LENGTH_SHORT).show()
+                }
+                null
+            }
+        )
     }
 
     /**
@@ -74,6 +128,13 @@ object RepriseEnAttente {
                 "AGRO_EVALUATION" -> base.evaluationArbreDao().getUnSyncedAll(agentId).find { it.uid == uid }
                 "AGRO_DISTRIBUTION" -> base.distributionArbreDao().getUnSyncedAll(idTexte).find { it.uid == uid }
                 "POSTPLANTING" -> base.postplantingDao().getUnSyncedAll(idTexte).find { it.uid == uid }
+                "PRODUCTEUR" -> base.producteurDoa().getUnSyncedAll(idTexte).find { it.uid == uid }
+                // uid declare en Long sur ce modele, contrairement aux autres.
+                "PARCELLE" -> base.parcelleDao().getUnSyncedAll(idTexte).find { it.uid.toInt() == uid }
+                // uid declare en Long sur ce modele, contrairement aux autres.
+                "MENAGE" -> base.producteurMenageDoa().getUnSyncedAll(idTexte).find { it.uid.toInt() == uid }
+                "FORMATION" -> base.formationDao().getUnSyncedAll(idTexte).find { it.uid == uid }
+                "LOCALITE" -> base.localiteDoa().getUnSyncedAll(idTexte).find { it.uid == uid }
                 else -> null
             }
 
@@ -108,6 +169,11 @@ object RepriseEnAttente {
                 "AGRO_EVALUATION" -> base.evaluationArbreDao().deleteByUid(uid)
                 "AGRO_DISTRIBUTION" -> base.distributionArbreDao().deleteByUid(uid)
                 "POSTPLANTING" -> base.postplantingDao().deleteByUid(uid)
+                "PRODUCTEUR" -> base.producteurDoa().deleteByUid(uid)
+                "PARCELLE" -> base.parcelleDao().deleteByUid(uid)
+                "MENAGE" -> base.producteurMenageDoa().deleteByUid(uid)
+                "FORMATION" -> base.formationDao().deleteByUid(uid)
+                "LOCALITE" -> base.localiteDoa().deleteByUid(uid)
             }
 
             true

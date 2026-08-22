@@ -8,6 +8,7 @@ import ci.progbandama.mobile.R
 import ci.progbandama.mobile.adapters.SuiviParcelleAdapter.SuiviParcelleHolder
 import ci.progbandama.mobile.databinding.SuiviParcelleItemsListBinding
 import ci.progbandama.mobile.models.SuiviParcelleModel
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 
 class SuiviParcelleAdapter(private var suivis: List<SuiviParcelleModel>?) : RecyclerView.Adapter<SuiviParcelleHolder>() {
@@ -31,6 +32,12 @@ class SuiviParcelleAdapter(private var suivis: List<SuiviParcelleModel>?) : Recy
 
         if (suiviModel.isSynced) holder.imgSyncedParcelle.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedParcelle.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "PARCELLES", suiviModel.uid)
+        }
     }
 
 

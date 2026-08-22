@@ -8,16 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ci.progbandama.mobile.R
 import ci.progbandama.mobile.activities.forms.*
-import ci.progbandama.mobile.activities.lists.DatasDraftedListActivity
 import ci.progbandama.mobile.databinding.MenagereItemsListBinding
 import ci.progbandama.mobile.repositories.datas.CommonData
-import ci.progbandama.mobile.tools.Commons
-import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.RepriseEnAttente
-import android.app.Activity
-import android.content.Intent
-import android.widget.Toast
-import com.blankj.utilcode.util.SPUtils
 
 
 /**
@@ -63,48 +56,11 @@ class DataSendingAdapter(val context: Context, var draftedList: MutableList<Comm
         }
         else holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_error)
 
-        // Correction d'une donnee en attente d'envoi : elle est ramenee vers les brouillons,
-        // ou le circuit de modification existe deja pour tous les modules.
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
         holder.itemView.setOnClickListener {
-            val module = draftedData.value?.uppercase()
-            if (!RepriseEnAttente.estSupporte(module)) {
-                Toast.makeText(context, "Cette donnée ne peut pas être reprise", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            Commons.showMessage(
-                message = "Reprendre cette saisie pour la corriger ?" +
-                        "\n\n" +
-                        "Elle quitte la file d'envoi et repart dans vos brouillons. " +
-                        "Elle ne sera transmise qu'après un nouvel enregistrement.",
-                context = context,
-                finished = false,
-                showNo = true,
-                positive = "Reprendre",
-                callback = {
-                    val ok = RepriseEnAttente.reprendre(
-                        context,
-                        module!!,
-                        draftedData.id ?: 0,
-                        SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)
-                    )
-                    if (ok) {
-                        Toast.makeText(context, "Saisie déplacée vers les brouillons", Toast.LENGTH_LONG).show()
-                        val versBrouillons = Intent(context, DatasDraftedListActivity::class.java)
-                        versBrouillons.putExtra("fromMenu", module.lowercase())
-                        context.startActivity(versBrouillons)
-                        (context as? Activity)?.finish()
-                    } else {
-                        Toast.makeText(context, "Reprise impossible pour cette donnée", Toast.LENGTH_SHORT).show()
-                    }
-                    null
-                }
-            )
+            RepriseEnAttente.proposerReprise(holder.itemView.context, draftedData.value, draftedData.id)
         }
-//draftedData.value?.uppercase()
-
-//        modifyIcColor(context, holder.imageTypeDraft, R.color.black)
-
     }
 
     override fun getItemCount() = draftedList?.size ?: 0

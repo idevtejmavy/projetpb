@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ci.progbandama.mobile.R
 import ci.progbandama.mobile.databinding.MenagereItemsListBinding
 import ci.progbandama.mobile.models.ProducteurMenageModel
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 
 class MenageAdapter(private var menages: List<ProducteurMenageModel>?) : RecyclerView.Adapter<MenageAdapter.MenageHolder>() {
@@ -28,6 +29,12 @@ class MenageAdapter(private var menages: List<ProducteurMenageModel>?) : Recycle
 
         if (menageModel.isSynced) holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "MENAGE", menageModel.uid.toInt())
+        }
     }
 
 

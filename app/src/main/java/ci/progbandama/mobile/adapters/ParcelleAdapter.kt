@@ -10,6 +10,7 @@ import ci.progbandama.mobile.adapters.ParcelleAdapter.ParcelleHolder
 import ci.progbandama.mobile.databinding.ParcelleItemsListBinding
 import ci.progbandama.mobile.models.ParcelleModel
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 
 class ParcelleAdapter(
@@ -35,6 +36,12 @@ class ParcelleAdapter(
 
         if (parcelleModel.isSynced) holder.imgSyncedParcelle.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedParcelle.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "PARCELLE", parcelleModel.uid.toInt())
+        }
     }
 
 

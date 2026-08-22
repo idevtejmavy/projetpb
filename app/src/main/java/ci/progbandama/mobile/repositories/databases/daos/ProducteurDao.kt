@@ -65,6 +65,11 @@ interface ProducteurDao {
     @Query("DELETE FROM producteur")
     fun deleteAll()
 
+    /** Suppression ciblee, utilisee pour ramener une donnee en attente vers les brouillons. */
+    @Transaction
+    @Query("DELETE FROM producteur WHERE uid = :uid")
+    fun deleteByUid(uid: Int)
+
     /**
      * Purge selective : ne supprime que les lignes deja transmises au serveur.
      * Une saisie locale en attente d'envoi survit ainsi a une mise a jour des donnees.

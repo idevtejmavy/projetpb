@@ -9,6 +9,7 @@ import ci.progbandama.mobile.activities.lists.LivraisonsListActivity
 import ci.progbandama.mobile.adapters.LivraisonAdapter.LivraisonHolder
 import ci.progbandama.mobile.databinding.LivraisonItemsListBinding
 import ci.progbandama.mobile.models.LivraisonModel
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 
 class LivraisonAdapter(private var livraisons: List<LivraisonModel>?) : RecyclerView.Adapter<LivraisonHolder>() {
@@ -31,6 +32,12 @@ class LivraisonAdapter(private var livraisons: List<LivraisonModel>?) : Recycler
 
         if (livraisonModel.isSynced) holder.imgSyncedLivraison.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedLivraison.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "LIVRAISON", livraisonModel.uid)
+        }
     }
 
 

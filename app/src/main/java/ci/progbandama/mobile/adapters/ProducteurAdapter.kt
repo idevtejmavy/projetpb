@@ -9,6 +9,7 @@ import ci.progbandama.mobile.adapters.ProducteurAdapter.ProducteurHolder
 import ci.progbandama.mobile.databinding.ProducteurItemsListBinding
 import ci.progbandama.mobile.interfaces.RecyclerItemListener
 import ci.progbandama.mobile.models.ProducteurModel
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 class ProducteurAdapter(private var producteurs: List<ProducteurModel>?) : RecyclerView.Adapter<ProducteurHolder>() {
 
@@ -35,6 +36,12 @@ class ProducteurAdapter(private var producteurs: List<ProducteurModel>?) : Recyc
 
         if (producteurModel.isSynced) holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "PRODUCTEUR", producteurModel.uid)
+        }
     }
 
 

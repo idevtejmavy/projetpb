@@ -16,6 +16,7 @@ import ci.progbandama.mobile.tools.Constants
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.SPUtils
 import com.google.gson.reflect.TypeToken
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 
 class FormationAdapter(private var acti: Activity ,private var formations: List<FormationModel>?) : RecyclerView.Adapter<FormationHolder>() {
@@ -54,6 +55,12 @@ class FormationAdapter(private var acti: Activity ,private var formations: List<
 
         if (formationModel.isSynced) holder.imgSyncedFormation.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedFormation.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "FORMATION", formationModel.uid)
+        }
     }
 
 

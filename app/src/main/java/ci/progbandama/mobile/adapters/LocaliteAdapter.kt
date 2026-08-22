@@ -9,6 +9,7 @@ import ci.progbandama.mobile.adapters.LocaliteAdapter.LocaliteHolder
 import ci.progbandama.mobile.databinding.LocaliteItemsListBinding
 import ci.progbandama.mobile.interfaces.RecyclerItemListener
 import ci.progbandama.mobile.models.LocaliteModel
+import ci.progbandama.mobile.tools.RepriseEnAttente
 
 class LocaliteAdapter(private var localites: List<LocaliteModel>?) : RecyclerView.Adapter<LocaliteHolder>() {
 
@@ -32,6 +33,12 @@ class LocaliteAdapter(private var localites: List<LocaliteModel>?) : RecyclerVie
 
         if (localiteModel.isSynced) holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_donz)
         else holder.imgSyncedStatus.setImageResource(R.drawable.ic_sync_error)
+    
+        // Reprise d'une saisie en attente d'envoi : la donnee repart en brouillon
+        // pour correction. Voir RepriseEnAttente.
+        holder.itemView.setOnClickListener {
+            RepriseEnAttente.proposerReprise(holder.itemView.context, "LOCALITE", localiteModel.uid)
+        }
     }
 
 
