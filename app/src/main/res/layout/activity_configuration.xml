@@ -17,49 +17,63 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_centerInParent="true" />
 
+    <!--
+         Bloc bas : pleine largeur avec marges internes, pour que les messages se
+         replient au lieu de deborder. Avant, le conteneur etait en wrap_content
+         centre horizontalement : le texte ne pouvait pas se replier sur la largeur
+         de l'ecran, et l'indicateur etait fige a deux lignes exactement, ce qui
+         tronquait les messages longs.
+    -->
     <LinearLayout
+        android:id="@+id/blocBasConfiguration"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:gravity="center_horizontal"
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingTop="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_20sdp">
 
         <androidx.appcompat.widget.AppCompatTextView
-android:textColor="@color/text_color_white"
-            android:layout_margin="@dimen/_16sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/labelIndicatorConfiguration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color_white"
             android:textSize="@dimen/_11ssp"
-            android:lines="2"
             android:gravity="center"
-            android:maxLines="2"
-            android:text="Configuration en cours…"/>
+            android:minLines="2"
+            android:maxLines="4"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/_1sdp"
+            android:text="Configuration en cours…" />
 
         <!-- E6 : detail des donnees restant en attente d'envoi, par module -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/labelDetailEnAttente"
             android:visibility="gone"
             tools:visibility="visible"
-            android:textColor="@color/text_color_white"
-            android:layout_marginLeft="@dimen/_16sdp"
-            android:layout_marginRight="@dimen/_16sdp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:textColor="@color/text_color_white"
             android:textSize="@dimen/_9ssp"
             android:gravity="center"
-            android:maxLines="8"
+            android:maxLines="6"
+            android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/_1sdp"
             tools:text="Producteurs : 3&#10;Parcelles : 1" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/actionUpdate"
             android:visibility="gone"
             tools:visibility="visible"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:id="@+id/actionUpdate"
             style="@style/ButtonStyle.Submit"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_12sdp"
             android:text="Mise à jour"
             android:textAllCaps="true"
             android:textColor="@color/text_color_white"

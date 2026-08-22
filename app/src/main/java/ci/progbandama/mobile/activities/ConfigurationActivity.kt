@@ -162,7 +162,7 @@ class ConfigurationActivity : AppCompatActivity() {
             if (compte.isEmpty()) {
                 binding.labelDetailEnAttente.visibility = View.GONE
             } else {
-                binding.labelDetailEnAttente.text = DonneesEnAttente.resume(compte)
+                binding.labelDetailEnAttente.text = DonneesEnAttente.resume(compte, limite = 6)
                 binding.labelDetailEnAttente.visibility = View.VISIBLE
             }
         }
@@ -3689,8 +3689,7 @@ class ConfigurationActivity : AppCompatActivity() {
                 val reste = compterDonneesEnAttente()
                 afficherDetailEnAttente(reste)
                 configCompletedOrError(
-                    "${reste.values.sum()} donnee(s) n'ont pas pu etre envoyees. " +
-                            "Elles sont conservees ; la mise a jour continue.",
+                    "${reste.values.sum()} donnee(s) non envoyee(s), conservee(s) localement",
                     hasError = true,
                     hisSynchro = true
                 )

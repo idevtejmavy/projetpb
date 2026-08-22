@@ -58,9 +58,22 @@ object DonneesEnAttente {
     /** Nombre total de lignes en attente, tous types confondus. */
     fun total(context: Context, agentId: Int): Int = compter(context, agentId).values.sum()
 
-    /** Restitution lisible, une ligne par type : "Producteurs : 3". */
-    fun resume(compte: Map<String, Int>): String =
-        compte.entries.joinToString(separator = "\n") { "${it.key} : ${it.value}" }
+    /**
+     * Restitution lisible, une ligne par type : "Producteurs : 3".
+     *
+     * @param limite nombre maximal de lignes detaillees. Au-dela, les types restants sont
+     *        regroupes sur une derniere ligne, pour ne jamais depasser la hauteur allouee
+     *        a l'affichage (17 types sont interroges).
+     */
+    fun resume(compte: Map<String, Int>, limite: Int = 0): String {
+        val lignes = compte.entries.map { "${it.key} : ${it.value}" }
+        if (limite <= 0 || lignes.size <= limite) return lignes.joinToString(separator = "\n")
+
+        val visibles = lignes.take(limite - 1)
+        val reste = compte.entries.drop(limite - 1)
+        val total = reste.sumOf { it.value }
+        return (visibles + "et ${reste.size} autre(s) type(s) : $total").joinToString(separator = "\n")
+    }
 
     /** Restitution compacte sur une ligne : "Producteurs (3), Parcelles (1)". */
     fun resumeCompact(compte: Map<String, Int>): String =
