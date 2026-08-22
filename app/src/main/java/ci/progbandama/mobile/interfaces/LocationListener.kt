@@ -28,6 +28,10 @@ class LocationListener(provider: String?) : LocationListener {
         mLastLocation.set(location)
         SPUtils.getInstance().put(Constants.PREFS_COMMON_LNG, mLastLocation.longitude.toString())
         SPUtils.getInstance().put(Constants.PREFS_COMMON_LAT, mLastLocation.latitude.toString())
+        // Les formulaires PFTE relevent aussi l'altitude et la precision de la mesure : sans
+        // elles, impossible de dire si une position vaut quelque chose.
+        SPUtils.getInstance().put(Constants.PREFS_COMMON_ALT, mLastLocation.altitude.toString())
+        SPUtils.getInstance().put(Constants.PREFS_COMMON_PRECISION, mLastLocation.accuracy.toString())
     }
 
 

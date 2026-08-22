@@ -66,6 +66,7 @@ import ci.progbandama.mobile.activities.forms.ParcelleActivity
 import ci.progbandama.mobile.activities.forms.PostPlantingEvalActivity
 import ci.progbandama.mobile.activities.forms.ProducteurActivity
 import ci.progbandama.mobile.activities.forms.ProducteurMenageActivity
+import ci.progbandama.mobile.activities.forms.EnqueteMenageActivity
 import ci.progbandama.mobile.activities.forms.SsrtClmsActivity
 import ci.progbandama.mobile.activities.forms.SuiviApplicationActivity
 import ci.progbandama.mobile.activities.forms.SuiviParcelleActivity
@@ -1098,6 +1099,8 @@ class Commons {
                         "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                         "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)
                         "SSRTECLMRS" -> ActivityUtils.startActivity(SsrtClmsActivity::class.java)
+                        // Enquete Menage (PFTE) - lot 3.
+                        "ENQUETE_MENAGE" -> ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                         "FORMATION" -> ActivityUtils.startActivity(FormationActivity::class.java)
                         "ESTIMATION" -> ActivityUtils.startActivity(CalculEstimationActivity::class.java)
                         "APPLICATION" -> ActivityUtils.startActivity(SuiviApplicationActivity::class.java)

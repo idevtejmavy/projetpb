@@ -972,4 +972,52 @@
     <string name="vous_ne_pouvez_pas_d_sactiver_svp_faites_la_mise_jour">Vous ne pouvez pas désactiver ! Svp faites la mise à jour !</string>
     <string name="doit_tre_20_et_20"><![CDATA[Doit être, >= -20% et <= 20%]]></string>
 
+
+    <!-- Module Enquete Menage (PFTE) - lot 3 -->
+    <string name="section">Section</string>
+    <string name="localite">Localité</string>
+    <string name="position_gps">Position GPS</string>
+    <string name="position_gps_indisponible">Aucune position GPS disponible pour le moment. Placez-vous à l’extérieur, laissez le téléphone capter quelques instants, puis réessayez.</string>
+    <string name="le_producteur_est_il_le_repondant">Le producteur est-il le répondant ?</string>
+    <string name="nom_du_repondant">Nom du répondant</string>
+    <string name="titre_du_repondant">Titre du répondant</string>
+    <string name="le_producteur_est_il_disponible">Le producteur est-il disponible ?</string>
+    <string name="raison_de_l_indisponibilite">Raison de l’indisponibilité</string>
+    <string name="date_de_replanification">Date de replanification</string>
+    <string name="raison_s_du_refus">Raison(s) du refus</string>
+    <string name="consentement_du_producteur">Consentement du producteur</string>
+    <string name="situation_matrimoniale">Situation matrimoniale</string>
+    <string name="nombre_d_adultes">Nombre d’adultes</string>
+    <string name="nombre_d_enfants_0_4">Nombre d’enfants de 0 à 4 ans</string>
+    <string name="nombre_d_enfants_5_17">Nombre d’enfants de 5 à 17 ans</string>
+    <string name="y_a_t_il_des_enfants_a_charge">Y a-t-il des enfants à charge ?</string>
+    <string name="nombre_d_enfants_a_charge">Nombre d’enfants à charge</string>
+    <string name="enfant_n">Enfant n°</string>
+    <string name="nom">Nom et prénoms</string>
+    <string name="date_de_naissance">Date de naissance</string>
+    <string name="sexe">Sexe</string>
+    <string name="lien_de_parente">Lien de parenté</string>
+    <string name="raison_ne_vit_pas_avec_ses_parents">Raison pour laquelle l’enfant ne vit pas avec ses parents</string>
+    <string name="situation_scolaire">Situation scolaire</string>
+    <string name="classe">Classe</string>
+    <string name="raisons_de_non_scolarisation">Raison(s) de non-scolarisation</string>
+    <string name="dispose_d_un_extrait_de_naissance">Dispose d’un extrait de naissance ?</string>
+    <string name="raisons_absence_extrait">Raison(s) de l’absence d’extrait</string>
+    <string name="situations_pfte_constatees">Situation(s) PFTE constatée(s)</string>
+    <string name="raisons_du_travail_ou_de_l_abus">Raison(s) du travail ou de l’abus</string>
+    <string name="mesures_au_niveau_de_l_enfant">Mesure(s) au niveau de l’enfant</string>
+    <string name="mesures_au_niveau_du_menage">Mesure(s) au niveau du ménage</string>
+    <string name="mesures_au_niveau_de_la_communaute">Mesure(s) au niveau de la communauté</string>
+    <string name="au_moins_une_fiche_enfant">Au moins une fiche enfant doit être renseignée</string>
+    <string name="plafond_fiches_enfant_atteint">Vous avez déjà renseigné autant de fiches que le ménage compte d’enfants de 5 à 17 ans. Corrigez cet effectif si un enfant manque.</string>
+    <string name="themes_abordes">Thème(s) abordé(s)</string>
+    <string name="outils_utilises">Outil(s) utilisé(s)</string>
+    <string name="telephone_du_producteur">Téléphone du producteur</string>
+    <string name="photo_de_la_sensibilisation">Photo de la sensibilisation</string>
+    <string name="champs_obligatoires_manquants">Ces informations manquent pour enregistrer l’enquête :</string>
+    <string name="confirmer_enregistrement_enquete">Voulez-vous enregistrer cette enquête ? Elle sera transmise dès que le réseau sera disponible.</string>
+    <string name="enquete_enregistree">Enquête enregistrée. Elle partira à la prochaine synchronisation.</string>
+    <string name="enquete_non_enregistree">L’enquête n’a pas pu être enregistrée. Votre saisie est toujours à l’écran : réessayez avant de quitter.</string>
+    <string name="referentiels_pfte_manquants">Les listes de référence du programme PFTE ne sont pas encore sur cet appareil. Lancez une mise à jour des données avant de commencer une enquête.</string>
+
 </resources>

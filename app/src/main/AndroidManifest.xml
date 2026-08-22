@@ -130,6 +130,11 @@
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:name="ci.progbandama.mobile.activities.forms.EnqueteMenageActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name="ci.progbandama.mobile.activities.forms.CalculEstimationActivity"
             android:screenOrientation="portrait"
             android:exported="false"

@@ -106,6 +106,10 @@ object Constants {
 
     const val PREFS_COMMON_LAT                  =                   "common_lat"
     const val PREFS_COMMON_LNG                  =                   "common_lng"
+    // Altitude et precision : le service de localisation ne retenait que la latitude et la
+    // longitude, les formulaires PFTE demandent les quatre.
+    const val PREFS_COMMON_ALT                  =                   "common_alt"
+    const val PREFS_COMMON_PRECISION            =                   "common_precision"
 
 
     /**

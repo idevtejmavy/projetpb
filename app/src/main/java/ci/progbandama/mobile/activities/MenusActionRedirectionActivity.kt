@@ -192,6 +192,9 @@ class MenusActionRedirectionActivity : AppCompatActivity() {
                     "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                     "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)
                     "SSRTECLMRS" -> ActivityUtils.startActivity(SsrtClmsActivity::class.java)
+                    // Enquete Menage (PFTE) - lot 3. La tuile n'apparait que si le serveur
+                    // accorde le role correspondant a l'agent.
+                    "ENQUETE_MENAGE" -> ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                     "FORMATION" -> ActivityUtils.startActivity(FormationActivity::class.java)
                     "ESTIMATION" -> ActivityUtils.startActivity(CalculEstimationActivity::class.java)
                     "APPLICATION" -> ActivityUtils.startActivity(SuiviApplicationActivity::class.java)

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+         Cle de marquage des selections multiples d'une fiche enfant.
+
+         Les choix multiples d'une fiche ne sont pas lisibles depuis la vue : le composant ne
+         restitue pas sa selection sous forme de liste. Chaque fiche porte donc son propre etat,
+         attache par setTag(cle, valeur). Une cle dediee, et non android:tag : ce dernier est lu
+         par le binding par reflexion, qui le prend pour un nom de propriete du modele.
+    -->
+    <item name="tagSelectionsFiche" type="id" />
+
+</resources>

@@ -16,6 +16,7 @@ import ci.progbandama.mobile.databinding.DraftedItemsListBinding
 import ci.progbandama.mobile.models.DataDraftedModel
 import ci.progbandama.mobile.models.ParcelleModel
 import ci.progbandama.mobile.models.ProducteurModel
+import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.repositories.apis.ApiClient
 import ci.progbandama.mobile.tools.Commons.Companion.modifyIcColor
 
@@ -121,6 +122,12 @@ class DataDraftedAdapter(val context: Context, var draftedList: MutableList<Data
                 intentUndraftedData = Intent(context, SsrtClmsActivity::class.java)
                 intentUndraftedData.putExtra("from", "ssrte")
                 intentUndraftedData.putExtra("drafted_uid", draftedData.uid)
+            }
+            BrouillonPfte.TYPE_ENQUETE_MENAGE.uppercase() -> {
+                holder.imageTypeDraft.setImageResource(R.drawable.ssrte_ic)
+                intentUndraftedData = Intent(context, EnqueteMenageActivity::class.java)
+                // Ce formulaire relit son brouillon lui-meme, par son identifiant.
+                intentUndraftedData.putExtra(EnqueteMenageActivity.EXTRA_BROUILLON, draftedData.uid)
             }
             "INSPECTION" -> {
                 holder.imageTypeDraft.setImageResource(R.drawable.baseline_elevator)
