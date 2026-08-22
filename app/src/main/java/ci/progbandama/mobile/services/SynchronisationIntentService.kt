@@ -133,7 +133,13 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
         for (producteur in producteurDatas) {
             try {
                 producteur.dateNaiss = Commons.convertDate(producteur.dateNaiss, true)
-                producteur.certificats = GsonUtils.fromJson(producteur.certificatsStr, object : TypeToken<MutableList<String>>(){}.type)
+                // Robustesse : certificatsStr peut etre nul (fiche ancienne ou incomplete).
+                //  Sans repli, GsonUtils.fromJson renvoie null et l'affectation leve une NPE,
+                //  ce qui fait echouer l'envoi de ce producteur.
+                producteur.certificats = GsonUtils.fromJson(
+                    producteur.certificatsStr.orEmpty().ifBlank { "[]" },
+                    object : TypeToken<MutableList<String>>() {}.type
+                )
 
                 if (!producteur.photo.isNullOrEmpty()) {
                     val photoPath = producteur.photo

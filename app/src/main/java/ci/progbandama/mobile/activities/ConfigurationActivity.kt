@@ -175,32 +175,42 @@ class ConfigurationActivity : AppCompatActivity() {
      *         se poursuivre sans danger : les correctifs D2 et D3 garantissent que les
      *         donnees non transmises survivent au rafraichissement.
      */
-    private suspend fun envoyerDonneesEnAttente(): Boolean {
+    private suspend fun envoyerDonneesEnAttente(): Boolean = withContext(IO) {
+        // Tout ce bloc s'execute hors du fil principal : compterDonneesEnAttente() interroge
+        // 17 tables et la base est ouverte avec allowMainThreadQueries(). Sur le fil principal,
+        // le sondage repete figeait l'interface pendant toute l'attente.
         var restant = compterDonneesEnAttente().values.sum()
-        if (restant == 0) return true
+        if (restant == 0) return@withContext true
 
         configCompletedOrError("- envoi de $restant donnee(s) en attente")
-        Commons.synchronisation("all", this)
+        Commons.synchronisation("all", this@ConfigurationActivity)
 
-        val delaiMaxMs = 300_000L
-        val pasMs = 2_000L
+        val delaiMaxMs = 180_000L
+        val pasMs = 1_500L
         var attenduMs = 0L
-        var serviceDemarre = false
+        var sondagesSansProgres = 0
 
         while (attenduMs < delaiMaxMs) {
             delay(pasMs)
             attenduMs += pasMs
-            if (SyncLock.estEnvoiEnCours) serviceDemarre = true
 
             val maintenant = compterDonneesEnAttente().values.sum()
-            if (maintenant == 0) return true
+            if (maintenant == 0) return@withContext true
+
             if (maintenant != restant) {
                 restant = maintenant
+                sondagesSansProgres = 0
                 configCompletedOrError("- envoi en cours, $restant donnee(s) restante(s)")
+            } else if (!SyncLock.estEnvoiEnCours) {
+                // Le service ne tourne plus et le compteur ne bouge plus : inutile d'attendre.
+                // On ne se fie pas a un drapeau "le service a demarre", car un service qui
+                // echoue immediatement se termine avant le premier sondage.
+                sondagesSansProgres++
+            } else {
+                sondagesSansProgres = 0
             }
-            // Le service a demarre puis rendu le verrou sans tout transmettre :
-            // inutile d'attendre davantage.
-            if (serviceDemarre && !SyncLock.estEnvoiEnCours) break
+
+            if (sondagesSansProgres >= 2) break
         }
 
         val reste = compterDonneesEnAttente()
@@ -208,7 +218,7 @@ class ConfigurationActivity : AppCompatActivity() {
             LogUtils.e("Donnees toujours en attente apres envoi : $reste")
             afficherDetailEnAttente(reste)
         }
-        return reste.values.sum() == 0
+        reste.values.sum() == 0
     }
 
     suspend fun configFlow() {
