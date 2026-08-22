@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Fiche minimale servant uniquement aux tests de FichesEnfant.
+     Volontairement limitee a TextView : les widgets stylables (Button, EditText) font
+     resoudre au theme applicatif des animateurs Material qui ne s'inflatent pas hors
+     d'une Activity. Le controleur teste ne manipule que la numerotation, le retrait et
+     la lecture d'une valeur : un TextView suffit pour les trois.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/labelNumeroTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/champNomTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/btnRetirerTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Retirer" />
+
+</LinearLayout>

@@ -2,6 +2,10 @@ package ci.progbandama.mobile.tools
 
 import android.app.Activity
 import android.content.Context
+import android.view.View
+import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Spinner
 import ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import ci.progbandama.mobile.repositories.datas.CommonData
@@ -122,6 +126,54 @@ object SaisiePfte {
     fun exigePrecision(vararg selections: List<String>?): Boolean =
         selections.filterNotNull().flatten()
             .any { libelle -> DECLENCHEURS_AUTRE.any { libelle.contains(it, ignoreCase = true) } }
+
+    // ------------------------------------------------------------------ affichage conditionnel
+
+    /**
+     * Affiche ou masque un bloc conditionnel.
+     *
+     * Reproduit exactement le comportement de la fonction toggle() du back-office : masquer
+     * ne suffit pas, le bloc est aussi desactive et VIDE. Sans cela une valeur saisie puis
+     * rendue sans objet par un autre choix partirait quand meme au serveur.
+     *
+     * C'est la meme regle que celle appliquee par le binding par reflexion, qui ne collecte
+     * que les conteneurs visibles : les deux mecanismes restent ainsi coherents.
+     */
+    fun basculer(bloc: View?, afficher: Boolean) {
+        if (bloc == null) return
+        bloc.visibility = if (afficher) View.VISIBLE else View.GONE
+        if (!afficher) viderChamps(bloc)
+    }
+
+    /** Vide et desactive recursivement les champs d'un bloc masque. */
+    private fun viderChamps(vue: View) {
+        when (vue) {
+            is ViewGroup -> for (i in 0 until vue.childCount) viderChamps(vue.getChildAt(i))
+            is MultiSelectSpinner -> {
+                vue.setSelection(intArrayOf())
+                vue.isEnabled = false
+            }
+            is Spinner -> {
+                if (vue.adapter != null && vue.adapter.count > 0) vue.setSelection(0)
+                vue.isEnabled = false
+            }
+            is EditText -> {
+                vue.setText("")
+                vue.isEnabled = false
+            }
+        }
+        if (vue !is ViewGroup && vue is MultiSelectSpinner) vue.isEnabled = false
+    }
+
+    /** Reactive les champs d'un bloc reaffiche. */
+    fun reactiverChamps(vue: View?) {
+        if (vue == null) return
+        if (vue is ViewGroup) {
+            for (i in 0 until vue.childCount) reactiverChamps(vue.getChildAt(i))
+        } else {
+            vue.isEnabled = true
+        }
+    }
 
     // ------------------------------------------------------------------ serialisation
 
