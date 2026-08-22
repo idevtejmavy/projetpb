@@ -60,8 +60,9 @@ object ApiClient {
             }
             reponse
         } catch (ex: Exception) {
-            // Panne reseau, delai depasse, hote injoignable : code 0.
-            SyncErreurs.enregistrer(chemin, 0, null)
+            // L'appel n'a pas abouti : code 0. On transmet la nature de la panne pour que
+            // le message distingue l'absence de reseau d'une simple lenteur.
+            SyncErreurs.enregistrer(chemin, 0, null, "${ex.javaClass.simpleName}: ${ex.message}")
             throw ex
         }
     }
