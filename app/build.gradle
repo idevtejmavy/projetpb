@@ -35,14 +35,20 @@ android {
     }
 
 
-//    signingConfigs {
-//        debug {
-//            storeFile file(loadEnvOrProperty('keystorePath', '', 'app_config.properties'))
-//            storePassword loadEnvOrProperty('KEYSTORE_PWD', '', 'app_config.properties')
-//            keyAlias loadEnvOrProperty('KEYSTORE_ALIAS', '', 'app_config.properties')
-//            keyPassword loadEnvOrProperty('KEYSTORE_ALIAS_PWD', '', 'app_config.properties')
-//        }
-//    }
+    // Signature de la version de diffusion. Les valeurs viennent de app_config.properties -
+    // ignore par git - ou, a defaut, des variables d'environnement. Rien n'est ecrit ici :
+    // ce fichier est versionne.
+    signingConfigs {
+        release {
+            def chemin = loadEnvOrProperty('KEYSTORE_PATH', '', 'app_config.properties')
+            if (chemin) {
+                storeFile file(chemin)
+                storePassword loadEnvOrProperty('KEYSTORE_PWD', '', 'app_config.properties')
+                keyAlias loadEnvOrProperty('KEYSTORE_ALIAS', '', 'app_config.properties')
+                keyPassword loadEnvOrProperty('KEYSTORE_ALIAS_PWD', '', 'app_config.properties')
+            }
+        }
+    }
 
     buildFeatures {
         viewBinding true
@@ -52,6 +58,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Sans keystore configure, l'APK sort non signe plutot que de faire echouer la
+            // compilation : les postes qui n'ont pas la cle peuvent toujours construire.
+            if (loadEnvOrProperty('KEYSTORE_PATH', '', 'app_config.properties')) {
+                signingConfig signingConfigs.release
+            }
         }
     }
     compileOptions {
