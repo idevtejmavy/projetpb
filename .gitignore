@@ -48,3 +48,7 @@ build-searchablespinnerlibrary/
 
 # Dumps de debug
 mooc.json
+
+# Cache Python de l outillage de generation
+outils/__pycache__/
+*.pyc
