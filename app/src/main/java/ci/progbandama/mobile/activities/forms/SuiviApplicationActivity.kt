@@ -29,6 +29,7 @@ import ci.progbandama.mobile.repositories.apis.ApiClient
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import ci.progbandama.mobile.repositories.datas.CommonData
 import ci.progbandama.mobile.repositories.datas.PesticidesApplicationModel
+import ci.progbandama.mobile.tools.ChoixCampagne
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.configHour
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
@@ -167,25 +168,17 @@ class SuiviApplicationActivity : AppCompatActivity() {
 //        recyclerParasiteListSuiviApplication.adapter = insecteAdapter
     }
 
-//    fun setupCampagneSelection() {
-//        val campagnesList = ProgBandRoomDatabase.getDatabase(this)?.campagneDao()?.getAll()!!
-//        val campagneAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, campagnesList)
-//        selectCampagneSuiviApplication!!.adapter = campagneAdapter
-//
-//        selectCampagneSuiviApplication.setTitle("Choisir la campagne")
-//
-//        selectCampagneSuiviApplication.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
-//
-//                val campagneModel = campagnesList[position]
-//                campagneId = campagneModel.id.toString()
-//                campagneNom = campagneModel.campagnesNom!!
-//            }
-//
-//            override fun onNothingSelected(arg0: AdapterView<*>) {
-//            }
-//        }
-//    }
+    /**
+     * Campagne du suivi, choisie en tete de formulaire.
+     *
+     * @param idRepris campagne d'un brouillon repris, pour la repositionner.
+     */
+    fun setupCampagneSelection(idRepris: String? = null) {
+        ChoixCampagne.installer(this, binding.selectCampagneSuiviApplication, idRepris) { campagne ->
+            campagneId = campagne?.id?.toString().orEmpty()
+            campagneNom = campagne?.campagnesNom.orEmpty()
+        }
+    }
 
     fun setupZoneTemponSelection() {
 //        selectZoneTampoSuiviApplication.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -249,6 +242,11 @@ class SuiviApplicationActivity : AppCompatActivity() {
                 parcelle_id = parcelleCommon.id.toString()
                 applicateur = applicateurCommon.id.toString()
 
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on
+                // reporte explicitement le choix de l'agent.
+                campagnesId = this@SuiviApplicationActivity.campagneId.toIntOrNull()
+                campagneNom = this@SuiviApplicationActivity.campagneNom
+
                 maladiesStr = GsonUtils.toJson(binding.selectListMaladieSuiviApplication.selectedStrings)
                 autreMaladieStr = GsonUtils.toJson((binding.recyclerAutreMaladiRavSuiviApplication.adapter as OnlyFieldAdapter).getOnlyItemAdded().map { "${it.nom}" })
 
@@ -269,6 +267,7 @@ class SuiviApplicationActivity : AppCompatActivity() {
         }
 
         val mapEntries: List<MapEntry>? = itemModelOb?.second?.apply {
+            this.add(0, Pair(getString(R.string.campagne), campagneNom))
             this.add(Pair(getString(R.string.produits_pythos_enr_gistr_s), (binding.recyclerPestListSApplic.adapter as NineItemAdapter).getMultiItemAdded().map { "Pesticide: ${it.value}| Toxicicologie: ${it.value1}| Nom commercial: ${it.value2}| Matières actives: ${it.value3}| Dose: ${it.value4}| Fqe: ${it.value5}\n" }.toModifString(commaReplace = "\n") ))
             this.add(Pair(getString(R.string.maladies_observ_es_dans_la_parcelle), binding.selectListMaladieSuiviApplication.selectedStrings.toModifString(false) ))
             this.add(Pair("Autre maladie/ravageur", (binding.recyclerAutreMaladiRavSuiviApplication.adapter as OnlyFieldAdapter).getOnlyItemAdded().map { "${it.nom}" }.toModifString(commaReplace = "\n") ))
@@ -395,7 +394,7 @@ class SuiviApplicationActivity : AppCompatActivity() {
             setupDoucheYesNoSelection()
             setupZoneTemponSelection()
             //degreDangerositeLevel()
-            //setupCampagneSelection()
+            //setupCampagneSelection() - voir setAllSelection()
             setupApplicateurSelection()
             //setupLocaliteSelection()
             //setMatiereParcelle()
@@ -687,6 +686,11 @@ class SuiviApplicationActivity : AppCompatActivity() {
                     parcelle_id = parcelleCommon.id.toString()
                     applicateur = applicateurCommon.id.toString()
 
+                    // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on
+                    // reporte explicitement le choix de l'agent.
+                    campagnesId = this@SuiviApplicationActivity.campagneId.toIntOrNull()
+                    campagneNom = this@SuiviApplicationActivity.campagneNom
+
                     maladiesStr = GsonUtils.toJson(binding.selectListMaladieSuiviApplication.selectedStrings)
                     autreMaladieStr = GsonUtils.toJson((binding.recyclerAutreMaladiRavSuiviApplication.adapter as OnlyFieldAdapter).getOnlyItemAdded().map { "${it.nom}" })
 
@@ -908,6 +912,10 @@ class SuiviApplicationActivity : AppCompatActivity() {
 
             passSetupSuiviApplicationModel(applicationDrafted)
 
+            // Le selecteur est repositionne a part : la reflexion ne remplit que les
+            // champs etiquetes.
+            setupCampagneSelection(applicationDrafted?.campagnesId?.toString())
+
         } catch (ex: Exception) {
             LogUtils.e(ex.message)
             FirebaseCrashlytics.getInstance().recordException(ex)
@@ -1005,6 +1013,8 @@ class SuiviApplicationActivity : AppCompatActivity() {
     }
 
     private fun setAllSelection() {
+
+        setupCampagneSelection()
 
         setupSectionSelection()
 

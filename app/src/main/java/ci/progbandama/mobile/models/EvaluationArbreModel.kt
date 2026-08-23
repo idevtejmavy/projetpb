@@ -34,6 +34,11 @@ data class EvaluationArbreModel(
     @SerializedName("nombre_arbre_denombre") @Expose var nombreDarbreDenombre: String? = "",
     @SerializedName("superficie") @Expose var superficie: String? = "",
     @SerializedName("nombre_arbre") @Expose var nombreArbre: String? = "",
+    // Campagne choisie par l'agent, en tete du formulaire. Le nom de champ reprend celui du
+    // formulaire web - 'campagne' - pour que la valeur soit exploitable des que l'interface de
+    // reception cessera d'estampiller elle-meme la campagne active.
+    @SerializedName("campagne") @Expose var campagneId: String? = "",
+    @Expose var campagneNom: String? = "",
     @Expose var section: String? = "",
     @Expose var localite: String? = "",
     @Expose var especesarbreStr: String? = "",

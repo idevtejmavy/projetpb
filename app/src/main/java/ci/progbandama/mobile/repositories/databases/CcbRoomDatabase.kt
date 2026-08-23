@@ -269,6 +269,26 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
          * montee de version sans migration effacerait les brouillons et les saisies non
          * transmises des agents.
          */
+        /**
+         * Choix de la campagne dans les formulaires agroforestiers.
+         *
+         * L'evaluation des besoins et le post planting ne portaient aucune campagne : elle etait
+         * attribuee a l'arrivee, a partir de la campagne active du serveur. Le formulaire web de
+         * l'evaluation, lui, la fait choisir. Les deux tables gagnent donc la colonne, plus le
+         * libelle affiche dans les recapitulatifs.
+         *
+         * Migration REELLE : ALTER TABLE, les saisies non transmises et les brouillons sont
+         * conserves.
+         */
+        val MIGRATION_82_83 = object : Migration(82, 83) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `evaluation_arbre` ADD COLUMN `campagneId` TEXT")
+                database.execSQL("ALTER TABLE `evaluation_arbre` ADD COLUMN `campagneNom` TEXT")
+                database.execSQL("ALTER TABLE `post_planting` ADD COLUMN `campagneId` TEXT")
+                database.execSQL("ALTER TABLE `post_planting` ADD COLUMN `campagneNom` TEXT")
+            }
+        }
+
         val MIGRATION_81_82 = object : Migration(81, 82) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(
@@ -576,6 +596,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
                         MIGRATION_79_80,
                         MIGRATION_80_81,
                         MIGRATION_81_82,
+                        MIGRATION_82_83,
                         )
                     .build()
                 INSTANCE = instance

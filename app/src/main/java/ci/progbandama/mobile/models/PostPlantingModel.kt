@@ -36,6 +36,9 @@ data class PostPlantingModel(
     @Expose var qteplante: String? = "",
     @Expose var qtesurvecue: String? = "",
     @Expose var date_planting: String? = "",
+    // Meme convention de nommage que l'evaluation des besoins.
+    @SerializedName("campagne") @Expose var campagneId: String? = "",
+    @Expose var campagneNom: String? = "",
     @Expose var quantiterecueStr: String? = "",
     @Expose var quantiteStr: String? = "",
     @Expose var quantitesurvecueeStr: String? = "",

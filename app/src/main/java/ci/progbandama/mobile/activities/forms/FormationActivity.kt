@@ -31,6 +31,7 @@ import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import ci.progbandama.mobile.repositories.databases.daos.*
 import ci.progbandama.mobile.repositories.datas.CommonData
 import ci.progbandama.mobile.tools.AssetFileHelper
+import ci.progbandama.mobile.tools.ChoixCampagne
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import ci.progbandama.mobile.tools.Commons.Companion.configDate
@@ -81,7 +82,6 @@ class FormationActivity : AppCompatActivity() {
     private var endListePresence: String = ""
     private var endPhotoListePresence: String = ""
 
-    private var campagnesList: MutableList<CampagneModel>? = null
     var localiteDao: LocaliteDao? = null
     var typeFormationDao: TypeFormationDao? = null
     var lieuFormationDao: LieuFormationDao? = null
@@ -112,8 +112,8 @@ class FormationActivity : AppCompatActivity() {
     var lieu = ""
     var dateNaissance = ""
 
-    //    var campagneNom = ""
-//    var campagneId = ""
+    var campagneNom = ""
+    var campagneId = ""
     val sectionCommon = CommonData()
     val localiteCommon = CommonData()
     val staffCommon = CommonData()
@@ -260,24 +260,20 @@ class FormationActivity : AppCompatActivity() {
 //    }
 
 
-//    fun setupCampagneSelection() {
-//        campagnesList = ProgBandRoomDatabase.getDatabase(applicationContext)?.campagneDao()?.getAll()
-//
-//        val campagneAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, campagnesList!!)
-//        selectCampagneFormation!!.adapter = campagneAdapter
-//        selectCampagneFormation.setTitle("Choisir la campagne")
-//
-//        selectCampagneFormation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
-//                val campagne = campagnesList!![position]
-//                campagne.campagnesNom = campagne.campagnesNom!!
-//                campagne.id = campagne.id
-//            }
-//
-//            override fun onNothingSelected(arg0: AdapterView<*>) {
-//            }
-//        }
-//    }
+    /**
+     * Campagne de la formation, choisie en tete de formulaire.
+     *
+     * L'ancien cablage ne retenait rien - il reaffectait les proprietes du modele a elles-memes -
+     * ce qui explique sans doute sa mise a l'ecart.
+     *
+     * @param idRepris campagne d'un brouillon repris, pour la repositionner.
+     */
+    fun setupCampagneSelection(idRepris: String? = null) {
+        ChoixCampagne.installer(this, binding.selectCampagneFormation, idRepris) { campagne ->
+            campagneId = campagne?.id?.toString().orEmpty()
+            campagneNom = campagne?.campagnesNom.orEmpty()
+        }
+    }
 
 
     fun setupLieuSelection() {
@@ -505,7 +501,7 @@ class FormationActivity : AppCompatActivity() {
 
         setupLieuSelection()
 
-        //setupCampagneSelection()
+        setupCampagneSelection()
 
         //setupTypeFormationSelection()
 
@@ -731,6 +727,11 @@ class FormationActivity : AppCompatActivity() {
                 staffId = staffCommon.id.toString()
                 entreprise_id = entrepriseCommon.id.toString()
 
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent.
+                campagneId = this@FormationActivity.campagneId.toIntOrNull()
+                campagneNom = this@FormationActivity.campagneNom
+
                 producteursIdStr = GsonUtils.toJson(producteurIdList.map { it.id.toString() }.toMutableList())
                 typeFormationStr = GsonUtils.toJson(typeFormationListCm.map { it.id.toString() }.toMutableList())
                 themeStr = GsonUtils.toJson(themeListCm.map { it.value.toString() }.toMutableList())
@@ -749,6 +750,7 @@ class FormationActivity : AppCompatActivity() {
         Commons.debugModelToJson(formationModel)
 
         val mapEntries: List<MapEntry>? = itemModelOb.second.apply {
+            this.add(0, Pair(getString(R.string.campagne), campagneNom))
             this.add(
                 Pair(
                     "Les participants",
@@ -949,6 +951,11 @@ class FormationActivity : AppCompatActivity() {
                 localitesId = localiteCommon.id.toString()
                 staffId = staffCommon.id.toString()
                 entreprise_id = entrepriseCommon.id.toString()
+
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent.
+                campagneId = this@FormationActivity.campagneId.toIntOrNull()
+                campagneNom = this@FormationActivity.campagneNom
 
                 producteursIdStr =
                     GsonUtils.toJson(producteurIdList.map { it.id.toString() }.toMutableList())
@@ -1245,6 +1252,10 @@ class FormationActivity : AppCompatActivity() {
             })
 
         passSetupFormationModel(formationDrafted)
+
+        // Le selecteur est repositionne a part : la reflexion ne remplit que les champs
+        // etiquetes.
+        setupCampagneSelection(formationDrafted?.campagneId?.toString())
     }
 
 

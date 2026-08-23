@@ -29,6 +29,7 @@ import ci.progbandama.mobile.repositories.datas.InsectesParasitesData
 import ci.progbandama.mobile.repositories.datas.PesticidesAnneDerniereModel
 import ci.progbandama.mobile.repositories.datas.PresenceAutreInsecteData
 import ci.progbandama.mobile.tools.AssetFileHelper
+import ci.progbandama.mobile.tools.ChoixCampagne
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.configDate
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
@@ -59,14 +60,12 @@ class SuiviParcelleActivity : AppCompatActivity() {
     var varieteDao: VarieteCacaoDao? = null
     var intrantDao: IntrantDao? = null
     var suiviParcelleDao: SuiviParcelleDao? = null
-    var campagneDao: CampagneDao? = null
 
     var parcellesList: MutableList<ParcelleModel>? = null
     var courEauxList: MutableList<CourEauModel>? = null
     var cacaossList: MutableList<VarieteCacaoModel>? = null
     var producteursList: MutableList<ProducteurModel>? = null
     var intrantsList: MutableList<IntrantModel>? = null
-    var campagnesList: MutableList<CampagneModel>? = mutableListOf()
 
 
     var ombrageAdapter: OmbrageAdapter? = null
@@ -376,33 +375,17 @@ class SuiviParcelleActivity : AppCompatActivity() {
     }
 
 
-    fun setupCampagneSelection() {
+    /**
+     * Campagne du suivi, choisie en tete de formulaire.
+     *
+     * @param idRepris campagne d'un brouillon repris, pour la repositionner.
+     */
+    fun setupCampagneSelection(idRepris: String? = null) {
         try {
-            campagneDao = ProgBandRoomDatabase.getDatabase(applicationContext)?.campagneDao()
-            campagnesList = campagneDao?.getAll()
-
-            val campagneAdapter =
-                ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, campagnesList!!)
-//            selectCampagneOfSuiviParcelle!!.adapter = campagneAdapter
-//
-//            selectCampagneOfSuiviParcelle.setTitle("Choisir la campagne")
-//
-//            selectCampagneOfSuiviParcelle.onItemSelectedListener =
-//                object : AdapterView.OnItemSelectedListener {
-//                    override fun onItemSelected(
-//                        adapterView: AdapterView<*>,
-//                        view: View,
-//                        position: Int,
-//                        l: Long
-//                    ) {
-//                        val campagne = campagnesList!![position]
-//                        campagneNom = campagne.campagnesNom!!
-//                        campagneId = campagne.id.toString()
-//                    }
-//
-//                    override fun onNothingSelected(arg0: AdapterView<*>) {
-//                    }
-//                }
+            ChoixCampagne.installer(this, binding.selectCampagneSuiviParcelle, idRepris) { campagne ->
+                campagneId = campagne?.id?.toString().orEmpty()
+                campagneNom = campagne?.campagnesNom.orEmpty()
+            }
         } catch (ex: Exception) {
             LogUtils.e(ex.message)
                 FirebaseCrashlytics.getInstance().recordException(ex)
@@ -816,6 +799,11 @@ class SuiviParcelleActivity : AppCompatActivity() {
                 producteursId = producteurCommon.id.toString()
                 parcelle_id = parcelleCommon.id.toString()
 
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent. C'est cette valeur que le serveur retient.
+                campagneId = this@SuiviParcelleActivity.campagneId
+                campagneNom = this@SuiviParcelleActivity.campagneNom
+
                 pesticidesAnneDerniereStr = GsonUtils.toJson((binding.recyclerPestListSuiviParcel.adapter as MultipleItemAdapter).getMultiItemAdded().map {
                     PesticidesAnneDerniereModel(
                         nom = it.value,
@@ -874,6 +862,7 @@ class SuiviParcelleActivity : AppCompatActivity() {
         }
 
         val mapEntries: List<MapEntry>? = itemModelOb?.second?.apply {
+            this.add(0, Pair(getString(R.string.campagne), campagneNom))
 //            this.add(Pair("Arbre d'ombrage", (recyclerVarieteArbrListSuiviParcel.adapter as OmbrageAdapter).getOmbragesAdded().map { "${it.variete}: ${it.nombre}\n" }.toModifString() ))
 //            this.add(Pair("Insecte parasite", (recyclerInsecteOfSuiviParcelle.adapter as OmbrageAdapter).getOmbragesAdded().map { "${it.variete}: ${it.nombre}\n" }.toModifString() ))
             this.add(Pair(getString(R.string.pesticides_utilis_s_l_an_dernier), (binding.recyclerPestListSuiviParcel.adapter as MultipleItemAdapter).getMultiItemAdded().map { "Nom: ${it.value}| Contenant: ${it.value1}| Unité: ${it.value2}| Qté: ${it.value3}| Fqe: ${it.value4}\n" }.toModifString() ))
@@ -1055,6 +1044,11 @@ class SuiviParcelleActivity : AppCompatActivity() {
                 localiteId = localiteCommon.id.toString()
                 producteursId = producteurCommon.id.toString()
                 parcelle_id = parcelleCommon.id.toString()
+
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent. C'est cette valeur que le serveur retient.
+                campagneId = this@SuiviParcelleActivity.campagneId
+                campagneNom = this@SuiviParcelleActivity.campagneNom
 
                 pesticidesAnneDerniereStr = GsonUtils.toJson((binding.recyclerPestListSuiviParcel.adapter as MultipleItemAdapter).getMultiItemAdded().map {
                     PesticidesAnneDerniereModel(
@@ -1512,6 +1506,10 @@ class SuiviParcelleActivity : AppCompatActivity() {
 
 
         passSetupSuiviParcelleModel(suiviParcelleDrafted)
+
+        // Le selecteur est repositionne a part : la reflexion ne remplit que les champs
+        // etiquetes.
+        setupCampagneSelection(suiviParcelleDrafted?.campagneId)
     }
 
     private lateinit var binding: ActivitySuiviParcelleBinding
@@ -1604,6 +1602,8 @@ class SuiviParcelleActivity : AppCompatActivity() {
     private fun setAllSelection() {
 
         setOtherListener()
+
+        setupCampagneSelection()
 
         setupSectionSelection()
 

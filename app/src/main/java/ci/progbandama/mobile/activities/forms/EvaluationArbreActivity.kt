@@ -16,6 +16,7 @@ import ci.progbandama.mobile.models.EvaluationArbreModel
 import ci.progbandama.mobile.repositories.apis.ApiClient
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import ci.progbandama.mobile.repositories.datas.CommonData
+import ci.progbandama.mobile.tools.ChoixCampagne
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.MapEntry
@@ -39,6 +40,9 @@ class EvaluationArbreActivity : AppCompatActivity() {
     val parcelleCommon = CommonData();
     private var evaluationArbreDao: EvaluationArbreDao? = null
     var draftedDataEval: DataDraftedModel? = null
+
+    var campagneId = ""
+    var campagneNom = ""
 
     private lateinit var binding: ActivityEvaluationArbreBinding
 
@@ -102,6 +106,11 @@ class EvaluationArbreActivity : AppCompatActivity() {
                 section = sectionCommon.id.toString()
                 localite = localiteCommon.id.toString()
                 producteurId = producteurCommon.id.toString()
+
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent.
+                campagneId = this@EvaluationArbreActivity.campagneId
+                campagneNom = this@EvaluationArbreActivity.campagneNom
 
                 especesarbreStr = GsonUtils.toJson((binding.recyclerArbreListEvalArbre?.adapter as MultipleItemAdapter).getMultiItemAdded().map { adapterIt ->
                     listArbre?.filter { "${it.nom}".trim().equals(adapterIt.value?.split("|")?.get(0)?.trim()) }?.let {
@@ -221,6 +230,8 @@ class EvaluationArbreActivity : AppCompatActivity() {
             GsonUtils.fromJson(it, EvaluationArbreModel::class.java)
         }
 
+        setupCampagneSelection(evaluationArbreModelDraft?.campagneId)
+
         setupSectionSelection(evaluationArbreModelDraft?.section, evaluationArbreModelDraft?.localite, evaluationArbreModelDraft?.producteurId)
 
         val listArbre = ProgBandRoomDatabase.getDatabase(this)?.arbreDao()?.getAll()
@@ -254,7 +265,21 @@ class EvaluationArbreActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Campagne de l'evaluation, choisie en tete de formulaire.
+     *
+     * @param idRepris campagne d'un brouillon repris, pour la repositionner.
+     */
+    private fun setupCampagneSelection(idRepris: String? = null) {
+        ChoixCampagne.installer(this, binding.selectCampagneEvaluationArbre, idRepris) { campagne ->
+            campagneId = campagne?.id?.toString().orEmpty()
+            campagneNom = campagne?.campagnesNom.orEmpty()
+        }
+    }
+
     private fun setAllSelection() {
+
+        setupCampagneSelection()
 
         setupSectionSelection()
 
@@ -277,6 +302,11 @@ class EvaluationArbreActivity : AppCompatActivity() {
                 localite = localiteCommon.id.toString()
                 producteurId = producteurCommon.id.toString()
 
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent.
+                campagneId = this@EvaluationArbreActivity.campagneId
+                campagneNom = this@EvaluationArbreActivity.campagneNom
+
                 especesarbreStr = GsonUtils.toJson((binding.recyclerArbreListEvalArbre?.adapter as MultipleItemAdapter).getMultiItemAdded().map { adapterIt ->
                     listArbre?.filter { "${it.nom}".trim().equals(adapterIt.value?.split("|")?.get(0)?.trim()) }?.let {
                         if(it.size > 0) it[0].id else -1
@@ -289,6 +319,7 @@ class EvaluationArbreActivity : AppCompatActivity() {
         //val listArbre = ProgBandRoomDatabase.getDatabase(this)?.arbreDao()?.getAll()
 
         val mapEntries: List<MapEntry>? = itemModelOb?.second?.apply {
+            this.add(0, Pair(getString(R.string.campagne), campagneNom))
             (binding.recyclerArbreListEvalArbre?.adapter as MultipleItemAdapter).getMultiItemAdded().forEach { adapItem ->
                 //val arbreId = listArbre?.filter { it.nom+" | "+it.nomScientifique == adapItem.value }?.get(0)?.id ?: -1
                 add(Pair(adapItem.value.toString(), adapItem.value2.toString()))

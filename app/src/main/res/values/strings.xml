@@ -922,6 +922,9 @@
     <string name="quantit_distribuer">Quantité à distribuer</string>
     <string name="total_enregistrer">Total à enregistrer</string>
     <string name="choisir_la_campagne">Choisir la campagne</string>
+    <!-- Table des campagnes vide : appareil jamais configure, ou aucune campagne active
+         declaree par le serveur. Le selecteur affiche ce libelle et reste inerte. -->
+    <string name="aucune_campagne_connue">Aucune campagne connue</string>
     <string name="choisir_la_parcelle">Choisir la parcelle</string>
     <string name="choisir_la_localite">Choisir la localite</string>
     <string name="choisir_le_producteur">Choisir le producteur</string>

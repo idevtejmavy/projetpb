@@ -27,6 +27,7 @@ import ci.progbandama.mobile.models.QuantiteDistribuer
 import ci.progbandama.mobile.repositories.apis.ApiClient
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
 import ci.progbandama.mobile.repositories.datas.CommonData
+import ci.progbandama.mobile.tools.ChoixCampagne
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.configDate
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
@@ -48,6 +49,9 @@ class PostPlantingEvalActivity : AppCompatActivity() {
     val parcelleCommon = CommonData();
     private var distributionArbreDao: DistributionArbreDao? = null
     var draftedDataDistribution: DataDraftedModel? = null
+
+    var campagneId = ""
+    var campagneNom = ""
 
     private lateinit var binding: ActivityPostplantingBinding
 
@@ -191,7 +195,21 @@ class PostPlantingEvalActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Campagne de l'evaluation post planting, choisie en tete de formulaire.
+     *
+     * @param idRepris campagne d'un brouillon repris, pour la repositionner.
+     */
+    private fun setupCampagneSelection(idRepris: String? = null) {
+        ChoixCampagne.installer(this, binding.selectCampagnePostPlanting, idRepris) { campagne ->
+            campagneId = campagne?.id?.toString().orEmpty()
+            campagneNom = campagne?.campagnesNom.orEmpty()
+        }
+    }
+
     private fun setAllSelection() {
+
+        setupCampagneSelection()
 
         setupSectionSelection()
 
@@ -260,6 +278,8 @@ class PostPlantingEvalActivity : AppCompatActivity() {
     private fun undraftedDatas(draftedDataDistribution: DataDraftedModel) {
         val distributionArbreDraft = GsonUtils.fromJson<PostPlantingModel>(draftedDataDistribution.datas, PostPlantingModel::class.java)
 
+        setupCampagneSelection(distributionArbreDraft.campagneId)
+
         setupSectionSelection(
             distributionArbreDraft.section,
             distributionArbreDraft.localite,
@@ -306,6 +326,11 @@ class PostPlantingEvalActivity : AppCompatActivity() {
                 section = sectionCommon.id.toString()
                 this.localite = localiteCommon.id.toString()
                 producteurId = producteurCommon.id.toString()
+
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent.
+                campagneId = this@PostPlantingEvalActivity.campagneId
+                campagneNom = this@PostPlantingEvalActivity.campagneNom
 
                 quantiterecueStr = GsonUtils.toJson(QuantiteDistribuer(mapOf(producteurCommon.id.toString() to qteRecuListObj)).variableKey)
                 quantiteStr = GsonUtils.toJson(QuantiteDistribuer(mapOf(producteurCommon.id.toString() to qtePlanteListObj)).variableKey)
@@ -408,6 +433,11 @@ class PostPlantingEvalActivity : AppCompatActivity() {
                 this.localite = localiteCommon.id.toString()
                 producteurId = producteurCommon.id.toString()
 
+                // Le selecteur n'est pas etiquete : la reflexion ne le lit pas, on reporte
+                // explicitement le choix de l'agent.
+                campagneId = this@PostPlantingEvalActivity.campagneId
+                campagneNom = this@PostPlantingEvalActivity.campagneNom
+
                 quantiterecueStr = GsonUtils.toJson(QuantiteDistribuer(mapOf(producteurCommon.id.toString() to qteRecuListObj)).variableKey)
                 quantiteStr = GsonUtils.toJson(QuantiteDistribuer(mapOf(producteurCommon.id.toString() to qtePlanteListObj)).variableKey)
                 quantitesurvecueeStr = GsonUtils.toJson(QuantiteDistribuer(mapOf(producteurCommon.id.toString() to qteSurvecuListObj)).variableKey)
@@ -419,6 +449,7 @@ class PostPlantingEvalActivity : AppCompatActivity() {
         }
 
         val mapEntries: List<MapEntry>? = itemModelOb?.second?.apply {
+            this.add(0, Pair(getString(R.string.campagne), campagneNom))
             this.add(Pair(getString(R.string.liste_des_arbres_valu_s), (binding.recyclerArbreListEvalPostPlant.adapter as EvaluationPostPlantAdapter).getArbreListAdded().map { "Arbre: ${it.nom_arbre}| Qte reçu: ${it.qte_recu}| Qte plantée: ${it.qte_plant}| Qte survécue: ${it.qte_survec}| Commentaire: ${it.commentaire}\n" }.toModifString() ))
             this.add(Pair(getString(R.string.quantit_plant_e), qtPlante.toString()))
             this.add(Pair(getString(R.string.quantit_surv_cue), qtSurvec.toString()))

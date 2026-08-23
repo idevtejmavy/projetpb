@@ -578,11 +578,14 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                         // deserialize datas producteurs
 
                         suivi.apply {
-                            // Le serveur retient cette valeur pour le suivi de parcelle : son
-                            // absence est tracee, sans empecher l'envoi.
-                            campagneId = campagneActive()?.id?.toString().orEmpty()
+                            // Campagne choisie par l'agent en tete de formulaire - c'est celle que
+                            // le serveur retient. On ne retombe sur la campagne active que pour les
+                            // saisies anterieures a cette version, qui n'en portent aucune.
                             if (campagneId.isNullOrBlank()) {
-                                LogUtils.e("Suivi de parcelle ${uid} : aucune campagne active connue de l'appareil")
+                                campagneId = campagneActive()?.id?.toString().orEmpty()
+                                if (campagneId.isNullOrBlank()) {
+                                    LogUtils.e("Suivi de parcelle ${uid} : aucune campagne connue de l'appareil")
+                                }
                             }
                             pesticidesAnneDerniereList = GsonUtils.fromJson(pesticidesAnneDerniereStr, object : TypeToken<MutableList<PesticidesAnneDerniereModel>>() {}.type)
                             intrantsAnneDerniereList = GsonUtils.fromJson(intrantsAnneDerniereStr, object : TypeToken<MutableList<PesticidesAnneDerniereModel>>() {}.type)
@@ -1295,10 +1298,13 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
 
                     suiviApplication.apply {
-                        // Reecrite par le serveur, qui estampille avec la campagne active.
-                        // Transmise quand meme, pour que la donnee conservee sur l'appareil dise
-                        // la meme chose que celle enregistree en base.
-                        campagnesId = campagneActive()?.id
+                        // Campagne choisie par l'agent. Le serveur la reecrit encore avec la
+                        // campagne active : la valeur transmise ne sera exploitee que lorsque
+                        // ApiapplicationController lira la requete. Repli sur la campagne active
+                        // pour les saisies anterieures a cette version.
+                        if (campagnesId == null || campagnesId == 0) {
+                            campagnesId = campagneActive()?.id
+                        }
                         hour = heureApplication?.split(":")?.get(0).toString()
                         minute = heureApplication?.split(":")?.get(1).toString()
 
