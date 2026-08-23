@@ -604,11 +604,6 @@ class DashboardAgentActivity : AppCompatActivity(),
             updateRVFeatureCount(lisFeat, "FORMATION", length)
         })
 
-        ProgBandRoomDatabase.getDatabase(this)?.enqueteSsrtDao()?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { items ->
-            val length = items.size
-            updateRVFeatureCount(lisFeat, "SSRTECLMRS", length)
-        })
-
         ProgBandRoomDatabase.getDatabase(this)?.livraisonDao()?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { items ->
             val length = items.size
             updateRVFeatureCount(lisFeat, "LIVRAISON", length)
@@ -808,10 +803,11 @@ class DashboardAgentActivity : AppCompatActivity(),
         if( (roles.containsAll(listOf("PRODUCTEUR")) == false && roles.containsAll(listOf("PARCELLE")) == false && roles.containsAll(listOf("ESTIMATION")) == false) && expandableLayout.tag.toString().equals("expand0") ) binding.lexpand0.visibility = View.GONE
         if( (roles.containsAll(listOf("PARCELLES")) == false && roles.containsAll(listOf("PARCELLES")) == false && roles.containsAll(listOf("FORMATION")) == false && roles.containsAll(listOf("FORMATION_VISITEUR")) == false && roles.containsAll(listOf("APPLICATION")) == false && roles.containsAll(listOf("INSPECTION")) == false) && expandableLayout.tag.toString().equals("expand1") ) binding.lexpand1.visibility = View.GONE
         if( (roles.containsAll(listOf("LIVRAISON")) == false && roles.containsAll(listOf("LIVRAISON_MAGCENTRAL")) == false) && expandableLayout.tag.toString().equals("expand2") ) binding.lexpand2.visibility = View.GONE
-        // La Visite Plantation appartient a la meme section repliable que l'Enquete Menage et
-        // l'enquete SSRTE : sans elle dans la condition, un agent n'ayant que ce role verrait la
-        // section entiere masquee, et donc son seul module inaccessible.
-        if( (roles.containsAll(listOf("MENAGE")) == false && roles.containsAll(listOf("SSRTECLMRS")) == false && roles.containsAll(listOf("VISITE_PLANTATION")) == false && roles.containsAll(listOf("SUIVI_ENFANT")) == false) && expandableLayout.tag.toString().equals("expand3") ) binding.lexpand3.visibility = View.GONE
+        // Section des questionnaires PFTE. Elle s'ouvre des qu'un seul de ces modules est
+        // accorde : sans cela, un agent n'ayant qu'un role verrait la section entiere masquee,
+        // et donc son seul module inaccessible. SSRTE-CLMRS en est retire, la tuile n'existant
+        // plus.
+        if( (roles.containsAll(listOf("MENAGE")) == false && roles.containsAll(listOf("VISITE_PLANTATION")) == false && roles.containsAll(listOf("SUIVI_ENFANT")) == false) && expandableLayout.tag.toString().equals("expand3") ) binding.lexpand3.visibility = View.GONE
         if( (roles.containsAll(listOf("AGRO_EVALUATION")) == false && roles.containsAll(listOf("AGRO_DISTRIBUTION")) == false && roles.containsAll(listOf("POSTPLANTING")) == false) && expandableLayout.tag.toString().equals("expand4") ) binding.lexpand4.visibility = View.GONE
         //if( () && expandableLayout.tag.toString().equals("expand5") ) lexpand5.visibility = View.GONE
         //if(roles.containsAll(listOf("APPLICATION", "INSPECTION")) == false && expandableLayout.tag.toString().equals("expand6") ) lexpand6.visibility = View.GONE
@@ -1033,22 +1029,16 @@ class DashboardAgentActivity : AppCompatActivity(),
                         canViewSync = true //can be false
                     ).apply { this.image = image.plus("formation.png")})
                 }
-                "SSRTECLMRS","SSRTECLMR" -> {
-                    //listOrderItem.add(7)
-                    //setClickListenForFeature(7);
-                    //linearSSRT.visibility = View.VISIBLE
-                    listOfFeatures.add(FeatureModel("SSRTE-CLMRS",
-                        countSync = ProgBandRoomDatabase.getDatabase(this)?.enqueteSsrtDao()?.getUnSyncedAll()?.size!!,
-                        countDraft = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()?.countByType(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID).toString(), type = "ssrte")!!,
-                        type = "SSRTECLMRS",
-                        categorie = 3,
-                        //image = R.drawable.ssrte,
-                        icon = R.drawable.ssrte_ic,
-                        canAdd = true,
-                        canEdit = true,
-                        canViewDraft = true,
-                        canViewSync = true //can be false
-                    ).apply { this.image = image.plus("ssrte.png")})
+                // SSRTE-CLMRS : module MASQUE a la demande du client, qui n'en a plus l'usage.
+                //
+                // Masque et non supprime : sa chaine d'envoi, son formulaire et ses ecrans restent
+                // en place, si bien que ce qui a deja ete saisi sur un appareil part toujours au
+                // serveur. Seuls les points d'entree disparaissent.
+                //
+                // Le retrait tient a cette seule branche : le menu lateral est bati a partir de la
+                // meme liste, une tuile absente en disparait donc aussi. Retablir le module se
+                // reduit a restaurer ce bloc - voir l'historique.
+                "SSRTECLMRS", "SSRTECLMR" -> {
                 }
                 "LIVRAISONS","LIVRAISON" -> {
                     //listOrderItem.add(11)

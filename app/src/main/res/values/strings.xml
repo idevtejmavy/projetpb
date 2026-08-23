@@ -1100,4 +1100,9 @@
     <string name="suivi_non_enregistre">Le suivi n’a pas pu être enregistré. Votre saisie est toujours à l’écran : réessayez avant de quitter.</string>
     <string name="aucun_enfant_suivable">Aucun enfant à suivre n’est disponible sur cet appareil. Lancez une mise à jour des données : la liste est constituée à partir des enquêtes ménage déjà enregistrées.</string>
 
+
+    <!-- Section du tableau de bord regroupant les trois questionnaires PFTE.
+         Elle portait le nom du module SSRTE-CLMRS, aujourd'hui masque. -->
+    <string name="section_pfte">PFTE - Travail des enfants</string>
+
 </resources>
