@@ -115,6 +115,27 @@ object SaisiePfte {
         return classesAffichage(context).firstOrNull { classeDepuisLibelle(it) == classe } ?: classe
     }
 
+    /**
+     * Vocabulaire des actions de remediation - lot 5.
+     *
+     * Il n'existe aucune table pour cette liste : le back-office la construit a la volee, par
+     * fusion dedoublonnee des trois listes de mesures. Le mobile fait de meme plutot que de
+     * telecharger une liste de plus, et reste ainsi aligne sur le serveur si l'une des trois
+     * evolue.
+     *
+     * L'ordre suit celui des trois listes, enfant puis menage puis communaute : c'est celui du
+     * formulaire web, et l'agent y retrouve ses reperes.
+     */
+    fun actionsRemediation(context: Context): MutableList<String> {
+        val fusion = LinkedHashSet<String>()
+        listOf(
+            ReferentielsPfte.MESURES_ENFANT,
+            ReferentielsPfte.MESURES_MENAGE,
+            ReferentielsPfte.MESURES_COMMUNAUTE
+        ).forEach { table -> fusion.addAll(valeurs(context, table)) }
+        return fusion.toMutableList()
+    }
+
     // ------------------------------------------------------------------ regle "Autre, preciser"
 
     /**

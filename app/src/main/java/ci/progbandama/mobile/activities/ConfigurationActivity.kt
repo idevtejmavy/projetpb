@@ -3145,7 +3145,55 @@ class ConfigurationActivity : AppCompatActivity() {
             }
 
             recuperation.join()
-            configCompletedOrError("Référentiels PFTE", hasOtherDatas = false)
+            configCompletedOrError("référentiels PFTE")
+            getEnfantsSuivables()
+        }
+    }
+
+    /**
+     * Telecharge la liste des enfants pouvant faire l'objet d'un suivi.
+     *
+     * Le Suivi Enfant Travailleur ne part pas d'un producteur mais d'un enfant deja recense. Cette
+     * liste vient du serveur et doit etre disponible HORS LIGNE : un agent qui ouvre le formulaire
+     * en plantation n'a pas de reseau pour aller la chercher.
+     *
+     * Derniere etape de la chaine de telechargement : elle cloture la mise a jour.
+     */
+    suspend fun getEnfantsSuivables() {
+        withContext(IO) {
+            val recuperation = async {
+                try {
+                    val reponse = ApiClient.apiService
+                        .getEnfantsSuivables(CommonData(userid = agentID))
+                        .execute()
+                    val recus = reponse.body()
+
+                    // Correctif D3 : on ne purge qu'apres reception confirmee. Une reponse
+                    // illisible laisserait l'agent sans aucun enfant a suivre.
+                    if (recus == null) {
+                        LogUtils.e("Enfants suivables : reponse non exploitable, cache conserve")
+                    } else {
+                        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, agentID).toString()
+                        val enfants = recus.map { it.versModele(agent) }
+                        val dao = database?.enfantSuivableDao()
+
+                        // Correctif E5 : effacement et reinsertion dans une seule transaction.
+                        MajLocale.enBloc(database, "enfants suivables") {
+                            dao?.effacerTout()
+                            if (enfants.isNotEmpty()) dao?.insertAll(enfants)
+                        }
+                        LogUtils.d("Enfants suivables : ${enfants.size} en cache")
+                    }
+                } catch (ex: Exception) {
+                    // Une liste indisponible ne doit pas interrompre la mise a jour : les autres
+                    // modules restent utilisables, celle-ci sera retentee au prochain passage.
+                    LogUtils.e("Enfants suivables : ${ex.message}")
+                    FirebaseCrashlytics.getInstance().recordException(ex)
+                }
+            }
+
+            recuperation.join()
+            configCompletedOrError("Enfants suivis", hasOtherDatas = false)
         }
     }
 

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Icone du module Suivi Enfant Travailleur.
+
+     Meme grammaire que le reste de la famille : ligne claire, contours fins, interieur vide,
+     cadrage 512 x 512, et epaisseur calee par comparaison avec les icones existantes.
+
+     Motif : un enfant et sa fiche de suivi. La coche distingue le suivi d'un simple formulaire -
+     c'est une visite de reevaluation, pas une premiere saisie.
+
+     L'enfant et la fiche gardent chacun leur moitie de cadre, et la pince de la fiche est posee a
+     l'interieur : sans occultation, des contours qui se croisent donnent un rendu de fil de fer
+     etranger a la famille.
+
+     En vectoriel plutot qu'en PNG : rendu identique a l'oeil, net a toutes les tailles, et
+     retouchable sans outil graphique. Le cadrage de 512 est conserve pour que les coordonnees
+     restent comparables a celles des icones existantes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Tete de l'enfant -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:pathData="M128,112 m-58,0 a58,58 0 1,0 116,0 a58,58 0 1,0 -116,0" />
+
+    <!-- Buste -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineJoin="round"
+        android:pathData="M84,236 a44,44 0 0,1 88,0 L172,300 a44,44 0 0,1 -88,0 Z" />
+
+    <!-- Bras et jambes -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:pathData="M84,246 L44,300 M172,246 L212,300
+                          M108,344 L108,452 M148,344 L148,452" />
+
+    <!-- Fiche de suivi -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineJoin="round"
+        android:pathData="M308,104 L464,104 a22,22 0 0,1 22,22 L486,408 a22,22 0 0,1 -22,22
+                          L308,430 a22,22 0 0,1 -22,-22 L286,126 a22,22 0 0,1 22,-22 Z" />
+
+    <!-- Pince de la fiche -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineJoin="round"
+        android:pathData="M362,132 L410,132 a12,12 0 0,1 12,12 L422,156 a12,12 0 0,1 -12,12
+                          L362,168 a12,12 0 0,1 -12,-12 L350,144 a12,12 0 0,1 12,-12 Z" />
+
+    <!-- Lignes de la fiche -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:pathData="M322,224 L450,224 M322,278 L450,278" />
+
+    <!-- Coche : c'est elle qui dit "suivi" plutot que "formulaire" -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M322,344 L348,370 L402,316" />
+
+    <!-- Sol -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:pathData="M24,470 L488,470" />
+
+</vector>

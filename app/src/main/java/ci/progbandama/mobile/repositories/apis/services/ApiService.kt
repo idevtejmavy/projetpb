@@ -150,6 +150,25 @@ interface ApiService {
     @POST("apivisiteplantation")
     fun synchronisationVisitePlantation(@Body visite: VisitePlantationModel): Call<VisitePlantationModel>
 
+    /**
+     * Suivi Enfant Travailleur (PFTE) - lot 5.
+     *
+     * Comme l'Enquete Menage, ce controleur ne valide rien : les controles du formulaire sont le
+     * seul filet avant l'enregistrement en base.
+     */
+    @POST("apisuivienfanttravailleur")
+    fun synchronisationSuiviEnfant(@Body suivi: SuiviEnfantModel): Call<SuiviEnfantModel>
+
+    /**
+     * Enfants pouvant faire l'objet d'un suivi - lot 5.
+     *
+     * Renvoie les enfants actifs de la cooperative avec leur enquete d'origine, dont on ne retient
+     * que le producteur et la localite. Mis en cache localement : l'agent ouvre le formulaire sans
+     * reseau.
+     */
+    @POST("getenfantsmenage")
+    fun getEnfantsSuivables(@Body agent: CommonData): Call<MutableList<EnfantSuivableDto>>
+
     @POST("apilocalite")
     fun synchronisationLocaliteC(@Body localiteModel: LocaliteModel): Call<LocaliteModel>
 

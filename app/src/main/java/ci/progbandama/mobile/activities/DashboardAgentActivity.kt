@@ -575,6 +575,10 @@ class DashboardAgentActivity : AppCompatActivity(),
             updateRVFeatureCount(lisFeat, "VISITE_PLANTATION", nombre ?: 0)
         })
 
+        ProgBandRoomDatabase.getDatabase(this)?.suiviEnfantDao()?.countUnSyncedLive(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { nombre ->
+            updateRVFeatureCount(lisFeat, "SUIVI_ENFANT", nombre ?: 0)
+        })
+
         ProgBandRoomDatabase.getDatabase(this)?.suiviApplicationDao()?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { items ->
             val length = items.size
             updateRVFeatureCount(lisFeat, "APPLICATION", length)
@@ -807,7 +811,7 @@ class DashboardAgentActivity : AppCompatActivity(),
         // La Visite Plantation appartient a la meme section repliable que l'Enquete Menage et
         // l'enquete SSRTE : sans elle dans la condition, un agent n'ayant que ce role verrait la
         // section entiere masquee, et donc son seul module inaccessible.
-        if( (roles.containsAll(listOf("MENAGE")) == false && roles.containsAll(listOf("SSRTECLMRS")) == false && roles.containsAll(listOf("VISITE_PLANTATION")) == false) && expandableLayout.tag.toString().equals("expand3") ) binding.lexpand3.visibility = View.GONE
+        if( (roles.containsAll(listOf("MENAGE")) == false && roles.containsAll(listOf("SSRTECLMRS")) == false && roles.containsAll(listOf("VISITE_PLANTATION")) == false && roles.containsAll(listOf("SUIVI_ENFANT")) == false) && expandableLayout.tag.toString().equals("expand3") ) binding.lexpand3.visibility = View.GONE
         if( (roles.containsAll(listOf("AGRO_EVALUATION")) == false && roles.containsAll(listOf("AGRO_DISTRIBUTION")) == false && roles.containsAll(listOf("POSTPLANTING")) == false) && expandableLayout.tag.toString().equals("expand4") ) binding.lexpand4.visibility = View.GONE
         //if( () && expandableLayout.tag.toString().equals("expand5") ) lexpand5.visibility = View.GONE
         //if(roles.containsAll(listOf("APPLICATION", "INSPECTION")) == false && expandableLayout.tag.toString().equals("expand6") ) lexpand6.visibility = View.GONE
@@ -1133,6 +1137,20 @@ class DashboardAgentActivity : AppCompatActivity(),
                         canViewSync = true //can be false
                     ).apply { this.image = image.plus("visitor_form.png")})
                 }
+                "SUIVI_ENFANT" -> {
+                    listOfFeatures.add(FeatureModel("SUIVI ENFANT",
+                        countSync = ProgBandRoomDatabase.getDatabase(this)?.suiviEnfantDao()
+                            ?.countUnSynced(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()) ?: 0,
+                        countDraft = BrouillonPfte.compter(this, BrouillonPfte.TYPE_SUIVI_ENFANT),
+                        type = "SUIVI_ENFANT",
+                        categorie = 3,
+                        icon = R.drawable.ic_suivi_enfant,
+                        canAdd = true,
+                        canEdit = true,
+                        canViewDraft = true,
+                        canViewSync = true
+                    ).apply { this.image = image.plus("ssrte.png") })
+                }
                 "VISITE_PLANTATION" -> {
                     listOfFeatures.add(FeatureModel("VISITE PLANTATION",
                         countSync = ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()
@@ -1272,6 +1290,7 @@ class DashboardAgentActivity : AppCompatActivity(),
                 ?: mutableListOf()
 
         if (BuildConfig.DEBUG && !roles.contains("VISITE_PLANTATION")) roles.add("VISITE_PLANTATION")
+        if (BuildConfig.DEBUG && !roles.contains("SUIVI_ENFANT")) roles.add("SUIVI_ENFANT")
 
         return roles
     }

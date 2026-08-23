@@ -92,6 +92,8 @@ import ci.progbandama.mobile.tools.ListConverters
         RefPfteModel::class,
         EnqueteMenageModel::class,
         VisitePlantationModel::class,
+        SuiviEnfantModel::class,
+        EnfantSuivableModel::class,
     ],
 //    autoMigrations = [
 //        AutoMigration(from = Constants.LAST_BUILD_VERSION, to = Constants.BUILD_VERSION)
@@ -169,6 +171,8 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
     abstract fun refPfteDao(): RefPfteDao
     abstract fun enqueteMenageDao(): EnqueteMenageDao
     abstract fun visitePlantationDao(): VisitePlantationDao
+    abstract fun suiviEnfantDao(): SuiviEnfantDao
+    abstract fun enfantSuivableDao(): EnfantSuivableDao
 
 
     companion object {
@@ -251,6 +255,104 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE estimation ADD COLUMN typeEstimation TEXT")
                 database.execSQL("ALTER TABLE estimation ADD COLUMN recolteEstime TEXT")
                 database.execSQL("ALTER TABLE estimation ADD COLUMN rendFinal TEXT")
+            }
+        }
+
+        /**
+         * Creation des tables du Suivi Enfant Travailleur (lot 5).
+         *
+         * Deux tables : les suivis saisis par l'agent, et le cache des enfants pouvant faire
+         * l'objet d'un suivi. Ce module ne part pas d'un producteur mais d'un enfant deja recense,
+         * dont la liste doit etre disponible hors ligne.
+         *
+         * Migration REELLE : la base est construite avec fallbackToDestructiveMigration(), une
+         * montee de version sans migration effacerait les brouillons et les saisies non
+         * transmises des agents.
+         */
+        val MIGRATION_81_82 = object : Migration(81, 82) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `suivi_enfant` (" +
+                            "`uid` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                            "`id` INTEGER NOT NULL, " +
+                            "`userid` INTEGER, " +
+                            "`enfantId` TEXT, " +
+                            "`dateEnquete` TEXT, " +
+                            "`nomEnqueteur` TEXT, " +
+                            "`nom` TEXT, " +
+                            "`dateNaissance` TEXT, " +
+                            "`sexe` TEXT, " +
+                            "`lienParente` TEXT, " +
+                            "`autreLienParente` TEXT, " +
+                            "`raisonNeVitPasParents` TEXT, " +
+                            "`autreRaisonNeVitPasParents` TEXT, " +
+                            "`situationScolaire` TEXT, " +
+                            "`niveauScolaire` TEXT, " +
+                            "`autreRaisonNonScolarisation` TEXT, " +
+                            "`extraitNaissance` TEXT, " +
+                            "`presentDisponible` TEXT, " +
+                            "`raisonAbsent` TEXT, " +
+                            "`heuresTravailSemaine` TEXT, " +
+                            "`joursTravail` TEXT, " +
+                            "`heuresTravailJournee` TEXT, " +
+                            "`autreRaisonTravailAbus` TEXT, " +
+                            "`autreMesure` TEXT, " +
+                            "`autreThemeSensibilisation` TEXT, " +
+                            "`nombreHommesSensibilises` TEXT, " +
+                            "`nombreFemmesSensibilisees` TEXT, " +
+                            "`nombreGarconsSensibilises` TEXT, " +
+                            "`nombreFillesSensibilisees` TEXT, " +
+                            "`telephoneProducteurSensibilisation` TEXT, " +
+                            "`photoSensibilisation` TEXT, " +
+                            "`etatSoumission` TEXT, " +
+                            "`actionsRemediationStringify` TEXT, " +
+                            "`raisonNonScolarisationStringify` TEXT, " +
+                            "`raisonPasExtraitStringify` TEXT, " +
+                            "`situationsPfteStringify` TEXT, " +
+                            "`raisonTravailAbusStringify` TEXT, " +
+                            "`mesuresEnfantStringify` TEXT, " +
+                            "`mesuresMenageStringify` TEXT, " +
+                            "`mesuresCommunauteStringify` TEXT, " +
+                            "`themesSensibilisationStringify` TEXT, " +
+                            "`outilsSensibilisationStringify` TEXT, " +
+                            "`isSynced` INTEGER NOT NULL, " +
+                            "`origin` TEXT, " +
+                            "`agentId` TEXT, " +
+                            "`enfantNom` TEXT, " +
+                            "`producteurNom` TEXT, " +
+                            "`localiteNom` TEXT)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_suivi_enfant_uid` " +
+                            "ON `suivi_enfant` (`uid`)"
+                )
+
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `enfant_suivable` (" +
+                            "`uid` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                            "`idServeur` INTEGER NOT NULL, " +
+                            "`codeEnfant` TEXT, " +
+                            "`nom` TEXT, " +
+                            "`dateNaissance` TEXT, " +
+                            "`sexe` TEXT, " +
+                            "`lienParente` TEXT, " +
+                            "`autreLienParente` TEXT, " +
+                            "`raisonNeVitPasParents` TEXT, " +
+                            "`autreRaisonNeVitPasParents` TEXT, " +
+                            "`situationScolaire` TEXT, " +
+                            "`niveauScolaire` TEXT, " +
+                            "`autreRaisonNonScolarisation` TEXT, " +
+                            "`extraitNaissance` TEXT, " +
+                            "`autreRaisonTravailAbus` TEXT, " +
+                            "`autreMesure` TEXT, " +
+                            "`producteurNom` TEXT, " +
+                            "`localiteNom` TEXT, " +
+                            "`agentId` TEXT)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_enfant_suivable_idServeur` " +
+                            "ON `enfant_suivable` (`idServeur`)"
+                )
             }
         }
 
@@ -473,6 +575,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
                         MIGRATION_78_79,
                         MIGRATION_79_80,
                         MIGRATION_80_81,
+                        MIGRATION_81_82,
                         )
                     .build()
                 INSTANCE = instance

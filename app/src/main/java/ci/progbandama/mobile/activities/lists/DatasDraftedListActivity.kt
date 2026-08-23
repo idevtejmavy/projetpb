@@ -44,6 +44,7 @@ class DatasDraftedListActivity : AppCompatActivity(R.layout.activity_datas_draft
                 // qui l'a produit. Aucun autre type ne contient "menage".
                 .replace("menage", "%menage%")
                 .replace("visite_plantation", BrouillonPfte.TYPE_VISITE_PLANTATION)
+                .replace("suivi_enfant", BrouillonPfte.TYPE_SUIVI_ENFANT)
                 .lowercase()
             LogUtils.d(fromGlobalMenu, replaceID)
             val draftedDataList = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()?.getAllByType(

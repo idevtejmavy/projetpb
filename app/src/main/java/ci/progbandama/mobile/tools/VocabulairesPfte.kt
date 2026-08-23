@@ -125,4 +125,31 @@ object VocabulairesPfte {
     /** Libelle a reafficher a partir d'un code enregistre, pour la reprise d'un brouillon. */
     fun libellePourCode(couples: List<Pair<String, String>>, code: String?): String? =
         couples.firstOrNull { it.first == code }?.second
+
+    // ------------------------------------------------------------------ Suivi Enfant Travailleur
+
+    /**
+     * Presence de l'enfant lors de la visite. Codes "0" et "1", et non "Non" et "Oui".
+     *
+     * Le piege est ici plus vicieux qu'ailleurs : les libelles affiches sont Oui et Non, comme
+     * pour les autres questions du formulaire, mais ceux-la seuls sont transmis tels quels tandis
+     * que celui-ci doit partir en code. Une confusion ne se verrait qu'en base.
+     */
+    val PRESENT_DISPONIBLE: List<Pair<String, String>> = listOf("1" to "Oui", "0" to "Non")
+
+    /** Motif d'absence de l'enfant. Codes 0 a 8, releves sur le formulaire web. */
+    val RAISONS_ABSENCE: List<Pair<String, String>> = listOf(
+        "0" to "Départ des parents",
+        "1" to "L'enfant ne vit pas dans la localité",
+        "2" to "L'enfant est décédé",
+        "3" to "L'enfant est scolarisé loin de chez lui (temporaire)",
+        "4" to "Vacances scolaires",
+        "5" to "Sorties scolaires",
+        "6" to "L'enfant est à la ferme",
+        "7" to "Autre (temporaire)",
+        "8" to "Autre (permanent)"
+    )
+
+    /** Code de la reponse "Non" a la presence : ouvre le motif d'absence. */
+    const val ABSENT = "0"
 }

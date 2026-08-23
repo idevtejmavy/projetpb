@@ -195,6 +195,8 @@ class MenusActionRedirectionActivity : AppCompatActivity() {
                         ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                     "VISITE_PLANTATION" ->
                         ActivityUtils.startActivity(VisitePlantationActivity::class.java)
+                    "SUIVI_ENFANT" ->
+                        ActivityUtils.startActivity(SuiviEnfantActivity::class.java)
                     "PARCELLE" -> ActivityUtils.startActivity(ParcelleActivity::class.java)
                     "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                     "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)

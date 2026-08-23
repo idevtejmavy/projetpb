@@ -69,6 +69,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
     var enqueteSsrtDao: EnqueteSsrteDao? = null
     var enqueteMenageDao: EnqueteMenageDao? = null
     var visitePlantationDao: VisitePlantationDao? = null
+    var suiviEnfantDao: SuiviEnfantDao? = null
     var estimationDao: EstimationDao? = null
     var suncLocaliteFlag = true
     var suncProducteursFlag = true
@@ -700,6 +701,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
         // Modules PFTE : derniers maillons de la chaine d'envoi.
         syncEnqueteMenage(enqueteMenageDao)
         syncVisitePlantation(visitePlantationDao)
+        syncSuiviEnfant(suiviEnfantDao)
 
         if (Build.VERSION.SDK_INT >= 26) {
             stopForeground(true)
@@ -814,6 +816,52 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                     visitePlantationDao.syncData(identifiantServeur, true, visite.uid)
                 } else {
                     LogUtils.e("Visite Plantation ${visite.uid} : reponse sans identifiant, conservee en attente")
+                }
+            }
+        } catch (uhex: UnknownHostException) {
+            FirebaseCrashlytics.getInstance().recordException(uhex)
+        } catch (ex: Exception) {
+            LogUtils.e(ex.message)
+            FirebaseCrashlytics.getInstance().recordException(ex)
+        }
+    }
+
+    /**
+     * Envoi des Suivis Enfant Travailleur (PFTE) - lot 5.
+     *
+     * Ce module ne depend pas des producteurs : il porte l'identifiant d'un enfant deja recense
+     * cote serveur. Il n'attend donc pas la fin de l'envoi des producteurs, contrairement aux deux
+     * autres modules PFTE.
+     */
+    fun syncSuiviEnfant(suiviEnfantDao: SuiviEnfantDao?) {
+        if (suiviEnfantDao == null) return
+
+        try {
+            suiviEnfantDao.getUnSyncedAll().forEach { suivi ->
+                suivi.dateEnquete = Commons.convertDate(suivi.dateEnquete, toEng = true)
+                suivi.dateNaissance = Commons.convertDate(suivi.dateNaissance, toEng = true)
+
+                suivi.actionsRemediation = listeOuRien(suivi.actionsRemediationStringify)
+                suivi.raisonNonScolarisation = listeOuRien(suivi.raisonNonScolarisationStringify)
+                suivi.raisonPasExtrait = listeOuRien(suivi.raisonPasExtraitStringify)
+                suivi.situationsPfte = listeOuRien(suivi.situationsPfteStringify)
+                suivi.raisonTravailAbus = listeOuRien(suivi.raisonTravailAbusStringify)
+                suivi.mesuresEnfant = listeOuRien(suivi.mesuresEnfantStringify)
+                suivi.mesuresMenage = listeOuRien(suivi.mesuresMenageStringify)
+                suivi.mesuresCommunaute = listeOuRien(suivi.mesuresCommunauteStringify)
+                suivi.themesSensibilisation = listeOuRien(suivi.themesSensibilisationStringify)
+                suivi.outilsSensibilisation = listeOuRien(suivi.outilsSensibilisationStringify)
+
+                val reponse: Response<SuiviEnfantModel> =
+                    ApiClient.apiService.synchronisationSuiviEnfant(suivi).execute()
+                val identifiantServeur = reponse.body()?.id
+
+                // Sans identifiant en retour, le suivi reste en attente : le marquer transmis le
+                // ferait disparaitre de la file sans qu'on sache si le serveur l'a accepte.
+                if (identifiantServeur != null && identifiantServeur > 0) {
+                    suiviEnfantDao.syncData(identifiantServeur, true, suivi.uid)
+                } else {
+                    LogUtils.e("Suivi Enfant ${suivi.uid} : reponse sans identifiant, conserve en attente")
                 }
             }
         } catch (uhex: UnknownHostException) {
@@ -1838,6 +1886,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
             enqueteSsrtDao = ProgBandRoomDatabase.getDatabase(this)?.enqueteSsrtDao()
             enqueteMenageDao = ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()
             visitePlantationDao = ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()
+            suiviEnfantDao = ProgBandRoomDatabase.getDatabase(this)?.suiviEnfantDao()
             inspectionDao = ProgBandRoomDatabase.getDatabase(this)?.inspectionDao()
             infosProducteurDao = ProgBandRoomDatabase.getDatabase(this)?.infosProducteurDao()
             livraisonCentralDao = ProgBandRoomDatabase.getDatabase(this)?.livraisonCentralDao()

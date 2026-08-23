@@ -1085,4 +1085,19 @@
     <string name="enfants_trouves">Enfants trouvés</string>
     <string name="fiches_enfant_incompletes">Autant de fiches que d’enfants déclarés : complétez celles qui restent vides, ou corrigez l’effectif</string>
 
+
+    <!-- Module Suivi Enfant Travailleur (PFTE) - lot 5 -->
+    <string name="information_suivi_enfant">Suivi d’un enfant travailleur : réévaluation de sa situation depuis la dernière visite. Sélectionnez l’enfant : les informations connues sont reportées automatiquement, corrigez ce qui a changé.</string>
+    <string name="enfant_suivi">Enfant suivi</string>
+    <string name="actions_de_remediation">Action(s) de remédiation</string>
+    <string name="present_et_disponible">L’enfant était-il présent et disponible ?</string>
+    <string name="raison_de_l_absence">Raison de l’absence</string>
+    <string name="date_de_la_visite_de_suivi">Date de la visite</string>
+    <string name="recapitulatif_suivi_enfant">RÉCAPITULATIF DU SUIVI</string>
+    <string name="enregistrer_le_suivi">Enregistrer le suivi</string>
+    <string name="confirmer_enregistrement_suivi">Voulez-vous enregistrer ce suivi ? Il sera transmis dès que le réseau sera disponible.</string>
+    <string name="suivi_enregistre">Suivi enregistré. Il partira à la prochaine synchronisation.</string>
+    <string name="suivi_non_enregistre">Le suivi n’a pas pu être enregistré. Votre saisie est toujours à l’écran : réessayez avant de quitter.</string>
+    <string name="aucun_enfant_suivable">Aucun enfant à suivre n’est disponible sur cet appareil. Lancez une mise à jour des données : la liste est constituée à partir des enquêtes ménage déjà enregistrées.</string>
+
 </resources>

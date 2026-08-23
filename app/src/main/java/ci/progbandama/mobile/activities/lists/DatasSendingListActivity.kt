@@ -275,6 +275,30 @@ class DatasSendingListActivity : AppCompatActivity() {
                     commonDataListCloned.addAll(commonDataList)
                 }
 
+                "SUIVI_ENFANT" -> {
+                    binding.labelTitleMenuAction.apply {
+                        setText("SUIVIS ENFANT ${this.text}")
+                    }
+                    progbandBase.suiviEnfantDao()
+                        .getAll(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())
+                        .filter { it.isSynced == false }
+                        .forEach { suivi ->
+                            // Le nom de l'enfant est retenu a la saisie : le mobile ne relit pas
+                            // le serveur, et la liste doit rester lisible hors ligne.
+                            val enfant = suivi.enfantNom.orEmpty().ifBlank { suivi.enfantId.orEmpty() }
+                            commonDataList.add(
+                                CommonData(id = suivi.uid, value = "SUIVI_ENFANT").apply {
+                                    listOfValue = arrayListOf(
+                                        "CODE: ", "${suivi.uid}",
+                                        "Enfant: ",
+                                        "$enfant\nDate: ${Commons.convertDate(suivi.dateEnquete, false)}"
+                                    )
+                                }
+                            )
+                        }
+                    commonDataListCloned.addAll(commonDataList)
+                }
+
                 "VISITE_PLANTATION" -> {
                     binding.labelTitleMenuAction.apply {
                         setText("VISITES PLANTATION ${this.text}")
