@@ -42,6 +42,7 @@ import ci.progbandama.mobile.services.GpsService
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.openUrl
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
+import ci.progbandama.mobile.BuildConfig
 import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.DonneesEnAttente
@@ -1130,6 +1131,8 @@ class DashboardAgentActivity : AppCompatActivity(),
             //carouselRecyclerview?.adapter?.notifyDataSetChanged()
         }
 
+        ajouterTuileVisitePlantationEnDebug()
+
         listOfFeatures.map {
             listOfFeatureCloned.add(it)
         }
@@ -1231,6 +1234,39 @@ class DashboardAgentActivity : AppCompatActivity(),
         val ancien = dao?.countByType(agentID = agent, type = "menage") ?: 0
         val nouveau = dao?.countByType(agentID = agent, type = BrouillonPfte.TYPE_ENQUETE_MENAGE) ?: 0
         return ancien + nouveau
+    }
+
+    /**
+     * Tuile temporaire de la Visite Plantation - lot 4, en attendant le role serveur.
+     *
+     * Le tableau de bord ne montre que ce que les roles renvoyes par l'API autorisent, et aucun
+     * role ne couvre encore ce module. Contrairement a l'Enquete Menage, il n'existe ici aucun
+     * ancien module a reprendre : sans cette tuile, le formulaire serait inatteignable et donc
+     * impossible a recetter. Elle sort immediatement en production, ou BuildConfig.DEBUG vaut false.
+     *
+     * A SUPPRIMER des que le role est accorde. Le reste du cablage - redirections, brouillons,
+     * donnees en attente - est deja en place et fonctionnera sans rien changer d'autre.
+     */
+    private fun ajouterTuileVisitePlantationEnDebug() {
+        if (!BuildConfig.DEBUG) return
+        if (listOfFeatures.any { it.type == "VISITE_PLANTATION" }) return
+
+        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()
+        listOfFeatures.add(
+            FeatureModel(
+                "VISITE PLANTATION",
+                countSync = ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()
+                    ?.countUnSynced(agent) ?: 0,
+                countDraft = BrouillonPfte.compter(this, BrouillonPfte.TYPE_VISITE_PLANTATION),
+                type = "VISITE_PLANTATION",
+                categorie = 3,
+                icon = R.drawable.ssrte_ic,
+                canAdd = true,
+                canEdit = true,
+                canViewDraft = true,
+                canViewSync = true
+            ).apply { this.image = image.plus("ssrte.png") }
+        )
     }
 
     private fun setViewFeatureListing() {

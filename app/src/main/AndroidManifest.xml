@@ -139,6 +139,15 @@
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
+            android:name="ci.progbandama.mobile.activities.forms.VisitePlantationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="ci.progbandama.mobile.activities.infospresenters.VisitePlantationPreviewActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
             android:name="ci.progbandama.mobile.activities.forms.CalculEstimationActivity"
             android:screenOrientation="portrait"
             android:exported="false"

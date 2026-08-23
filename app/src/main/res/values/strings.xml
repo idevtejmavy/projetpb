@@ -1054,4 +1054,35 @@
     <string name="ajouter_la_photo">Ajouter la photo</string>
     <string name="photo_impossible">La photo n’a pas pu être ajoutée. Réessayez, ou choisissez l’autre source.</string>
 
+
+    <!-- Bandeau d'information du formulaire Enquete Menage -->
+    <string name="important_titre">Important !</string>
+    <string name="information_enquete_menage">Enquête ménage : dépistage des Pires Formes de Travail des Enfants (PFTE). Renseignez d’abord le filtre/consentement, puis les caractéristiques du ménage et, le cas échéant, chaque enfant à charge.</string>
+
+
+    <!-- Module Visite Plantation (PFTE) - lot 4 -->
+    <string name="information_visite_plantation">Visite de plantation : dépistage des Pires Formes de Travail des Enfants (PFTE). Renseignez d’abord le filtre/consentement, puis les caractéristiques de la plantation. Une fiche est créée automatiquement par enfant de 5 à 17 ans trouvé sur place.</string>
+    <string name="visite_enregistree">Visite enregistrée. Elle partira à la prochaine synchronisation.</string>
+    <string name="visite_non_enregistree">La visite n’a pas pu être enregistrée. Votre saisie est toujours à l’écran : réessayez avant de quitter.</string>
+    <string name="confirmer_enregistrement_visite">Voulez-vous enregistrer cette visite ? Elle sera transmise dès que le réseau sera disponible.</string>
+    <string name="recapitulatif_visite_plantation">RÉCAPITULATIF DE LA VISITE</string>
+    <string name="enregistrer_la_visite">Enregistrer la visite</string>
+    <string name="jour_de_la_visite">Jour de la visite</string>
+    <string name="date_de_la_visite">Date de la visite</string>
+    <string name="superficie_de_la_plantation">Superficie de la plantation (ha)</string>
+    <string name="nombre_de_manoeuvres_permanents">Nombre de manœuvres permanents</string>
+    <string name="manoeuvres_permanents_moins_18">Des manœuvres permanents ont-ils moins de 18 ans ?</string>
+    <string name="nombre_de_manoeuvres_journaliers">Nombre de manœuvres journaliers</string>
+    <string name="manoeuvres_journaliers_moins_18">Des manœuvres journaliers ont-ils moins de 18 ans ?</string>
+    <string name="nombre_d_enfants_0_4_trouves">Nombre d’enfants de 0 à 4 ans trouvés</string>
+    <string name="nombre_d_enfants_5_17_trouves">Nombre d’enfants de 5 à 17 ans trouvés</string>
+    <string name="nombre_de_personnes_trouvees">Nombre total de personnes trouvées</string>
+    <string name="heures_de_travail_par_semaine">Heures de travail par semaine</string>
+    <string name="jours_travailles_par_semaine">Nombre de jours travaillés par semaine</string>
+    <string name="heures_journee_la_plus_chargee">Heures travaillées la journée la plus chargée</string>
+
+
+    <string name="enfants_trouves">Enfants trouvés</string>
+    <string name="fiches_enfant_incompletes">Autant de fiches que d’enfants déclarés : complétez celles qui restent vides, ou corrigez l’effectif</string>
+
 </resources>

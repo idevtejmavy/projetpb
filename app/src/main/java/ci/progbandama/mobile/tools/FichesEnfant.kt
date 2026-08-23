@@ -43,7 +43,11 @@ class FichesEnfant<T>(
     private val conteneur: LinearLayout,
     @LayoutRes private val layoutFiche: Int,
     private val idNumero: Int,
-    private val idBoutonRetirer: Int,
+    /**
+     * Bouton de retrait de la fiche. null quand le module n'en propose pas : la Visite Plantation
+     * pilote le nombre de fiches par un effectif declare, retirer une fiche isolee le contredirait.
+     */
+    private val idBoutonRetirer: Int? = null,
     private val surCreation: (vue: View, index: Int) -> Unit,
     private val lecture: (vue: View, index: Int) -> T?,
     private val ecriture: (vue: View, modele: T) -> Unit,
@@ -81,7 +85,7 @@ class FichesEnfant<T>(
         val vue = LayoutInflater.from(contexte).inflate(layoutFiche, conteneur, false)
         conteneur.addView(vue)
 
-        vue.findViewById<View>(idBoutonRetirer)?.setOnClickListener { retirer(vue) }
+        idBoutonRetirer?.let { id -> vue.findViewById<View>(id)?.setOnClickListener { retirer(vue) } }
 
         return try {
             surCreation(vue, conteneur.childCount - 1)

@@ -1,0 +1,1367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Visite Plantation (PFTE) - lot 4.
+
+     Memes conventions que l'Enquete Menage : blocs conditionnels masques a l'ouverture,
+     android:tag portant le nom de la propriete du modele.
+
+     Une difference tient a la place : ce module n'a pas de bouton "Ajouter un enfant". Le
+     nombre de fiches suit le nombre d'enfants de 5 a 17 ans trouves, comme sur le web ou le
+     bouton existe mais reste masque en permanence.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_visite_plantation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.forms.VisitePlantationActivity">
+
+    <RelativeLayout
+        android:id="@+id/linealToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_70sdp"
+        android:background="@color/progband_gris">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/clickCloseBtn"
+            android:layout_width="@dimen/page_icon_head_dim35"
+            android:layout_height="@dimen/page_icon_head_dim35"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_back_black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelTitleMenuAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="VISITE PLANTATION"
+            android:textColor="@color/text_color_white"
+            android:textSize="@dimen/page_title_dim14"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageDraftBtn"
+            android:layout_width="@dimen/page_icon_head_dim35"
+            android:layout_height="@dimen/page_icon_head_dim35"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_7sdp"
+            android:src="@drawable/baseline_send_and_archive_white" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollVisitePlantation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/rounded_background"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/important_titre"
+                    android:textSize="@dimen/page_title_dim14"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelInformationVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@string/information_visite_plantation"
+                    android:textSize="@dimen/page_input_title_dim11" />
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardIdentificationVp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/progband_gris"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/_8sdp"
+                        android:text="IDENTIFICATION"
+                        android:textColor="@color/text_color_white"
+                        android:textSize="@dimen/page_title_dim14"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Section"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="sectionId"
+                        android:id="@+id/selectSectionVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Localite"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="localiteId"
+                        android:id="@+id/selectLocaliteVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Producteur"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="producteurId"
+                        android:id="@+id/selectProducteurVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Sexe du producteur"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editSexeProducteurVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="-"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Code producteur"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editCodeProducteurVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="-"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Date de la visite"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="dateEnquete"
+                    android:id="@+id/editDateEnqueteVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="JJ-MM-AAAA"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Jour de la visite"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="jourVisite"
+                        android:id="@+id/selectJourVisiteVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Nom de l'enqueteur"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="nomEnqueteur"
+                    android:id="@+id/editNomEnqueteurVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="KOUAME"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Latitude"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="latitude"
+                    android:id="@+id/editLatitudeVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="-"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Longitude"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="longitude"
+                    android:id="@+id/editLongitudeVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="-"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Altitude"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="altitude"
+                    android:id="@+id/editAltitudeVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="-"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Precision GPS"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="precisionGps"
+                    android:id="@+id/editPrecisionGpsVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="-"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapCharacters"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCapturerPositionVp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:backgroundTint="@color/bggreen"
+                    android:elevation="0dp"
+                    android:text="Capturer la position"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="@dimen/page_button_text_dim13"
+                    app:cornerRadius="@dimen/_37sdp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFiltreVp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/progband_gris"
+                app:cardCornerRadius="@dimen/_8sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/_8sdp"
+                        android:text="FILTRE ET CONSENTEMENT"
+                        android:textColor="@color/text_color_white"
+                        android:textSize="@dimen/page_title_dim14"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Le producteur est-il le repondant ?"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="estProducteurRepondant"
+                        android:id="@+id/selectEstRepondantVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:id="@+id/blocRepondantVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/_12sdp"
+                            android:text="Nom du repondant"
+                            android:textColor="@color/text_color_white"
+                            android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:tag="nomRepondant"
+                        android:id="@+id/editNomRepondantVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:background="@drawable/rounded_background"
+                        android:ellipsize="end"
+                        android:hint="KOFFI YAO"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:paddingEnd="@dimen/_10sdp"
+                        android:textSize="@dimen/page_input_content_dim13" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/_12sdp"
+                            android:text="Titre du repondant"
+                            android:textColor="@color/text_color_white"
+                            android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_background">
+
+                        <Space
+                            android:layout_width="@dimen/_5sdp"
+                            android:layout_height="@dimen/_10sdp" />
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:tag="titreRepondant"
+                            android:id="@+id/selectTitreRepondantVp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_37sdp"
+                            android:spinnerMode="dialog" />
+
+                    </LinearLayout>
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Le producteur est-il disponible ?"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="producteurDisponible"
+                        android:id="@+id/selectProducteurDisponibleVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:id="@+id/blocIndisponibleVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/_12sdp"
+                            android:text="Raison de l'indisponibilite"
+                            android:textColor="@color/text_color_white"
+                            android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_background">
+
+                        <Space
+                            android:layout_width="@dimen/_5sdp"
+                            android:layout_height="@dimen/_10sdp" />
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:tag="raisonIndisponibilite"
+                            android:id="@+id/selectRaisonIndisponibiliteVp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_37sdp"
+                            android:spinnerMode="dialog" />
+
+                    </LinearLayout>
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <LinearLayout
+                        android:id="@+id/blocDatePlanificationVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/_12sdp"
+                                android:text="Date de replanification"
+                                android:textColor="@color/text_color_white"
+                                android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:tag="datePlanification"
+                            android:id="@+id/editDatePlanificationVp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"
+                            android:ellipsize="end"
+                            android:hint="JJ-MM-AAAA"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapCharacters"
+                            android:focusable="false"
+                            android:clickable="false"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textSize="@dimen/page_input_content_dim13" />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="@dimen/_5sdp"
+                            android:layout_height="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/blocRaisonRefusVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/_12sdp"
+                                android:text="Raison(s) du refus"
+                                android:textColor="@color/text_color_white"
+                                android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rounded_background">
+
+                            <Space
+                                android:layout_width="@dimen/_5sdp"
+                                android:layout_height="@dimen/_10sdp" />
+
+                            <ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
+                                android:id="@+id/selectRaisonRefusVp"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_37sdp"
+                                android:spinnerMode="dialog" />
+
+                        </LinearLayout>
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="@dimen/_5sdp"
+                            android:layout_height="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/blocAutreRaisonRefusVp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="@dimen/_12sdp"
+                                android:text="Autre raison du refus"
+                                android:textColor="@color/text_color_white"
+                                android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:tag="autreRaisonRefus"
+                            android:id="@+id/editAutreRaisonRefusVp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_37sdp"
+                            android:background="@drawable/rounded_background"
+                            android:ellipsize="end"
+                            android:hint="Preciser"
+                            android:imeOptions="actionDone"
+                            android:inputType="textCapCharacters"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textSize="@dimen/page_input_content_dim13" />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="@dimen/_5sdp"
+                            android:layout_height="@dimen/_10sdp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/blocConsentementVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/_12sdp"
+                            android:text="Consentement du producteur"
+                            android:textColor="@color/text_color_white"
+                            android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_background">
+
+                        <Space
+                            android:layout_width="@dimen/_5sdp"
+                            android:layout_height="@dimen/_10sdp" />
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:tag="consentement"
+                            android:id="@+id/selectConsentementVp"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_37sdp"
+                            android:spinnerMode="dialog" />
+
+                    </LinearLayout>
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/labelFinEnqueteVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background"
+                    android:padding="@dimen/_10sdp"
+                    android:text="La visite s'arrete ici. Enregistrez pour conserver le motif."
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/blocSuiteFormulaireVp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardPlantationVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:visibility="visible"
+                    app:cardBackgroundColor="@color/progband_gris"
+                    app:cardCornerRadius="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/_8sdp"
+                            android:text="CARACTERISTIQUES DE LA PLANTATION"
+                            android:textColor="@color/text_color_white"
+                            android:textSize="@dimen/page_title_dim14"
+                            android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Superficie de la plantation (ha)"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="superficiePlantation"
+                    android:id="@+id/editSuperficieVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Nombre de manoeuvres permanents"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="nombreManoeuvresPermanents"
+                    android:id="@+id/editManoeuvresPermanentsVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Des manoeuvres permanents ont-ils moins de 18 ans ?"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="manoeuvresPermanentsMoins18"
+                        android:id="@+id/selectPermanentsMoins18Vp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Nombre de manoeuvres journaliers"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="nombreManoeuvresJournaliers"
+                    android:id="@+id/editManoeuvresJournaliersVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Des manoeuvres journaliers ont-ils moins de 18 ans ?"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_background">
+
+                    <Space
+                        android:layout_width="@dimen/_5sdp"
+                        android:layout_height="@dimen/_10sdp" />
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:tag="manoeuvresJournaliersMoins18"
+                        android:id="@+id/selectJournaliersMoins18Vp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_37sdp"
+                        android:spinnerMode="dialog" />
+
+                </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Nombre d'enfants de 0 a 4 ans trouves"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="nombreEnfants0a4"
+                    android:id="@+id/editNombreEnfants0a4Vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Nombre d'enfants de 5 a 17 ans trouves"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="nombreEnfants5a17"
+                    android:id="@+id/editNombreEnfants5a17Vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:text="Nombre total de personnes trouvees"
+                        android:textColor="@color/text_color_white"
+                        android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:tag="nombrePersonnesTrouvees"
+                    android:id="@+id/editNombrePersonnesVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_37sdp"
+                    android:background="@drawable/rounded_background"
+                    android:ellipsize="end"
+                    android:hint="0"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textSize="@dimen/page_input_content_dim13" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardEnfantsVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/progband_gris"
+                    app:cardCornerRadius="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/_8sdp"
+                            android:text="ENFANT(S) TROUVE(S) DANS LA PLANTATION"
+                            android:textColor="@color/text_color_white"
+                            android:textSize="@dimen/page_title_dim14"
+                            android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:text="Une fiche est creee par enfant de 5 a 17 ans declare ci-dessus."
+                    android:textColor="@color/text_color_white"
+                    android:textStyle="bold" />
+
+                <Space
+                    android:layout_width="@dimen/_5sdp"
+                    android:layout_height="@dimen/_10sdp" />
+
+                <LinearLayout
+                    android:id="@+id/conteneurFichesEnfantVp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEnregistrerVp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:backgroundTint="@color/bggreen"
+                    android:elevation="0dp"
+                    android:text="Enregistrer la visite"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="@dimen/page_button_text_dim13"
+                    app:cornerRadius="@dimen/_37sdp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBrouillonVp"
+                    style="@style/OptionsButton_Active"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:backgroundTint="@color/progband_gris"
+                    android:elevation="0dp"
+                    android:text="Mettre au brouillon"
+                    android:textColor="@color/text_color_white"
+                    android:textSize="@dimen/page_button_text_dim13"
+                    app:cornerRadius="@dimen/_37sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

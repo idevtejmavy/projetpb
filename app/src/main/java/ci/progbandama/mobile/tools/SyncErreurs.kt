@@ -35,7 +35,8 @@ object SyncErreurs {
         "apilivraisonmagasinsection" to "LIVRAISON",
         "apilivraisonmagasincentral" to "LIVRAISON_MAGCENTRAL",
         "apiinfosproducteur" to "INFOS_PRODUCTEUR",
-        "apienquetemenage" to "ENQUETE_MENAGE"
+        "apienquetemenage" to "ENQUETE_MENAGE",
+        "apivisiteplantation" to "VISITE_PLANTATION"
     )
 
     fun modulePourChemin(chemin: String): String? =

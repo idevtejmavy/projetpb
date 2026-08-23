@@ -123,6 +123,12 @@ class DataDraftedAdapter(val context: Context, var draftedList: MutableList<Data
                 intentUndraftedData.putExtra("from", "ssrte")
                 intentUndraftedData.putExtra("drafted_uid", draftedData.uid)
             }
+            BrouillonPfte.TYPE_VISITE_PLANTATION.uppercase() -> {
+                holder.imageTypeDraft.setImageResource(R.drawable.ssrte_ic)
+                intentUndraftedData = Intent(context, VisitePlantationActivity::class.java)
+                // Ce formulaire relit son brouillon lui-meme, par son identifiant.
+                intentUndraftedData.putExtra(VisitePlantationActivity.EXTRA_BROUILLON, draftedData.uid)
+            }
             BrouillonPfte.TYPE_ENQUETE_MENAGE.uppercase() -> {
                 holder.imageTypeDraft.setImageResource(R.drawable.ssrte_ic)
                 intentUndraftedData = Intent(context, EnqueteMenageActivity::class.java)

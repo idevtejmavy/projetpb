@@ -52,6 +52,7 @@ object DonneesEnAttente {
         ajouter("Inspections") { base.inspectionDao().getUnSyncedAll(idTexte).size }
         ajouter("Infos producteur") { base.infosProducteurDao().getUnSyncedAll(idTexte).size }
         ajouter("Enquetes Menage") { base.enqueteMenageDao().getUnSyncedAll().size }
+        ajouter("Visites de plantation") { base.visitePlantationDao().getUnSyncedAll().size }
 
         return compte
     }

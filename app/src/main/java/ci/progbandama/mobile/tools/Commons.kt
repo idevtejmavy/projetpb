@@ -66,6 +66,7 @@ import ci.progbandama.mobile.activities.forms.ParcelleActivity
 import ci.progbandama.mobile.activities.forms.PostPlantingEvalActivity
 import ci.progbandama.mobile.activities.forms.ProducteurActivity
 import ci.progbandama.mobile.activities.forms.EnqueteMenageActivity
+import ci.progbandama.mobile.activities.forms.VisitePlantationActivity
 import ci.progbandama.mobile.activities.forms.SsrtClmsActivity
 import ci.progbandama.mobile.activities.forms.SuiviApplicationActivity
 import ci.progbandama.mobile.activities.forms.SuiviParcelleActivity
@@ -1096,6 +1097,8 @@ class Commons {
                         // desormais l'Enquete Menage PFTE.
                         "MENAGE", "ENQUETE_MENAGE" ->
                             ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
+                        "VISITE_PLANTATION" ->
+                            ActivityUtils.startActivity(VisitePlantationActivity::class.java)
                         "PARCELLE" -> ActivityUtils.startActivity(ParcelleActivity::class.java)
                         "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                         "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)

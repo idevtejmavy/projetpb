@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Recapitulatif d'une Enquete Menage avant enregistrement - lot 3.
+     Recapitulatif d'un formulaire PFTE avant enregistrement.
+
+     Partagee par les modules du programme : seul le titre change, et il est pose a
+     l'ouverture de l'ecran.
 
      La liste occupe la hauteur restante et defile seule, le bouton reste visible en bas. Les
      recapitulatifs existants enferment leur liste dans un conteneur de hauteur fixe place dans un

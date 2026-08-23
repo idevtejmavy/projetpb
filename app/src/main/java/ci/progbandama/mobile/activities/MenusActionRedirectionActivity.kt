@@ -193,6 +193,8 @@ class MenusActionRedirectionActivity : AppCompatActivity() {
                     // brouillons et les envois en attente deja presents sur les appareils.
                     "MENAGE", "ENQUETE_MENAGE" ->
                         ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
+                    "VISITE_PLANTATION" ->
+                        ActivityUtils.startActivity(VisitePlantationActivity::class.java)
                     "PARCELLE" -> ActivityUtils.startActivity(ParcelleActivity::class.java)
                     "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                     "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)

@@ -90,4 +90,39 @@ object VocabulairesPfte {
      * l'appareil dise la meme chose que celle enregistree en base.
      */
     const val SANS_OBJET = "N/A"
+
+    // ------------------------------------------------------------------ Visite Plantation
+
+    /** Jour de la semaine ou la visite a eu lieu. Propre a ce module. */
+    val JOURS_VISITE = listOf(
+        "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"
+    )
+
+    /** Reponse commune aux deux indicateurs quand l'enfant n'a rien fait. */
+    private const val AUCUNE_TACHE = "L'enfant n'a fait aucune tâche"
+
+    /**
+     * Indicateurs de temps de travail : le serveur enregistre un CODE, pas un libelle.
+     *
+     * Les deux listes sont donc des couples code / libelle. L'agent voit le libelle, le serveur
+     * recoit le code - envoyer le libelle donnerait une valeur que le back-office ne sait pas
+     * relire, et l'indicateur central du depistage serait perdu sans que rien ne le signale.
+     */
+    val JOURS_TRAVAIL: List<Pair<String, String>> =
+        listOf("0" to AUCUNE_TACHE) +
+                (1..7).map { it.toString() to if (it == 1) "Sur 1 jour" else "Sur $it jours" }
+
+    val HEURES_JOURNEE: List<Pair<String, String>> =
+        listOf("0" to AUCUNE_TACHE) + (1..24).map { it.toString() to "${it}h" }
+
+    /** Libelles a proposer dans une liste deroulante. */
+    fun libelles(couples: List<Pair<String, String>>): List<String> = couples.map { it.second }
+
+    /** Code a transmettre a partir du libelle choisi. */
+    fun codePour(couples: List<Pair<String, String>>, libelle: String?): String =
+        couples.firstOrNull { it.second == libelle }?.first.orEmpty()
+
+    /** Libelle a reafficher a partir d'un code enregistre, pour la reprise d'un brouillon. */
+    fun libellePourCode(couples: List<Pair<String, String>>, code: String?): String? =
+        couples.firstOrNull { it.first == code }?.second
 }

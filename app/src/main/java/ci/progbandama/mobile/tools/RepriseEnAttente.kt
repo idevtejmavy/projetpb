@@ -33,7 +33,7 @@ object RepriseEnAttente {
         // ecran generique "donnees en attente"
         "INFOS_PRODUCTEUR", "PARCELLES", "ESTIMATION", "INSPECTION", "APPLICATION",
         "FORMATION_VISITEUR", "LIVRAISON", "LIVRAISON_MAGCENTRAL", "SSRTECLMRS",
-        "AGRO_EVALUATION", "AGRO_DISTRIBUTION", "POSTPLANTING", "ENQUETE_MENAGE",
+        "AGRO_EVALUATION", "AGRO_DISTRIBUTION", "POSTPLANTING", "ENQUETE_MENAGE", "VISITE_PLANTATION",
         // ecrans de liste dedies (Producteurs, Parcelles, Menages, Formations, Localites)
         "PRODUCTEUR", "PARCELLE", "MENAGE", "FORMATION", "LOCALITE"
     )
@@ -52,6 +52,7 @@ object RepriseEnAttente {
         "LIVRAISON_MAGCENTRAL" -> "suivi_livraison_central"
         "SSRTECLMRS" -> "ssrte"
         "ENQUETE_MENAGE" -> BrouillonPfte.TYPE_ENQUETE_MENAGE
+        "VISITE_PLANTATION" -> BrouillonPfte.TYPE_VISITE_PLANTATION
         else -> module.lowercase()
     }
 
@@ -129,6 +130,7 @@ object RepriseEnAttente {
                 "AGRO_DISTRIBUTION" -> base.distributionArbreDao().getUnSyncedAll(idTexte).find { it.uid == uid }
                 "POSTPLANTING" -> base.postplantingDao().getUnSyncedAll(idTexte).find { it.uid == uid }
                 "ENQUETE_MENAGE" -> base.enqueteMenageDao().getByUid(uid)
+                "VISITE_PLANTATION" -> base.visitePlantationDao().getByUid(uid)
                 "PRODUCTEUR" -> base.producteurDoa().getUnSyncedAll(idTexte).find { it.uid == uid }
                 // uid declare en Long sur ce modele, contrairement aux autres.
                 "PARCELLE" -> base.parcelleDao().getUnSyncedAll(idTexte).find { it.uid.toInt() == uid }
@@ -174,6 +176,7 @@ object RepriseEnAttente {
                 "AGRO_DISTRIBUTION" -> base.distributionArbreDao().deleteByUid(uid)
                 "POSTPLANTING" -> base.postplantingDao().deleteByUid(uid)
                 "ENQUETE_MENAGE" -> base.enqueteMenageDao().deleteByUid(uid)
+                "VISITE_PLANTATION" -> base.visitePlantationDao().deleteByUid(uid)
                 "PRODUCTEUR" -> base.producteurDoa().deleteByUid(uid)
                 "PARCELLE" -> base.parcelleDao().deleteByUid(uid)
                 "MENAGE" -> base.producteurMenageDoa().deleteByUid(uid)

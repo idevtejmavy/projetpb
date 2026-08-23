@@ -91,6 +91,7 @@ import ci.progbandama.mobile.tools.ListConverters
         SyncErreurModel::class,
         RefPfteModel::class,
         EnqueteMenageModel::class,
+        VisitePlantationModel::class,
     ],
 //    autoMigrations = [
 //        AutoMigration(from = Constants.LAST_BUILD_VERSION, to = Constants.BUILD_VERSION)
@@ -167,6 +168,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
     abstract fun syncErreurDao(): SyncErreurDao
     abstract fun refPfteDao(): RefPfteDao
     abstract fun enqueteMenageDao(): EnqueteMenageDao
+    abstract fun visitePlantationDao(): VisitePlantationDao
 
 
     companion object {
@@ -249,6 +251,63 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
                 database.execSQL("ALTER TABLE estimation ADD COLUMN typeEstimation TEXT")
                 database.execSQL("ALTER TABLE estimation ADD COLUMN recolteEstime TEXT")
                 database.execSQL("ALTER TABLE estimation ADD COLUMN rendFinal TEXT")
+            }
+        }
+
+        /**
+         * Creation de la table des Visites Plantation (lot 4).
+         *
+         * Migration REELLE : la base est construite avec fallbackToDestructiveMigration(), une
+         * montee de version sans migration effacerait les brouillons et les saisies non
+         * transmises des agents.
+         */
+        val MIGRATION_80_81 = object : Migration(80, 81) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `visite_plantation` (" +
+                            "`uid` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                            "`id` INTEGER NOT NULL, " +
+                            "`userid` INTEGER, " +
+                            "`sectionId` TEXT, " +
+                            "`localiteId` TEXT, " +
+                            "`producteurId` TEXT, " +
+                            "`dateEnquete` TEXT, " +
+                            "`jourVisite` TEXT, " +
+                            "`nomEnqueteur` TEXT, " +
+                            "`latitude` TEXT, " +
+                            "`longitude` TEXT, " +
+                            "`altitude` TEXT, " +
+                            "`precisionGps` TEXT, " +
+                            "`estProducteurRepondant` TEXT, " +
+                            "`nomRepondant` TEXT, " +
+                            "`titreRepondant` TEXT, " +
+                            "`producteurDisponible` TEXT, " +
+                            "`raisonIndisponibilite` TEXT, " +
+                            "`datePlanification` TEXT, " +
+                            "`autreRaisonRefus` TEXT, " +
+                            "`consentement` TEXT, " +
+                            "`superficiePlantation` TEXT, " +
+                            "`nombreManoeuvresPermanents` TEXT, " +
+                            "`manoeuvresPermanentsMoins18` TEXT, " +
+                            "`nombreManoeuvresJournaliers` TEXT, " +
+                            "`manoeuvresJournaliersMoins18` TEXT, " +
+                            "`nombreEnfants0a4` TEXT, " +
+                            "`nombreEnfants5a17` TEXT, " +
+                            "`nombrePersonnesTrouvees` TEXT, " +
+                            "`etatSoumission` TEXT, " +
+                            "`raisonRefusStringify` TEXT, " +
+                            "`enfantsStringify` TEXT, " +
+                            "`isSynced` INTEGER NOT NULL, " +
+                            "`origin` TEXT, " +
+                            "`agentId` TEXT, " +
+                            "`sectionNom` TEXT, " +
+                            "`localiteNom` TEXT, " +
+                            "`producteurNom` TEXT)"
+                )
+                database.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_visite_plantation_uid` " +
+                            "ON `visite_plantation` (`uid`)"
+                )
             }
         }
 
@@ -413,6 +472,7 @@ abstract class ProgBandRoomDatabase : RoomDatabase() {
                         MIGRATION_77_78,
                         MIGRATION_78_79,
                         MIGRATION_79_80,
+                        MIGRATION_80_81,
                         )
                     .build()
                 INSTANCE = instance

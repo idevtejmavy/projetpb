@@ -43,6 +43,7 @@ class DatasDraftedListActivity : AppCompatActivity(R.layout.activity_datas_draft
                 // rassemble donc tous les deux, et chaque brouillon se rouvre dans le formulaire
                 // qui l'a produit. Aucun autre type ne contient "menage".
                 .replace("menage", "%menage%")
+                .replace("visite_plantation", BrouillonPfte.TYPE_VISITE_PLANTATION)
                 .lowercase()
             LogUtils.d(fromGlobalMenu, replaceID)
             val draftedDataList = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()?.getAllByType(

@@ -141,6 +141,15 @@ interface ApiService {
     @POST("apienquetemenage")
     fun synchronisationEnqueteMenage(@Body enqueteMenage: EnqueteMenageModel): Call<EnqueteMenageModel>
 
+    /**
+     * Visite Plantation (PFTE) - lot 4.
+     *
+     * Seule des trois interfaces PFTE a valider ce qu'elle recoit : un refus renvoie donc un 422
+     * exploitable, que le suivi des refus sait deja resumer.
+     */
+    @POST("apivisiteplantation")
+    fun synchronisationVisitePlantation(@Body visite: VisitePlantationModel): Call<VisitePlantationModel>
+
     @POST("apilocalite")
     fun synchronisationLocaliteC(@Body localiteModel: LocaliteModel): Call<LocaliteModel>
 

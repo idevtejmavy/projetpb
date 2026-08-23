@@ -68,6 +68,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
     var suiviApplicationDao: SuiviApplicationDao? = null
     var enqueteSsrtDao: EnqueteSsrteDao? = null
     var enqueteMenageDao: EnqueteMenageDao? = null
+    var visitePlantationDao: VisitePlantationDao? = null
     var estimationDao: EstimationDao? = null
     var suncLocaliteFlag = true
     var suncProducteursFlag = true
@@ -696,8 +697,9 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
         }else recallServiceIntent()
 
-        // Enquete Menage : nouveau dernier maillon de la chaine d'envoi.
+        // Modules PFTE : derniers maillons de la chaine d'envoi.
         syncEnqueteMenage(enqueteMenageDao)
+        syncVisitePlantation(visitePlantationDao)
 
         if (Build.VERSION.SDK_INT >= 26) {
             stopForeground(true)
@@ -751,6 +753,54 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                     enqueteMenageDao.syncData(identifiantServeur, true, enquete.uid)
                 } else {
                     LogUtils.e("Enquete Menage ${enquete.uid} : reponse sans identifiant, conservee en attente")
+                }
+            }
+        } catch (uhex: UnknownHostException) {
+            FirebaseCrashlytics.getInstance().recordException(uhex)
+        } catch (ex: Exception) {
+            LogUtils.e(ex.message)
+            FirebaseCrashlytics.getInstance().recordException(ex)
+        }
+    }
+
+    /**
+     * Envoi des Visites Plantation (PFTE) - lot 4.
+     *
+     * Meme dependance que les autres formulaires rattaches a un producteur : l'envoi attend que
+     * les producteurs saisis hors ligne soient partis, une visite pointant sur un producteur
+     * encore absent du serveur serait refusee.
+     */
+    fun syncVisitePlantation(visitePlantationDao: VisitePlantationDao?) {
+        if (visitePlantationDao == null) return
+
+        val producteursEnAttente = producteurDao?.getUnSyncedAll(
+            agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()
+        )
+        if (producteursEnAttente?.size != 0) {
+            recallServiceIntent()
+            return
+        }
+
+        try {
+            visitePlantationDao.getUnSyncedAll().forEach { visite ->
+                visite.dateEnquete = Commons.convertDate(visite.dateEnquete, toEng = true)
+                visite.datePlanification = Commons.convertDate(visite.datePlanification, toEng = true)
+
+                visite.raisonRefus = ListConverters.stringToMutableList(visite.raisonRefusStringify)
+                visite.enfants = BrouillonPfte.deserialiserListe(
+                    visite.enfantsStringify, object : TypeToken<MutableList<EnfantPlantationModel>>() {}
+                )
+
+                val reponse: Response<VisitePlantationModel> =
+                    ApiClient.apiService.synchronisationVisitePlantation(visite).execute()
+                val identifiantServeur = reponse.body()?.id
+
+                // Sans identifiant en retour, la visite reste en attente : la marquer transmise la
+                // ferait disparaitre de la file sans qu'on sache si le serveur l'a acceptee.
+                if (identifiantServeur != null && identifiantServeur > 0) {
+                    visitePlantationDao.syncData(identifiantServeur, true, visite.uid)
+                } else {
+                    LogUtils.e("Visite Plantation ${visite.uid} : reponse sans identifiant, conservee en attente")
                 }
             }
         } catch (uhex: UnknownHostException) {
@@ -1774,6 +1824,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
             suiviApplicationDao = ProgBandRoomDatabase.getDatabase(this)?.suiviApplicationDao()
             enqueteSsrtDao = ProgBandRoomDatabase.getDatabase(this)?.enqueteSsrtDao()
             enqueteMenageDao = ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()
+            visitePlantationDao = ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()
             inspectionDao = ProgBandRoomDatabase.getDatabase(this)?.inspectionDao()
             infosProducteurDao = ProgBandRoomDatabase.getDatabase(this)?.infosProducteurDao()
             livraisonCentralDao = ProgBandRoomDatabase.getDatabase(this)?.livraisonCentralDao()

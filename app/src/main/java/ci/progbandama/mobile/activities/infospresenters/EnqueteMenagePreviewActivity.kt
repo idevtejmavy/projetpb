@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ci.progbandama.mobile.R
 import ci.progbandama.mobile.activities.forms.EnqueteMenageActivity
 import ci.progbandama.mobile.adapters.PreviewItemAdapter
-import ci.progbandama.mobile.databinding.ActivityEnqueteMenagePreviewBinding
+import ci.progbandama.mobile.databinding.ActivityRecapPfteBinding
 import ci.progbandama.mobile.models.EnfantMenageModel
 import ci.progbandama.mobile.models.EnqueteMenageModel
 import ci.progbandama.mobile.repositories.databases.ProgBandRoomDatabase
@@ -30,15 +30,17 @@ import com.google.gson.reflect.TypeToken
  */
 class EnqueteMenagePreviewActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityEnqueteMenagePreviewBinding
+    private lateinit var binding: ActivityRecapPfteBinding
     private var enquete: EnqueteMenageModel? = null
     private var uidBrouillon = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEnqueteMenagePreviewBinding.inflate(layoutInflater)
+        binding = ActivityRecapPfteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // La mise en page est partagee par les modules PFTE : le titre est pose ici.
+        binding.labelTitleMenuAction.setText(R.string.recapitulatif_enquete_menage)
         binding.clickCloseBtn.setOnClickListener { finish() }
 
         enquete = intent?.getParcelableExtra(EXTRA_ENQUETE)
