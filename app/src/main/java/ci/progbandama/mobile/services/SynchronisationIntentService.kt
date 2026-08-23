@@ -736,9 +736,9 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                 enquete.dateEnquete = Commons.convertDate(enquete.dateEnquete, toEng = true)
                 enquete.datePlanification = Commons.convertDate(enquete.datePlanification, toEng = true)
 
-                enquete.raisonRefus = ListConverters.stringToMutableList(enquete.raisonRefusStringify)
-                enquete.themesSensibilisation = ListConverters.stringToMutableList(enquete.themesSensibilisationStringify)
-                enquete.outilsSensibilisation = ListConverters.stringToMutableList(enquete.outilsSensibilisationStringify)
+                enquete.raisonRefus = listeOuRien(enquete.raisonRefusStringify)
+                enquete.themesSensibilisation = listeOuRien(enquete.themesSensibilisationStringify)
+                enquete.outilsSensibilisation = listeOuRien(enquete.outilsSensibilisationStringify)
                 enquete.enfants = BrouillonPfte.deserialiserListe(
                     enquete.enfantsStringify, object : TypeToken<MutableList<EnfantMenageModel>>() {}
                 )
@@ -770,6 +770,19 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
      * les producteurs saisis hors ligne soient partis, une visite pointant sur un producteur
      * encore absent du serveur serait refusee.
      */
+    /**
+     * Liste a transmettre, ou null si elle est vide.
+     *
+     * Une liste vide n'est pas neutre pour le serveur : la Visite Plantation valide raisonRefus
+     * avec "nullable|array|min:1", et "nullable" n'exempte que null - un tableau vide echoue sur
+     * min:1. Le formulaire web ne poste rien quand aucune case n'est cochee ; le mobile doit faire
+     * de meme, sinon toute visite SANS refus est rejetee par un 422.
+     *
+     * Gson omet les champs null : renvoyer null suffit a ne pas emettre la cle.
+     */
+    private fun listeOuRien(stringify: String?): MutableList<String>? =
+        ListConverters.stringToMutableList(stringify)?.takeIf { it.isNotEmpty() }
+
     fun syncVisitePlantation(visitePlantationDao: VisitePlantationDao?) {
         if (visitePlantationDao == null) return
 
@@ -786,7 +799,7 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                 visite.dateEnquete = Commons.convertDate(visite.dateEnquete, toEng = true)
                 visite.datePlanification = Commons.convertDate(visite.datePlanification, toEng = true)
 
-                visite.raisonRefus = ListConverters.stringToMutableList(visite.raisonRefusStringify)
+                visite.raisonRefus = listeOuRien(visite.raisonRefusStringify)
                 visite.enfants = BrouillonPfte.deserialiserListe(
                     visite.enfantsStringify, object : TypeToken<MutableList<EnfantPlantationModel>>() {}
                 )
