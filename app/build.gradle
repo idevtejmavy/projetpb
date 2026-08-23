@@ -24,8 +24,11 @@ android {
         applicationId "ci.progbandama.mobile"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 77
-        versionName "ProgBand-v1.0.1"
+        // Aligne sur la version de la base locale (Constants.BUILD_VERSION = 82).
+        // Le numero etait reste a 77 pendant les cinq lots : une installation
+        // par-dessus une version du Play Store ne se declenchait pas.
+        versionCode 82
+        versionName "ProgBand-v1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

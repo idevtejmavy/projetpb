@@ -408,6 +408,19 @@
 
             </LinearLayout>
 
+            <!-- Version installee : discrete, mais toujours lisible sans quitter l'application. -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/labelVersionApk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:alpha="0.6"
+                android:maxLines="1"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/_8ssp"
+                tools:text="Version ProgBand-v1.0.1 (77)" />
+
         </LinearLayout>
 
     </RelativeLayout>

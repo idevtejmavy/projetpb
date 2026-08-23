@@ -18,6 +18,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import ci.progbandama.mobile.R
@@ -480,18 +481,12 @@ class FormationActivity : AppCompatActivity() {
                             getString(R.string.quels_sont_les_producteurs_pr_sents_la_formation),
                             producteurList
                         ) { selected ->
-
-                            producteurList?.forEach { product ->
-                                if (selected.contains(product.nom)) {
-                                    producteurIdList.add(
-                                        CommonData(
-                                            product.id,
-                                            product.nom.toString()
-                                        )
-                                    )
-                                }
-                            }
-                            //if(it.contains("Autre")) containerAutreRaisonArretEcole.visibility = View.VISIBLE
+                            // La liste est RECONSTRUITE a chaque validation, jamais completee.
+                            // Le selecteur renvoie la selection entiere : l'ajouter a l'existant
+                            // doublait les participants des que l'agent rouvrait la liste pour se
+                            // corriger - 30 producteurs, puis un ajout, donnaient 61.
+                            producteurIdList.clear()
+                            producteurIdList.addAll(producteurList.filter { selected.contains(it.nom) })
                         }
                     }
                 }
@@ -617,17 +612,16 @@ class FormationActivity : AppCompatActivity() {
                     binding.selectSousThemeMultiFormation,
                     getString(R.string.quels_sont_les_sous_themes_de_la_formation),
                     (listSousThemeFormationCustom).map { CommonData(0, "${it.nom}") }) {
-                    listSousThemeFormation?.forEach { sThemeForm ->
-                        if (it.contains(sThemeForm.nom)) {
-                            sousThemeListCm.add(
-                                CommonData(
-                                    sThemeForm.id,
-                                    sThemeForm.nom.toString(),
-                                    value = "${sThemeForm.themeFormationsId}-${sThemeForm.id}"
-                                )
-                            )
-                        }
-                    }
+                    // Meme regle que pour les participants : on reconstruit, on ne complete pas.
+                    // Sans cela, rouvrir le selecteur pour se corriger doublait les sous-themes.
+                    sousThemeListCm.clear()
+                    sousThemeListCm.addAll(
+                        listSousThemeFormation.orEmpty()
+                            .filter { sThemeForm -> it.contains(sThemeForm.nom) }
+                            .map { sThemeForm ->
+                                CommonData(sThemeForm.id, sThemeForm.nom.toString(), value = "${sThemeForm.themeFormationsId}-${sThemeForm.id}")
+                            }
+                    )
                 }
 
             }
@@ -674,6 +668,18 @@ class FormationActivity : AppCompatActivity() {
         // setupThemeFormationSelection()
     }
 
+
+    /**
+     * Date saisie dans un champ, au format attendu par le selecteur, ou null si le champ est vide.
+     *
+     * Les champs portent la date a la francaise - 12-03-2026 - tandis que configDate attend
+     * l'ordre inverse pour ses bornes. Un champ vide ne borne rien : la borne correspondante est
+     * alors desactivee, ce qui laisse le comportement d'origine tant que l'autre date manque.
+     */
+    private fun borneIso(champ: AppCompatEditText): String? {
+        val saisie = champ.text?.toString()?.trim().orEmpty()
+        return if (saisie.isBlank()) null else Commons.convertDate(saisie, toEng = true)
+    }
 
     fun collectDatas() {
         if (binding.editDateDebuFormation.text.isNullOrEmpty() && binding.editDateFinFormation.text.isNullOrEmpty()) {
@@ -1028,20 +1034,16 @@ class FormationActivity : AppCompatActivity() {
             producteurList,
             currentList = selectProd.map { "${it.nom}" }.toMutableList()
         ) { selected ->
-
-            producteurList?.forEach { product ->
-                if (selected.contains(product.nom)) {
-                    producteurIdList.add(CommonData(product.id, product.nom.toString()))
-                }
-            }
-
+            // Meme regle qu'a la saisie : on reconstruit, on ne complete pas.
+            producteurIdList.clear()
+            producteurIdList.addAll(producteurList.filter { selected.contains(it.nom) })
         }
 
-        producteurList?.forEach { product ->
-            if( selectProd.map { "${it.nom}" }?.contains(product.nom) == true ){
-                producteurIdList.add(CommonData(product.id, product.nom.toString()))
-            }
-        }
+        // Amorce depuis le brouillon. Elle reste necessaire : setupItemMultiSelection pose la
+        // selection AVANT d'attacher son ecouteur, le rappel ci-dessus ne part donc pas au
+        // montage et la liste serait vide jusqu'a la premiere intervention de l'agent.
+        producteurIdList.clear()
+        producteurIdList.addAll(selectProd)
 
         Commons.setListenerForSpinner(this,
             getString(R.string.lieu_de_la_formation),
@@ -1143,17 +1145,16 @@ class FormationActivity : AppCompatActivity() {
                     currentList = currentSousThemeList?.map { "${it.nom}" }?.toMutableList()
                         ?: arrayListOf()
                 ) {
-                    listSousThemeFormation?.forEach { sThemeForm ->
-                        if (it.contains(sThemeForm.nom)) {
-                            sousThemeListCm.add(
-                                CommonData(
-                                    sThemeForm.id,
-                                    sThemeForm.nom.toString(),
-                                    value = "${sThemeForm.themeFormationsId}-${sThemeForm.id}"
-                                )
-                            )
-                        }
-                    }
+                    // Meme regle que pour les participants : on reconstruit, on ne complete pas.
+                    // Sans cela, rouvrir le selecteur pour se corriger doublait les sous-themes.
+                    sousThemeListCm.clear()
+                    sousThemeListCm.addAll(
+                        listSousThemeFormation.orEmpty()
+                            .filter { sThemeForm -> it.contains(sThemeForm.nom) }
+                            .map { sThemeForm ->
+                                CommonData(sThemeForm.id, sThemeForm.nom.toString(), value = "${sThemeForm.themeFormationsId}-${sThemeForm.id}")
+                            }
+                    )
                 }
 
             }
@@ -1199,30 +1200,31 @@ class FormationActivity : AppCompatActivity() {
             currentList = currentSousThemeList?.map { "${it.nom}" }?.toMutableList()
                 ?: arrayListOf()
         ) {
-            listSousThemeFormation?.forEach { sThemeForm ->
-                if (it.contains(sThemeForm.nom)) {
-                    sousThemeListCm.add(
-                        CommonData(
-                            sThemeForm.id,
-                            sThemeForm.nom.toString(),
-                            value = "${sThemeForm.themeFormationsId}-${sThemeForm.id}"
-                        )
-                    )
-                }
-            }
+            // Meme regle que pour les participants : on reconstruit, on ne complete pas.
+            // Sans cela, rouvrir le selecteur pour se corriger doublait les sous-themes.
+            sousThemeListCm.clear()
+            sousThemeListCm.addAll(
+                listSousThemeFormation.orEmpty()
+                    .filter { sThemeForm -> it.contains(sThemeForm.nom) }
+                    .map { sThemeForm ->
+                        CommonData(sThemeForm.id, sThemeForm.nom.toString(), value = "${sThemeForm.themeFormationsId}-${sThemeForm.id}")
+                    }
+            )
         }
 
-        listSousThemeFormation?.forEach { sthemeForm ->
-            if(currentSousThemeList?.map { "${it.nom}" }?.contains(sthemeForm.nom) == true){
-                sousThemeListCm.add(
-                    CommonData(
-                        sthemeForm.id,
-                        sthemeForm.nom.toString(),
-                        value = "${sthemeForm.themeFormationsId}-${sthemeForm.id}"
-                    )
-                )
-            }
-        }
+        // Amorce depuis le brouillon. Elle reste necessaire : setupItemMultiSelection pose
+        // la selection AVANT d'attacher son ecouteur, le rappel ci-dessus ne part donc pas
+        // au montage.
+        sousThemeListCm.clear()
+        sousThemeListCm.addAll(
+            listSousThemeFormation.orEmpty()
+                .filter { sthemeForm ->
+                    currentSousThemeList.orEmpty().any { it.nom == sthemeForm.nom }
+                }
+                .map { sthemeForm ->
+                    CommonData(sthemeForm.id, sthemeForm.nom.toString(), value = "${sthemeForm.themeFormationsId}-${sthemeForm.id}")
+                }
+        )
 
         val listDelegue = ProgBandRoomDatabase.getDatabase(this)?.staffFormation()
             ?.getAll(SPUtils.getInstance().getInt(Constants.AGENT_ID).toString())
@@ -1709,8 +1711,29 @@ class FormationActivity : AppCompatActivity() {
             dialogPickerPhoto()
         }
 
-        binding.editDateDebuFormation.setOnClickListener { configDate(binding.editDateDebuFormation, false) }
-        binding.editDateFinFormation.setOnClickListener { configDate(binding.editDateFinFormation, false) }
+        // Les deux dates se bornent l'une l'autre : le debut ne peut pas depasser la fin deja
+        // saisie, la fin ne peut pas preceder le debut. Le formulaire web obtient la meme garantie
+        // autrement - il n'a qu'un selecteur de PERIODE, ou la fin ne peut structurellement pas
+        // preceder le debut. Les bornes sont relues a chaque ouverture, l'agent pouvant renseigner
+        // les deux champs dans n'importe quel ordre.
+        binding.editDateDebuFormation.setOnClickListener {
+            val fin = borneIso(binding.editDateFinFormation)
+            configDate(
+                binding.editDateDebuFormation,
+                isDateMin = false,
+                isDateMax = fin != null,
+                maxDate = fin
+            )
+        }
+        binding.editDateFinFormation.setOnClickListener {
+            val debut = borneIso(binding.editDateDebuFormation)
+            configDate(
+                binding.editDateFinFormation,
+                isDateMin = debut != null,
+                isDateMax = false,
+                minDate = debut
+            )
+        }
         binding.editDureeFormation.setOnClickListener { configHour(binding.editDureeFormation) }
     }
 }

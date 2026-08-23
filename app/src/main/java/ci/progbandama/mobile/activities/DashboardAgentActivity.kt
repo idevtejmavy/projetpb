@@ -503,6 +503,11 @@ class DashboardAgentActivity : AppCompatActivity(),
             hideNotExistFeature(roles, it)
         }
 
+        // Version installee : la premiere question posee en appui aux agents.
+        binding.labelVersionApk.text = getString(
+            R.string.version_installee, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE
+        )
+
         //updateListOfFeature()
         updateListOfFeature()
         setNavViewItems(roles)
