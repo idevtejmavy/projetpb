@@ -467,7 +467,7 @@ class DashboardAgentActivity : AppCompatActivity(),
         }
 
         //setDataClickListener()
-        val roles: MutableList<String> = GsonUtils.fromJson(SPUtils.getInstance().getString("menu"), object : TypeToken<MutableList<String>>(){}.type)
+        val roles: MutableList<String> = rolesDeLAgent()
 
         expandableList = mutableListOf<ExpandableLayout>(
             binding.expandIdentif,
@@ -569,6 +569,10 @@ class DashboardAgentActivity : AppCompatActivity(),
 
         ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()?.countUnSyncedLive(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer {
             updateRVFeatureCount(lisFeat, "MENAGE", enquetesMenageEnAttente())
+        })
+
+        ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()?.countUnSyncedLive(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { nombre ->
+            updateRVFeatureCount(lisFeat, "VISITE_PLANTATION", nombre ?: 0)
         })
 
         ProgBandRoomDatabase.getDatabase(this)?.suiviApplicationDao()?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { items ->
@@ -688,7 +692,7 @@ class DashboardAgentActivity : AppCompatActivity(),
     }
 
     fun hideExpandFromAdapter(){
-        val roles: MutableList<String> = GsonUtils.fromJson(SPUtils.getInstance().getString("menu"), object : TypeToken<MutableList<String>>(){}.type)
+        val roles: MutableList<String> = rolesDeLAgent()
         currentExpandLayout?.let {
             binding.containerFeatureDash.visibility = View.GONE
             showAllExpandable(it, expandableList)
@@ -800,7 +804,10 @@ class DashboardAgentActivity : AppCompatActivity(),
         if( (roles.containsAll(listOf("PRODUCTEUR")) == false && roles.containsAll(listOf("PARCELLE")) == false && roles.containsAll(listOf("ESTIMATION")) == false) && expandableLayout.tag.toString().equals("expand0") ) binding.lexpand0.visibility = View.GONE
         if( (roles.containsAll(listOf("PARCELLES")) == false && roles.containsAll(listOf("PARCELLES")) == false && roles.containsAll(listOf("FORMATION")) == false && roles.containsAll(listOf("FORMATION_VISITEUR")) == false && roles.containsAll(listOf("APPLICATION")) == false && roles.containsAll(listOf("INSPECTION")) == false) && expandableLayout.tag.toString().equals("expand1") ) binding.lexpand1.visibility = View.GONE
         if( (roles.containsAll(listOf("LIVRAISON")) == false && roles.containsAll(listOf("LIVRAISON_MAGCENTRAL")) == false) && expandableLayout.tag.toString().equals("expand2") ) binding.lexpand2.visibility = View.GONE
-        if( (roles.containsAll(listOf("MENAGE")) == false && roles.containsAll(listOf("SSRTECLMRS")) == false) && expandableLayout.tag.toString().equals("expand3") ) binding.lexpand3.visibility = View.GONE
+        // La Visite Plantation appartient a la meme section repliable que l'Enquete Menage et
+        // l'enquete SSRTE : sans elle dans la condition, un agent n'ayant que ce role verrait la
+        // section entiere masquee, et donc son seul module inaccessible.
+        if( (roles.containsAll(listOf("MENAGE")) == false && roles.containsAll(listOf("SSRTECLMRS")) == false && roles.containsAll(listOf("VISITE_PLANTATION")) == false) && expandableLayout.tag.toString().equals("expand3") ) binding.lexpand3.visibility = View.GONE
         if( (roles.containsAll(listOf("AGRO_EVALUATION")) == false && roles.containsAll(listOf("AGRO_DISTRIBUTION")) == false && roles.containsAll(listOf("POSTPLANTING")) == false) && expandableLayout.tag.toString().equals("expand4") ) binding.lexpand4.visibility = View.GONE
         //if( () && expandableLayout.tag.toString().equals("expand5") ) lexpand5.visibility = View.GONE
         //if(roles.containsAll(listOf("APPLICATION", "INSPECTION")) == false && expandableLayout.tag.toString().equals("expand6") ) lexpand6.visibility = View.GONE
@@ -857,7 +864,7 @@ class DashboardAgentActivity : AppCompatActivity(),
         listOfFeatures.clear()
         listOfFeatureCloned.clear()
         val menuToken = object : TypeToken<MutableList<String>>() {}.type
-        val roles: MutableList<String> = GsonUtils.fromJson(SPUtils.getInstance().getString("menu"), menuToken)
+        val roles: MutableList<String> = rolesDeLAgent()
 
 //        LogUtils.d(roles)
         roles.map {
@@ -1126,12 +1133,24 @@ class DashboardAgentActivity : AppCompatActivity(),
                         canViewSync = true //can be false
                     ).apply { this.image = image.plus("visitor_form.png")})
                 }
+                "VISITE_PLANTATION" -> {
+                    listOfFeatures.add(FeatureModel("VISITE PLANTATION",
+                        countSync = ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()
+                            ?.countUnSynced(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()) ?: 0,
+                        countDraft = BrouillonPfte.compter(this, BrouillonPfte.TYPE_VISITE_PLANTATION),
+                        type = "VISITE_PLANTATION",
+                        categorie = 3,
+                        icon = R.drawable.ic_visite_plantation,
+                        canAdd = true,
+                        canEdit = true,
+                        canViewDraft = true,
+                        canViewSync = true
+                    ).apply { this.image = image.plus("ssrte.png") })
+                }
                 else -> {}
             }
             //carouselRecyclerview?.adapter?.notifyDataSetChanged()
         }
-
-        ajouterTuileVisitePlantationEnDebug()
 
         listOfFeatures.map {
             listOfFeatureCloned.add(it)
@@ -1237,36 +1256,24 @@ class DashboardAgentActivity : AppCompatActivity(),
     }
 
     /**
-     * Tuile temporaire de la Visite Plantation - lot 4, en attendant le role serveur.
+     * Roles de l'agent, tels que l'API les a renvoyes.
      *
-     * Le tableau de bord ne montre que ce que les roles renvoyes par l'API autorisent, et aucun
-     * role ne couvre encore ce module. Contrairement a l'Enquete Menage, il n'existe ici aucun
-     * ancien module a reprendre : sans cette tuile, le formulaire serait inatteignable et donc
-     * impossible a recetter. Elle sort immediatement en production, ou BuildConfig.DEBUG vaut false.
+     * En build debug, le role de la Visite Plantation est ajoute s'il manque : le back-office ne
+     * l'accorde pas encore, et sans lui le module serait absent de la grille comme du menu
+     * lateral, donc impossible a recetter. En production BuildConfig.DEBUG vaut false et seuls
+     * les roles reellement accordes sont pris en compte.
      *
-     * A SUPPRIMER des que le role est accorde. Le reste du cablage - redirections, brouillons,
-     * donnees en attente - est deja en place et fonctionnera sans rien changer d'autre.
+     * A RETIRER des que le role existe cote serveur : c'est la seule ligne a supprimer.
      */
-    private fun ajouterTuileVisitePlantationEnDebug() {
-        if (!BuildConfig.DEBUG) return
-        if (listOfFeatures.any { it.type == "VISITE_PLANTATION" }) return
+    private fun rolesDeLAgent(): MutableList<String> {
+        val menuToken = object : TypeToken<MutableList<String>>() {}.type
+        val roles: MutableList<String> =
+            GsonUtils.fromJson(SPUtils.getInstance().getString("menu"), menuToken)
+                ?: mutableListOf()
 
-        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()
-        listOfFeatures.add(
-            FeatureModel(
-                "VISITE PLANTATION",
-                countSync = ProgBandRoomDatabase.getDatabase(this)?.visitePlantationDao()
-                    ?.countUnSynced(agent) ?: 0,
-                countDraft = BrouillonPfte.compter(this, BrouillonPfte.TYPE_VISITE_PLANTATION),
-                type = "VISITE_PLANTATION",
-                categorie = 3,
-                icon = R.drawable.ssrte_ic,
-                canAdd = true,
-                canEdit = true,
-                canViewDraft = true,
-                canViewSync = true
-            ).apply { this.image = image.plus("ssrte.png") }
-        )
+        if (BuildConfig.DEBUG && !roles.contains("VISITE_PLANTATION")) roles.add("VISITE_PLANTATION")
+
+        return roles
     }
 
     private fun setViewFeatureListing() {

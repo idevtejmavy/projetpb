@@ -165,7 +165,7 @@ def banniere(n, texte="@string/information_enquete_menage", idv="labelInformatio
         ind(n + 1) + 'android:layout_marginStart="@dimen/_8sdp"\n' +
         ind(n + 1) + 'android:layout_marginEnd="@dimen/_8sdp"\n' +
         ind(n + 1) + 'android:layout_marginBottom="@dimen/_10sdp"\n' +
-        ind(n + 1) + 'android:background="@drawable/rounded_background"\n' +
+        ind(n + 1) + 'android:background="@drawable/banniere_information"\n' +
         ind(n + 1) + 'android:orientation="vertical"\n' +
         ind(n + 1) + 'android:padding="@dimen/_10sdp">\n\n' +
         ind(n + 1) + '<androidx.appcompat.widget.AppCompatTextView\n' +

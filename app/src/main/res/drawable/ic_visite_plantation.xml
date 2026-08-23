@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Icone du module Visite Plantation.
+
+     Dessinee dans le style des autres icones de formulaire : ligne claire, contours fins et
+     interieur vide, cadrage 512 x 512. Une premiere version en aplat detonnait sur les tuiles du
+     tableau de bord, ou toute la famille est au trait.
+
+     Le motif reprend celui du module - deux cacaoyers portant leurs cabosses, inspectes a la
+     loupe. Deux arbres et non un seul : il s'agit d'une plantation, et les icones de la famille
+     remplissent leur cadre plutot que de poser un objet isole au centre.
+
+     Les feuillages ne se chevauchent pas et la loupe garde son angle : sans occultation, deux
+     contours qui se croisent donnent un rendu de fil de fer etranger a la famille.
+
+     En vectoriel et non en PNG comme le reste de la famille : le rendu est le meme a l'oeil, reste
+     net a toutes les tailles, et se retouche sans outil graphique. Le cadrage de 512 est conserve
+     pour que les coordonnees restent comparables a celles des icones existantes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Cacaoyer de gauche : feuillage, tronc, branche et cabosse. -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M80,300 m-68,0 a68,68 0 1,0 136,0 a68,68 0 1,0 -136,0" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:pathData="M72,368 L72,478 M90,368 L90,478 M72,408 L40,390" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:pathData="M26,380 m-19,0 a19,27 0 1,0 38,0 a19,27 0 1,0 -38,0" />
+
+    <!-- Cacaoyer central, le plus grand. -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M258,200 m-102,0 a102,102 0 1,0 204,0 a102,102 0 1,0 -204,0" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:pathData="M246,302 L246,478 M272,302 L272,478 M272,380 L330,352" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:pathData="M348,340 m-22,0 a22,31 0 1,0 44,0 a22,31 0 1,0 -44,0" />
+
+    <!-- Sol -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:strokeLineCap="round"
+        android:pathData="M16,478 L496,478" />
+
+    <!-- Loupe : anneau et manche, ce dernier plus epais comme sur les icones de la famille. -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="18"
+        android:pathData="M428,112 m-70,0 a70,70 0 1,0 140,0 a70,70 0 1,0 -140,0" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="26"
+        android:strokeLineCap="round"
+        android:pathData="M475,159 L500,184" />
+
+</vector>

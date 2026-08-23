@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Cadre des bandeaux d'information en tete de formulaire.
+
+     Distinct de rounded_background, dont le rayon de 1000dp arrondit completement les extremites :
+     cela convient a un champ de saisie d'une ligne, pas a un pave de texte de plusieurs lignes, ou
+     l'arrondi devient une capsule. Un rayon de 5dp suffit a adoucir l'angle sans deformer le bloc.
+
+     rounded_background sert a une trentaine d'ecrans : le modifier aurait touche tous les champs
+     de l'application, d'ou ce fond dedie.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="10dp"
+    android:shape="rectangle">
+
+    <corners android:radius="5dp" />
+
+    <solid android:color="@color/field_content_color" />
+
+    <stroke
+        android:width="0.5dp"
+        android:color="@color/contour_edit_field" />
+
+</shape>

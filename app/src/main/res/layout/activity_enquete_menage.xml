@@ -73,7 +73,7 @@
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/rounded_background"
+                android:background="@drawable/banniere_information"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp">
 
