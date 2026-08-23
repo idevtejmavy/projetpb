@@ -977,7 +977,6 @@
     <string name="section">Section</string>
     <string name="localite">Localité</string>
     <string name="position_gps">Position GPS</string>
-    <string name="position_gps_indisponible">Aucune position GPS disponible pour le moment. Placez-vous à l’extérieur, laissez le téléphone capter quelques instants, puis réessayez.</string>
     <string name="le_producteur_est_il_le_repondant">Le producteur est-il le répondant ?</string>
     <string name="nom_du_repondant">Nom du répondant</string>
     <string name="titre_du_repondant">Titre du répondant</string>
@@ -1040,5 +1039,19 @@
     <string name="relisez_avant_d_enregistrer">Relisez cette enquête avant de l’enregistrer : une fois transmise, elle ne pourra plus être corrigée depuis le téléphone.</string>
     <string name="enregistrer_l_enquete">Enregistrer l’enquête</string>
     <string name="enquetes_menage">ENQUÊTES MÉNAGE</string>
+
+
+    <!-- Capture de la position - Enquete Menage -->
+    <string name="activer">ACTIVER</string>
+    <string name="localisation_desactivee_proposer_activation">La localisation de l’appareil est désactivée. L’enquête a besoin d’une position pour être enregistrée. Voulez-vous l’activer maintenant ?</string>
+    <string name="position_gps_pas_encore_fixee">La localisation est active mais aucune position n’est encore fixée. Placez-vous à l’extérieur, patientez quelques instants, puis appuyez de nouveau sur Capturer.</string>
+    <string name="reglages_localisation_introuvables">Impossible d’ouvrir les réglages de localisation sur cet appareil. Activez-la depuis les paramètres du téléphone, puis revenez ici.</string>
+
+
+    <!-- Photo de sensibilisation : appareil photo ou galerie -->
+    <string name="prendre_une_photo">Prendre une photo</string>
+    <string name="choisir_dans_la_galerie">Choisir dans la galerie</string>
+    <string name="ajouter_la_photo">Ajouter la photo</string>
+    <string name="photo_impossible">La photo n’a pas pu être ajoutée. Réessayez, ou choisissez l’autre source.</string>
 
 </resources>

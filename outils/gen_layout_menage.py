@@ -261,7 +261,7 @@ def ecran():
         ind(n + 1) + 'android:background="@drawable/rounded_background"\n' +
         ind(n + 1) + 'android:padding="@dimen/_4sdp"\n' +
         ind(n + 1) + 'android:scaleType="centerInside" />\n\n' +
-        bouton("btnPrendrePhotoMenage", "Prendre la photo", n)
+        bouton("btnPrendrePhotoMenage", "Ajouter la photo", n)
     )
 
     corps = (

@@ -1598,7 +1598,7 @@
                     android:layout_marginTop="@dimen/_6sdp"
                     android:backgroundTint="@color/bggreen"
                     android:elevation="0dp"
-                    android:text="Prendre la photo"
+                    android:text="Ajouter la photo"
                     android:textColor="@color/text_color_white"
                     android:textSize="@dimen/page_button_text_dim13"
                     app:cornerRadius="@dimen/_37sdp" />

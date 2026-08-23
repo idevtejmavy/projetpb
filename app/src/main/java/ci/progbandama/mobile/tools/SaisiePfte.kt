@@ -132,28 +132,44 @@ object SaisiePfte {
     /**
      * Affiche ou masque un bloc conditionnel.
      *
-     * Reproduit exactement le comportement de la fonction toggle() du back-office : masquer
-     * ne suffit pas, le bloc est aussi desactive et VIDE. Sans cela une valeur saisie puis
-     * rendue sans objet par un autre choix partirait quand meme au serveur.
+     * Reproduit le toggle() du back-office, dans les deux sens :
      *
-     * C'est la meme regle que celle appliquee par le binding par reflexion, qui ne collecte
-     * que les conteneurs visibles : les deux mecanismes restent ainsi coherents.
+     *  - a la fermeture, masquer ne suffit pas. Le bloc est aussi VIDE et desactive, sinon une
+     *    valeur rendue sans objet par un autre choix partirait quand meme au serveur ;
+     *  - a la reouverture, il ne suffit pas non plus de rendre le bloc visible : il faut
+     *    REACTIVER ses champs, que la fermeture precedente avait desactives.
+     *
+     * Ce second point manquait. Un bloc ferme puis rouvert s'affichait grise, et l'agent ne
+     * pouvait plus y saisir - le cas se produisait des qu'un choix multiple etait modifie deux
+     * fois, ce qui est la situation courante sur "Autre, preciser".
+     *
+     * C'est la meme regle que celle appliquee par le binding par reflexion, qui ne collecte que
+     * les conteneurs visibles : les deux mecanismes restent ainsi coherents.
      */
     fun basculer(bloc: View?, afficher: Boolean) {
         if (bloc == null) return
         bloc.visibility = if (afficher) View.VISIBLE else View.GONE
-        if (!afficher) viderChamps(bloc)
+        if (afficher) reactiverChamps(bloc) else viderChamps(bloc)
     }
 
-    /** Vide et desactive recursivement les champs d'un bloc masque. */
+    /**
+     * Vide et desactive recursivement les champs d'un bloc masque.
+     *
+     * L'ordre des cas compte, et c'est un piege : une liste deroulante EST un ViewGroup -
+     * MultiSelectSpinner herite d'AppCompatSpinner, donc de Spinner, d'AdapterView et de
+     * ViewGroup. Tester ViewGroup en premier faisait descendre dans les vues internes du
+     * composant sans jamais remettre la liste a zero : le choix d'un bloc masque survivait et
+     * partait au serveur. Les listes sont donc reconnues AVANT les conteneurs.
+     */
     private fun viderChamps(vue: View) {
         when (vue) {
-            is ViewGroup -> for (i in 0 until vue.childCount) viderChamps(vue.getChildAt(i))
             is MultiSelectSpinner -> {
                 vue.setSelection(intArrayOf())
                 vue.isEnabled = false
             }
             is Spinner -> {
+                // La premiere ligne est celle d'invite posee par Commons.setListenerForSpinner :
+                // y revenir equivaut a n'avoir rien choisi.
                 if (vue.adapter != null && vue.adapter.count > 0) vue.setSelection(0)
                 vue.isEnabled = false
             }
@@ -161,17 +177,22 @@ object SaisiePfte {
                 vue.setText("")
                 vue.isEnabled = false
             }
+            is ViewGroup -> for (i in 0 until vue.childCount) viderChamps(vue.getChildAt(i))
         }
-        if (vue !is ViewGroup && vue is MultiSelectSpinner) vue.isEnabled = false
     }
 
-    /** Reactive les champs d'un bloc reaffiche. */
+    /**
+     * Reactive les champs d'un bloc reaffiche.
+     *
+     * Meme piege que ci-dessus : une liste deroulante doit etre reactivee elle-meme, et non
+     * parcourue comme un conteneur.
+     */
     fun reactiverChamps(vue: View?) {
         if (vue == null) return
+        vue.isEnabled = true
+        if (vue is Spinner) return
         if (vue is ViewGroup) {
             for (i in 0 until vue.childCount) reactiverChamps(vue.getChildAt(i))
-        } else {
-            vue.isEnabled = true
         }
     }
 

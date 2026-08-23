@@ -2,6 +2,11 @@ package ci.progbandama.mobile.activities.forms
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.provider.Settings
+import android.location.LocationManager
+import android.content.pm.PackageManager
+import android.content.Context
+import android.Manifest
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -9,8 +14,11 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import ci.progbandama.mobile.R
 import ci.progbandama.mobile.activities.forms.views.MultiSelectSpinner
@@ -244,15 +252,39 @@ class EnqueteMenageActivity : AppCompatActivity() {
         )
     }
 
+    /**
+     * Releve la position de l'enquete.
+     *
+     * Trois situations distinctes, et une seule appelle a patienter :
+     *
+     *  - l'autorisation de localisation n'a pas ete accordee : on la redemande ;
+     *  - le service de localisation de l'appareil est eteint : on propose de l'activer et on
+     *    conduit l'agent a l'ecran de reglages, en reprenant la capture a son retour ;
+     *  - le service tourne mais aucune position n'est encore fixee : la seule reponse est
+     *    d'attendre quelques instants a l'exterieur.
+     *
+     * Les confondre en un unique message d'indisponibilite laissait l'agent sans rien a faire
+     * dans les deux premiers cas, qui sont les plus frequents.
+     */
     private fun capturerPosition() {
+        if (!autorisationLocalisationAccordee()) {
+            demanderAutorisationLocalisation()
+            return
+        }
+        if (!localisationActivee()) {
+            proposerActivationLocalisation()
+            return
+        }
+
         val prefs = SPUtils.getInstance()
         val latitude = prefs.getString(Constants.PREFS_COMMON_LAT, "")
         val longitude = prefs.getString(Constants.PREFS_COMMON_LNG, "")
 
+        // "0.0" est ce que le service ecrit tant qu'il n'a rien capte : ce n'est pas une position.
         if (latitude.isNullOrBlank() || longitude.isNullOrBlank() ||
             latitude == "0.0" || longitude == "0.0") {
             Commons.showMessage(
-                message = getString(R.string.position_gps_indisponible),
+                message = getString(R.string.position_gps_pas_encore_fixee),
                 context = this, finished = false, callback = { },
                 positive = getString(R.string.ok)
             )
@@ -263,6 +295,74 @@ class EnqueteMenageActivity : AppCompatActivity() {
         binding.editLongitudeMenage.setText(longitude)
         binding.editAltitudeMenage.setText(prefs.getString(Constants.PREFS_COMMON_ALT, ""))
         binding.editPrecisionGpsMenage.setText(prefs.getString(Constants.PREFS_COMMON_PRECISION, ""))
+    }
+
+    private fun autorisationLocalisationAccordee(): Boolean =
+        ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+
+    private fun demanderAutorisationLocalisation() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+            DEMANDE_AUTORISATION_POSITION
+        )
+    }
+
+    /**
+     * Vrai si l'appareil peut fournir une position.
+     *
+     * Le fournisseur reseau est accepte au meme titre que le GPS : en zone couverte il donne une
+     * position plus vite, et l'enquete releve un lieu d'habitation, pas une limite de parcelle.
+     */
+    private fun localisationActivee(): Boolean = try {
+        val gestionnaire = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        gestionnaire.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                gestionnaire.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    } catch (ex: Exception) {
+        LogUtils.e("Etat du service de localisation : ${ex.message}")
+        false
+    }
+
+    private fun proposerActivationLocalisation() {
+        Commons.showMessage(
+            message = getString(R.string.localisation_desactivee_proposer_activation),
+            context = this,
+            finished = false,
+            callback = {
+                try {
+                    startActivityForResult(
+                        Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS),
+                        DEMANDE_ACTIVATION_POSITION
+                    )
+                } catch (ex: Exception) {
+                    // Certains constructeurs n'exposent pas cet ecran : le dire vaut mieux que
+                    // laisser le bouton sans effet.
+                    LogUtils.e("Ouverture des reglages de localisation : ${ex.message}")
+                    Commons.showMessage(
+                        message = getString(R.string.reglages_localisation_introuvables),
+                        context = this, finished = false, callback = { },
+                        positive = getString(R.string.ok)
+                    )
+                }
+            },
+            positive = getString(R.string.activer),
+            deconnec = false,
+            showNo = true
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode != DEMANDE_AUTORISATION_POSITION) return
+
+        // L'agent a accorde l'autorisation en reponse a son propre clic : on poursuit ce qu'il
+        // avait demande, plutot que de le laisser rappuyer sur le bouton.
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            capturerPosition()
+        }
     }
 
     // ------------------------------------------------------------------ filtre et consentement
@@ -311,7 +411,6 @@ class EnqueteMenageActivity : AppCompatActivity() {
             binding.editNomRepondantMenage.isEnabled = false
         } else {
             binding.editNomRepondantMenage.isEnabled = true
-            SaisiePfte.reactiverChamps(binding.blocTitreRepondantMenage)
         }
     }
 
@@ -322,8 +421,6 @@ class EnqueteMenageActivity : AppCompatActivity() {
 
         SaisiePfte.basculer(binding.blocIndisponibleMenage, !disponible)
         SaisiePfte.basculer(binding.blocConsentementMenage, disponible)
-        if (disponible) SaisiePfte.reactiverChamps(binding.blocConsentementMenage)
-        else SaisiePfte.reactiverChamps(binding.blocIndisponibleMenage)
 
         // Producteur indisponible : l'enquete s'arrete, mais elle part quand meme avec son motif.
         binding.labelFinEnqueteMenage.visibility = if (!disponible && reponse.isNotBlank()) View.VISIBLE else View.GONE
@@ -353,8 +450,7 @@ class EnqueteMenageActivity : AppCompatActivity() {
 
         binding.labelFinEnqueteMenage.visibility = if (!consent && reponse.isNotBlank()) View.VISIBLE else View.GONE
         if (consent) {
-            binding.blocSuiteFormulaireMenage.visibility = View.VISIBLE
-            SaisiePfte.reactiverChamps(binding.blocSuiteFormulaireMenage)
+            SaisiePfte.basculer(binding.blocSuiteFormulaireMenage, true)
             appliquerEnfantsACharge()
         } else {
             masquerSuite()
@@ -419,16 +515,14 @@ class EnqueteMenageActivity : AppCompatActivity() {
         val aEnfantACharge = valeur(binding.selectAEnfantAChargeMenage) == "Oui" &&
                 entier(binding.editNombreEnfants5a17Menage) > 0
 
+        // Une seule primitive pour les trois blocs : elle vide a la fermeture et reactive a la
+        // reouverture, ce que des affectations de visibilite ne feraient ni l'un ni l'autre.
         SaisiePfte.basculer(binding.blocNombreEnfantsAChargeMenage, aEnfantACharge)
-        binding.cardEnfantsMenage.visibility = if (aEnfantACharge) View.VISIBLE else View.GONE
-        binding.cardSensibilisationMenage.visibility = if (aEnfantACharge) View.VISIBLE else View.GONE
+        SaisiePfte.basculer(binding.cardEnfantsMenage, aEnfantACharge)
+        SaisiePfte.basculer(binding.cardSensibilisationMenage, aEnfantACharge)
 
-        if (aEnfantACharge) {
-            SaisiePfte.reactiverChamps(binding.blocNombreEnfantsAChargeMenage)
-            SaisiePfte.reactiverChamps(binding.cardSensibilisationMenage)
-        } else {
-            // Meme regle que partout : ce qui est masque est vide, sinon il partirait au serveur.
-            SaisiePfte.basculer(binding.cardSensibilisationMenage, false)
+        if (!aEnfantACharge) {
+            // Les selections ne vivent pas dans les vues : les vider a la main.
             themesRetenus.clear()
             outilsRetenus.clear()
             photoBase64 = ""
@@ -471,7 +565,7 @@ class EnqueteMenageActivity : AppCompatActivity() {
             champ.addTextChangedListener(surSaisie { calculerTotalSensibilises() })
         }
 
-        binding.btnPrendrePhotoMenage.setOnClickListener { prendrePhoto() }
+        binding.btnPrendrePhotoMenage.setOnClickListener { choisirSourcePhoto() }
     }
 
     private fun calculerTotalSensibilises() {
@@ -927,6 +1021,27 @@ class EnqueteMenageActivity : AppCompatActivity() {
 
     // ------------------------------------------------------------------ photo
 
+    /**
+     * Propose les deux sources possibles pour la photo de sensibilisation.
+     *
+     * Sur le terrain la photo est parfois deja prise - avant l'ouverture du formulaire, ou par un
+     * collegue. N'offrir que l'appareil photo obligeait alors a la reprendre.
+     */
+    private fun choisirSourcePhoto() {
+        val sources = arrayOf(
+            getString(R.string.prendre_une_photo),
+            getString(R.string.choisir_dans_la_galerie)
+        )
+        AlertDialog.Builder(this, R.style.DialogTheme)
+            .setTitle(R.string.photo_de_la_sensibilisation)
+            .setItems(sources) { dialogue, choix ->
+                dialogue.dismiss()
+                if (choix == 0) prendrePhoto() else ouvrirGalerie()
+            }
+            .setNegativeButton(R.string.non) { dialogue, _ -> dialogue.dismiss() }
+            .show()
+    }
+
     private fun prendrePhoto() {
         try {
             // Meme emplacement et meme autorite que les autres formulaires : file_paths.xml
@@ -941,16 +1056,85 @@ class EnqueteMenageActivity : AppCompatActivity() {
             startActivityForResult(intentPhoto, DEMANDE_PHOTO)
         } catch (ex: Exception) {
             LogUtils.e("Ouverture de l'appareil photo : ${ex.message}")
+            signalerPhotoImpossible()
         }
+    }
+
+    /**
+     * Ouvre le selecteur d'images du systeme.
+     *
+     * ACTION_GET_CONTENT plutot que l'acces direct a la galerie : le systeme accorde lui-meme
+     * l'acces au fichier choisi, sans autorisation de lecture du stockage a demander a l'agent,
+     * et le procede vaut sur toutes les versions d'Android que l'application supporte.
+     */
+    private fun ouvrirGalerie() {
+        try {
+            val intentGalerie = Intent(Intent.ACTION_GET_CONTENT)
+                .setType("image/*")
+                .addCategory(Intent.CATEGORY_OPENABLE)
+            startActivityForResult(intentGalerie, DEMANDE_GALERIE)
+        } catch (ex: Exception) {
+            LogUtils.e("Ouverture de la galerie : ${ex.message}")
+            signalerPhotoImpossible()
+        }
+    }
+
+    private fun signalerPhotoImpossible() {
+        Commons.showMessage(
+            message = getString(R.string.photo_impossible),
+            context = this, finished = false, callback = { },
+            positive = getString(R.string.ok)
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode != DEMANDE_PHOTO || resultCode != RESULT_OK) return
 
-        val fichier = fichierPhoto ?: return
-        // Compression avant encodage : l'API mobile attend du base64, et une photo brute
-        // depasserait la limite de deux megaoctets du serveur une fois encodee.
+        // Retour de l'ecran de reglages : on reprend la capture que l'agent avait demandee.
+        // Le code de retour n'y est pas renseigne, c'est l'etat du service qui fait foi.
+        if (requestCode == DEMANDE_ACTIVATION_POSITION) {
+            capturerPosition()
+            return
+        }
+
+        if (resultCode != RESULT_OK) return
+
+        when (requestCode) {
+            DEMANDE_PHOTO -> fichierPhoto?.let { traiterPhoto(it) }
+            DEMANDE_GALERIE -> data?.data?.let { source ->
+                val copie = copierDepuisGalerie(source)
+                if (copie == null) signalerPhotoImpossible() else traiterPhoto(copie)
+            }
+        }
+    }
+
+    /**
+     * Recopie l'image choisie dans le dossier de l'application.
+     *
+     * L'acces accorde par le systeme sur l'image d'origine ne survit pas a la fermeture de
+     * l'ecran : sans copie, la photo deviendrait illisible avant meme d'etre encodee. Le
+     * compresseur, lui, travaille sur un fichier.
+     */
+    private fun copierDepuisGalerie(source: Uri): File? = try {
+        val dossier = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val destination = File.createTempFile("sensibilisation_", ".jpg", dossier)
+        contentResolver.openInputStream(source)?.use { entree ->
+            destination.outputStream().use { sortie -> entree.copyTo(sortie) }
+        }
+        fichierPhoto = destination
+        destination
+    } catch (ex: Exception) {
+        LogUtils.e("Copie de l'image choisie : ${ex.message}")
+        null
+    }
+
+    /**
+     * Compresse puis encode la photo, quelle que soit sa provenance.
+     *
+     * L'API mobile attend du base64 - elle n'accepte pas le multipart - et le serveur refuse
+     * au-dela de deux megaoctets. Une photo brute de telephone les depasse une fois encodee.
+     */
+    private fun traiterPhoto(fichier: File) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val compresse = Compressor.compress(this@EnqueteMenageActivity, fichier) {
@@ -964,6 +1148,7 @@ class EnqueteMenageActivity : AppCompatActivity() {
                 }
             } catch (ex: Exception) {
                 LogUtils.e("Compression de la photo : ${ex.message}")
+                runOnUiThread { signalerPhotoImpossible() }
             }
         }
     }
@@ -1066,6 +1251,9 @@ class EnqueteMenageActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_BROUILLON = "brouillon_uid"
         private const val DEMANDE_PHOTO = 4201
+        private const val DEMANDE_GALERIE = 4204
+        private const val DEMANDE_ACTIVATION_POSITION = 4202
+        private const val DEMANDE_AUTORISATION_POSITION = 4203
         private const val AUTORITE_FICHIERS = "ci.progbandama.mobile.fileprovider"
     }
 }
