@@ -27,6 +27,10 @@ object Constants {
     const val AGENT_COOP_ID                     =                   "user_coop_id"
     const val AGENT_CODE_APP                    =                   "user_code_app"
 
+    // Types de formulaires marques show=false dans le fichier de reference. Conserves pour
+    // que le menu obeisse aussi hors ligne, et des le demarrage.
+    const val FORMULAIRES_MASQUES               =                   "formulaires_masques"
+
     const val APP_FIRST_LAUNCH                  =                   "first_open"
     const val APP_BASE_URL                      =                   "base_url"
     const val APP_BASE_URL_IS_CONFIGURED        =                   "base_url_is_configured"

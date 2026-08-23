@@ -45,6 +45,7 @@ import ci.progbandama.mobile.tools.Commons.Companion.toModifString
 import ci.progbandama.mobile.BuildConfig
 import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.tools.Constants
+import ci.progbandama.mobile.tools.VisibiliteFormulaires
 import ci.progbandama.mobile.tools.DonneesEnAttente
 import ci.progbandama.mobile.tools.Data
 import ci.progbandama.mobile.tools.FetchData
@@ -520,6 +521,22 @@ class DashboardAgentActivity : AppCompatActivity(),
                 object : FetchData.LibraryListener{
                     override fun onCompleted(vers: MissVersion?, iscomplete: Boolean?) {
 //                        LogUtils.d(vers, iscomplete)
+
+                        // Visibilite des formulaires : relevee a chaque passage, qu'une mise a
+                        // jour soit proposee ou non. Si la selection a change, le tableau de bord
+                        // et le menu sont refaits sans attendre le prochain demarrage.
+                        if (VisibiliteFormulaires.enregistrer(vers?.formulaires)) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                try {
+                                    updateListOfFeature()
+                                    setNavViewItems(rolesDeLAgent())
+                                    setViewFeatureListing()
+                                } catch (ex: Exception) {
+                                    LogUtils.e("Rafraichissement du menu : ${ex.message}")
+                                }
+                            }
+                        }
+
                         iscomplete?.let {
                             CoroutineScope(Dispatchers.Main).launch {
                                 if(it) Commons.showMessage(
@@ -1165,6 +1182,11 @@ class DashboardAgentActivity : AppCompatActivity(),
             //carouselRecyclerview?.adapter?.notifyDataSetChanged()
         }
 
+        // Formulaires marques show=false dans le fichier de reference : ils disparaissent des
+        // tuiles ET du menu lateral, qui derive de la meme liste. Tout ce qui n'est pas
+        // explicitement masque reste affiche.
+        listOfFeatures.retainAll { VisibiliteFormulaires.estVisible(it.type) }
+
         listOfFeatures.map {
             listOfFeatureCloned.add(it)
         }
@@ -1178,6 +1200,11 @@ class DashboardAgentActivity : AppCompatActivity(),
     }
 
     private fun setNavViewItems(roles: MutableList<String>) {
+
+        // La position dans cette liste sert a retrouver le formulaire au clic : sans ce vidage,
+        // une reconstruction du menu dupliquerait les entrees et les clics ouvriraient le mauvais
+        // ecran.
+        listOfFeatureClonedNav.clear()
 
         var expandableLV = binding.expandableNavigation1.init(this@DashboardAgentActivity)
         val listHeaders = mutableListOf<HeaderModel>()

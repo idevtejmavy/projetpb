@@ -116,13 +116,10 @@ public class FetchData {
         protected void onPostExecute(Boolean update) {
             super.onPostExecute(update);
 //            LogUtils.d(link, update);
-            if (update != null) {
-                if (update) {
-                    listener.onCompleted(mVers, true);
-                } else {
-                    listener.onCompleted(null, false);
-                }
-            }else listener.onCompleted(null, false);
+            // Le fichier est transmis DANS TOUS LES CAS : il ne porte pas que le controle de
+            // version, mais aussi la liste des formulaires a afficher, qui doit etre exploitee
+            // meme lorsqu'aucune mise a jour n'est proposee.
+            listener.onCompleted(mVers, update != null && update);
         }
     }
 

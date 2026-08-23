@@ -14,5 +14,24 @@
     "- Retrait du module SSRTE-CLMRS",
     "",
     "Rendez-vous sur le Play Store et effectuez la mise à jour !"
+  ],
+  "forms": [
+    { "type": "PRODUCTEUR",           "label": "Producteur",                "show": true },
+    { "type": "INFOS_PRODUCTEUR",     "label": "Infos producteur",          "show": true },
+    { "type": "PARCELLE",             "label": "Identification parcelles",  "show": true },
+    { "type": "PARCELLES",            "label": "Suivi parcelle",            "show": true },
+    { "type": "MENAGE",               "label": "Enquête ménage",            "show": true },
+    { "type": "VISITE_PLANTATION",    "label": "Visite plantation",         "show": true },
+    { "type": "SUIVI_ENFANT",         "label": "Suivi enfant travailleur",  "show": true },
+    { "type": "APPLICATION",          "label": "Applications phytos",       "show": true },
+    { "type": "INSPECTION",           "label": "Inspections",               "show": true },
+    { "type": "ESTIMATION",           "label": "Estimations",               "show": true },
+    { "type": "FORMATION",            "label": "Formations",                "show": true },
+    { "type": "FORMATION_VISITEUR",   "label": "Visiteur formation",        "show": true },
+    { "type": "LIVRAISON",            "label": "Stock magasin section",     "show": true },
+    { "type": "LIVRAISON_MAGCENTRAL", "label": "Stock magasin central",     "show": true },
+    { "type": "AGRO_EVALUATION",      "label": "Évaluation des besoins",    "show": true },
+    { "type": "AGRO_DISTRIBUTION",    "label": "Distribution d'arbres",     "show": true },
+    { "type": "POSTPLANTING",         "label": "Évaluation post-planting",  "show": true }
   ]
 }
