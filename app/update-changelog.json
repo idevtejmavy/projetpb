@@ -1,8 +1,18 @@
 {
-  "latestVersion": "ProgBand-v1.0.1",
-  "latestVersionCode": 68,
+  "latestVersion": "ProgBand-v1.1.0",
+  "latestVersionCode": 83,
+  "ignoreVersionCode": [],
   "url": "https://play.google.com/store/apps/details?id=ci.progbandama.mobile&hl=fr",
   "releaseNotes": [
-    "- Nouvelle mise à jour disponible"
+    "Nouvelle version disponible : ProgBand-v1.1.0 (83)",
+    "",
+    "- Questionnaires PFTE : Enquête Ménage, Visite Plantation et Suivi Enfant Travailleur",
+    "- Champ Campagne en tête des formulaires Évaluation des besoins, Post planting, Formation, Application phyto et Suivi parcelle",
+    "- Formation : correction du double comptage des participants et des sous-thèmes",
+    "- Formation : les dates de début et de fin se bornent désormais l'une l'autre",
+    "- La version installée s'affiche au bas du tableau de bord",
+    "- Retrait du module SSRTE-CLMRS",
+    "",
+    "Rendez-vous sur le Play Store et effectuez la mise à jour !"
   ]
 }

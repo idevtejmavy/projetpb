@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -52,28 +53,61 @@ public class FetchData {
         protected Boolean doInBackground(Void... voids) {
             try {
                 Context context = contextRef.get();
-                if (context != null) {
-                    mVers = getAppVers(context, link);
-                    boolean verdict = false;
-                    Long localVersion = Commons.Companion.getAppCuVesCod(context);
-//                    LogUtils.d(link, mVers);
-                    if(Commons.Companion.getAppCuVesCod(context) == Long.valueOf(mVers.getLatestVersionCode())) verdict = false;
-                    else verdict = true;
-
-                    LogUtils.d(mVers.getIgnoreVersionCode(), Commons.Companion.getAppCuVesCod(context));
-
-                    for(int vers : mVers.getIgnoreVersionCode()){
-                        if(localVersion == vers) verdict = false;
-                    }
-                    //if(.contains(Commons.Companion.getAppCuVesCod(context))) verdict = false;
-
-                    return verdict;
-                } else {
+                if (context == null) {
                     cancel(true);
                     return null;
                 }
+
+                mVers = getAppVers(context, link);
+                if (mVers == null) {
+                    // Fichier de reference injoignable ou illisible : on ne derange pas l'agent.
+                    LogUtils.e("Controle de version : fichier de reference illisible - " + link);
+                    return false;
+                }
+
+                Long publiee = lireVersionCode(mVers.getLatestVersionCode());
+                if (publiee == null) return false;
+
+                long installee = Commons.Companion.getAppCuVesCod(context);
+
+                // La mise a jour n'est proposee que si la version publiee est PLUS RECENTE que
+                // celle installee. La comparaison testait auparavant l'EGALITE : un appareil en
+                // avance sur le fichier de reference - livraison publiee avant la mise a jour du
+                // fichier, ou version de test - se voyait reclamer une "mise a jour" vers une
+                // version plus ancienne que la sienne.
+                boolean verdict = installee < publiee;
+
+                // La liste des versions a ne pas solliciter est facultative dans le fichier. Elle
+                // arrive alors a null : Gson construit l'objet sans passer par le constructeur, la
+                // valeur par defaut declaree cote Kotlin n'est donc pas appliquee.
+                List<Integer> ignorees = mVers.getIgnoreVersionCode();
+                if (ignorees != null) {
+                    for (Integer vers : ignorees) {
+                        if (vers != null && installee == vers.longValue()) verdict = false;
+                    }
+                }
+
+                LogUtils.d("Controle de version : installee " + installee + ", publiee " + publiee
+                        + ", mise a jour proposee : " + verdict);
+
+                return verdict;
             } catch (Exception ex) {
+                LogUtils.e("Controle de version : " + ex.getMessage());
                 cancel(true);
+                return null;
+            }
+        }
+
+        /** Numero de version publie, ou null s'il est absent ou illisible. */
+        private Long lireVersionCode(String valeur) {
+            if (valeur == null || valeur.trim().isEmpty()) {
+                LogUtils.e("Controle de version : aucun numero de version publie");
+                return null;
+            }
+            try {
+                return Long.valueOf(valeur.trim());
+            } catch (NumberFormatException ex) {
+                LogUtils.e("Controle de version : numero publie illisible - " + valeur);
                 return null;
             }
         }
