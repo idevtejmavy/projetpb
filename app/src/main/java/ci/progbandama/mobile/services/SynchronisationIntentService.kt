@@ -86,6 +86,25 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
     }
 
 
+    /**
+     * Campagne a rattacher aux donnees envoyees, ou null si l'appareil n'en connait aucune.
+     *
+     * L'endpoint getcampagne ne renvoie que la campagne active : la table locale n'en porte donc
+     * qu'une, et la premiere ligne est la bonne. Elle peut en revanche etre vide - appareil jamais
+     * synchronise, ou aucune campagne active cote serveur - et un acces indexe y levait, faisant
+     * echouer l'envoi entier du module.
+     *
+     * Deux modules seulement transmettent cette valeur : le suivi de parcelle, dont le serveur se
+     * sert, et le suivi d'application, dont le serveur la reecrit avec la campagne active. Tous
+     * les autres controleurs estampillent eux-memes.
+     */
+    private fun campagneActive(): CampagneModel? = try {
+        campagneDao?.getAll()?.firstOrNull()
+    } catch (ex: Exception) {
+        LogUtils.e("Lecture de la campagne active : ${ex.message}")
+        null
+    }
+
     fun syncLocalite(localiteDao: LocaliteDao) {
         val localiteDatas = localiteDao.getUnSyncedAll(
             agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()
@@ -559,7 +578,12 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
                         // deserialize datas producteurs
 
                         suivi.apply {
-                            campagneId = campagneDao!!.getAll()[0].id.toString()
+                            // Le serveur retient cette valeur pour le suivi de parcelle : son
+                            // absence est tracee, sans empecher l'envoi.
+                            campagneId = campagneActive()?.id?.toString().orEmpty()
+                            if (campagneId.isNullOrBlank()) {
+                                LogUtils.e("Suivi de parcelle ${uid} : aucune campagne active connue de l'appareil")
+                            }
                             pesticidesAnneDerniereList = GsonUtils.fromJson(pesticidesAnneDerniereStr, object : TypeToken<MutableList<PesticidesAnneDerniereModel>>() {}.type)
                             intrantsAnneDerniereList = GsonUtils.fromJson(intrantsAnneDerniereStr, object : TypeToken<MutableList<PesticidesAnneDerniereModel>>() {}.type)
 
@@ -1271,7 +1295,10 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
 
                     suiviApplication.apply {
-                        campagnesId = campagneDao?.getAll()?.get(0)?.id
+                        // Reecrite par le serveur, qui estampille avec la campagne active.
+                        // Transmise quand meme, pour que la donnee conservee sur l'appareil dise
+                        // la meme chose que celle enregistree en base.
+                        campagnesId = campagneActive()?.id
                         hour = heureApplication?.split(":")?.get(0).toString()
                         minute = heureApplication?.split(":")?.get(1).toString()
 
