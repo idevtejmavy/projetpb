@@ -65,7 +65,6 @@ import ci.progbandama.mobile.activities.forms.LivraisonCentralActivity
 import ci.progbandama.mobile.activities.forms.ParcelleActivity
 import ci.progbandama.mobile.activities.forms.PostPlantingEvalActivity
 import ci.progbandama.mobile.activities.forms.ProducteurActivity
-import ci.progbandama.mobile.activities.forms.ProducteurMenageActivity
 import ci.progbandama.mobile.activities.forms.EnqueteMenageActivity
 import ci.progbandama.mobile.activities.forms.SsrtClmsActivity
 import ci.progbandama.mobile.activities.forms.SuiviApplicationActivity
@@ -77,7 +76,6 @@ import ci.progbandama.mobile.activities.lists.DatasDraftedListActivity
 import ci.progbandama.mobile.activities.lists.DatasSendingListActivity
 import ci.progbandama.mobile.activities.lists.DatasSyncListActivity
 import ci.progbandama.mobile.activities.lists.FormationsListActivity
-import ci.progbandama.mobile.activities.lists.MenageresListActivity
 import ci.progbandama.mobile.activities.lists.ParcellesListActivity
 import ci.progbandama.mobile.activities.lists.ProducteursListActivity
 import ci.progbandama.mobile.activities.lists.UpdateContentsListActivity
@@ -1094,13 +1092,14 @@ class Commons {
                         "PRODUCTEUR" -> ActivityUtils.startActivity(ProducteurActivity::class.java)
                         "INFOS_PRODUCTEUR" -> ActivityUtils.startActivity(
                             UniteAgricoleProducteurActivity::class.java)
-                        "MENAGE" -> ActivityUtils.startActivity(ProducteurMenageActivity::class.java)
+                        // Voir MenusActionRedirectionActivity : le role MENAGE ouvre
+                        // desormais l'Enquete Menage PFTE.
+                        "MENAGE", "ENQUETE_MENAGE" ->
+                            ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                         "PARCELLE" -> ActivityUtils.startActivity(ParcelleActivity::class.java)
                         "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                         "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)
                         "SSRTECLMRS" -> ActivityUtils.startActivity(SsrtClmsActivity::class.java)
-                        // Enquete Menage (PFTE) - lot 3.
-                        "ENQUETE_MENAGE" -> ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                         "FORMATION" -> ActivityUtils.startActivity(FormationActivity::class.java)
                         "ESTIMATION" -> ActivityUtils.startActivity(CalculEstimationActivity::class.java)
                         "APPLICATION" -> ActivityUtils.startActivity(SuiviApplicationActivity::class.java)
@@ -1136,7 +1135,7 @@ class Commons {
                         "LOCALITE" -> Commons.showMessage("Cette fonctionnalité est désactivé", activity, finished = true, callback = {}, positive = "Compris !", deconnec = false, showNo = false) //ActivityUtils.startActivity(LocalitesListActivity::class.java)
                         "PRODUCTEUR" -> ActivityUtils.startActivity(ProducteursListActivity::class.java)
                         //"INFOS_PRODUCTEUR" -> ActivityUtils.startActivity(UniteAgricoleProducteurActivity::class.java)
-                        "MENAGE" -> ActivityUtils.startActivity(MenageresListActivity::class.java)
+                        // MENAGE tombe volontairement dans le cas general.
                         "PARCELLE" -> ActivityUtils.startActivity(ParcellesListActivity::class.java)
 //                        "PARCELLES" -> ActivityUtils.startActivity(SuiviPacellesListActivity::class.java)
                         //"INSPECTION" -> ActivityUtils.startActivity(EvaluationActivity::class.java)

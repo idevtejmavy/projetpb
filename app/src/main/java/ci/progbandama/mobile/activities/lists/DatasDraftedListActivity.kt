@@ -38,9 +38,11 @@ class DatasDraftedListActivity : AppCompatActivity(R.layout.activity_datas_draft
                 .replace("formation_visiteur", "visiteur_formation")
                 .replace("livraison_magcentral", "suivi_livraison_central")
                 .replace("ssrteclmrs", "ssrte")
-                // Les modules PFTE portent un type distinct du nom de leur menu : plusieurs
-                // formulaires du programme partagent des noms voisins, le suffixe les separe.
-                .replace("enquete_menage", BrouillonPfte.TYPE_ENQUETE_MENAGE)
+                // Le menu menage couvre deux types de brouillon : celui de l'ancien formulaire
+                // et celui de l'Enquete Menage PFTE. La requete filtre par LIKE, un motif les
+                // rassemble donc tous les deux, et chaque brouillon se rouvre dans le formulaire
+                // qui l'a produit. Aucun autre type ne contient "menage".
+                .replace("menage", "%menage%")
                 .lowercase()
             LogUtils.d(fromGlobalMenu, replaceID)
             val draftedDataList = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()?.getAllByType(

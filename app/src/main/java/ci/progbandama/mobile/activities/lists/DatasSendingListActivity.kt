@@ -275,10 +275,27 @@ class DatasSendingListActivity : AppCompatActivity() {
                     commonDataListCloned.addAll(commonDataList)
                 }
 
-                "ENQUETE_MENAGE" -> {
+                "ENQUETE_MENAGE", "MENAGE" -> {
                     binding.labelTitleMenuAction.apply {
                         setText("ENQUETES MENAGE ${this.text}")
                     }
+
+                    // Les deux modules sont presentes ensemble. Chaque ligne porte le sien, si
+                    // bien qu'une reprise rouvre le formulaire d'origine de la saisie : l'ancien
+                    // pour ce qui a ete saisi avant la bascule, le nouveau pour le reste.
+                    progbandBase.producteurMenageDoa()
+                        .getUnSyncedAll(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())
+                        .forEach { ancienne ->
+                            commonDataList.add(
+                                CommonData(id = ancienne.uid.toInt(), value = "MENAGE").apply {
+                                    listOfValue = arrayListOf(
+                                        "CODE: ", "${ancienne.uid}",
+                                        "Producteur: ", ancienne.producteurNomPrenoms.orEmpty()
+                                    )
+                                }
+                            )
+                        }
+
                     progbandBase.enqueteMenageDao()
                         .getAll(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())
                         .filter { it.isSynced == false }
@@ -288,7 +305,7 @@ class DatasSendingListActivity : AppCompatActivity() {
                             val producteur = enquete.producteurNom.orEmpty()
                                 .ifBlank { enquete.producteurId.orEmpty() }
                             commonDataList.add(
-                                CommonData(id = enquete.uid, value = fromGlobalMenu.toUpperCase()).apply {
+                                CommonData(id = enquete.uid, value = "ENQUETE_MENAGE").apply {
                                     listOfValue = arrayListOf(
                                         "CODE: ", "${enquete.uid}",
                                         "Producteur: ",

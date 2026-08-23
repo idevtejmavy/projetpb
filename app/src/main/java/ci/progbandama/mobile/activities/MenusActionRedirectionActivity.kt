@@ -187,14 +187,16 @@ class MenusActionRedirectionActivity : AppCompatActivity() {
                     "LOCALITE" -> Commons.showMessage("Cette fonctionnalité est désactivé", this, finished = true, callback = {}, positive = getString(R.string.compris), deconnec = false, showNo = false) // ActivityUtils.startActivity(LocaliteActivity::class.java)
                     "PRODUCTEUR" -> ActivityUtils.startActivity(ProducteurActivity::class.java)
                     "INFOS_PRODUCTEUR" -> ActivityUtils.startActivity(UniteAgricoleProducteurActivity::class.java)
-                    "MENAGE" -> ActivityUtils.startActivity(ProducteurMenageActivity::class.java)
+                    // L'ancien formulaire menage alimentait une table que le web ne lit plus.
+                    // Le role MENAGE ouvre desormais l'Enquete Menage PFTE, transcription de
+                    // /manager/menage. Voir ProducteurMenageActivity, conservee pour les
+                    // brouillons et les envois en attente deja presents sur les appareils.
+                    "MENAGE", "ENQUETE_MENAGE" ->
+                        ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                     "PARCELLE" -> ActivityUtils.startActivity(ParcelleActivity::class.java)
                     "PARCELLES" -> ActivityUtils.startActivity(SuiviParcelleActivity::class.java)
                     "INSPECTION" -> ActivityUtils.startActivity(InspectionActivity::class.java)
                     "SSRTECLMRS" -> ActivityUtils.startActivity(SsrtClmsActivity::class.java)
-                    // Enquete Menage (PFTE) - lot 3. La tuile n'apparait que si le serveur
-                    // accorde le role correspondant a l'agent.
-                    "ENQUETE_MENAGE" -> ActivityUtils.startActivity(EnqueteMenageActivity::class.java)
                     "FORMATION" -> ActivityUtils.startActivity(FormationActivity::class.java)
                     "ESTIMATION" -> ActivityUtils.startActivity(CalculEstimationActivity::class.java)
                     "APPLICATION" -> ActivityUtils.startActivity(SuiviApplicationActivity::class.java)
@@ -221,7 +223,8 @@ class MenusActionRedirectionActivity : AppCompatActivity() {
                     "LOCALITE" -> Commons.showMessage("Cette fonctionnalité est désactivé", this, finished = true, callback = {}, positive = getString(R.string.compris), deconnec = false, showNo = false) //ActivityUtils.startActivity(LocalitesListActivity::class.java)
                     "PRODUCTEUR" -> ActivityUtils.startActivity(ProducteursListActivity::class.java)
                     //"INFOS_PRODUCTEUR" -> ActivityUtils.startActivity(UniteAgricoleProducteurActivity::class.java)
-                    "MENAGE" -> ActivityUtils.startActivity(MenageresListActivity::class.java)
+                    // MENAGE tombe volontairement dans le cas general : la liste generique
+                    // presente les deux modules, l'ancien et le nouveau.
                     "PARCELLE" -> ActivityUtils.startActivity(ParcellesListActivity::class.java)
                     "PARCELLES" -> ActivityUtils.startActivity(SuiviPacellesListActivity::class.java)
                     //"INSPECTION" -> ActivityUtils.startActivity(EvaluationActivity::class.java)

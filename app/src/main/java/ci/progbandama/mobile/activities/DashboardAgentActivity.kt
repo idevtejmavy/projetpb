@@ -42,7 +42,6 @@ import ci.progbandama.mobile.services.GpsService
 import ci.progbandama.mobile.tools.Commons
 import ci.progbandama.mobile.tools.Commons.Companion.openUrl
 import ci.progbandama.mobile.tools.Commons.Companion.toModifString
-import ci.progbandama.mobile.BuildConfig
 import ci.progbandama.mobile.tools.BrouillonPfte
 import ci.progbandama.mobile.tools.Constants
 import ci.progbandama.mobile.tools.DonneesEnAttente
@@ -561,9 +560,14 @@ class DashboardAgentActivity : AppCompatActivity(),
             updateRVFeatureCount(lisFeat, "PARCELLE", length)
         })
 
-        producteurMenageDao?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { items ->
-            val length = items.size
-            updateRVFeatureCount(lisFeat, "MENAGE", length)
+        // Deux sources pour une seule tuile : chacune reporte la somme, sinon la derniere
+        // arrivee ecraserait le compte de l'autre.
+        producteurMenageDao?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer {
+            updateRVFeatureCount(lisFeat, "MENAGE", enquetesMenageEnAttente())
+        })
+
+        ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()?.countUnSyncedLive(SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer {
+            updateRVFeatureCount(lisFeat, "MENAGE", enquetesMenageEnAttente())
         })
 
         ProgBandRoomDatabase.getDatabase(this)?.suiviApplicationDao()?.getUnSyncedAllLive(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.observe(this, Observer { items ->
@@ -916,9 +920,11 @@ class DashboardAgentActivity : AppCompatActivity(),
                     //listOrderItem.add(3)
                     //setClickListenForFeature(3);
                     //linealMenage.visibility = View.VISIBLE
+                    // Le role MENAGE ouvre l'Enquete Menage PFTE ; la tuile compte donc les
+                    // deux modules, sans quoi ce qui reste de l'ancien paraitrait perdu.
                     listOfFeatures.add(FeatureModel("ENQUÊTE MÉNAGE",
-                        countSync = producteurMenageDao?.getUnSyncedAll(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString())?.size!!,
-                        countDraft = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()?.countByType(agentID = SPUtils.getInstance().getInt(Constants.AGENT_ID).toString(), type = "menage")!!,
+                        countSync = enquetesMenageEnAttente(),
+                        countDraft = brouillonsMenage(),
                         type = "MENAGE",
                         categorie = 3,
                         //image = R.drawable.menage,
@@ -1124,8 +1130,6 @@ class DashboardAgentActivity : AppCompatActivity(),
             //carouselRecyclerview?.adapter?.notifyDataSetChanged()
         }
 
-        ajouterTuileEnqueteMenageEnDebug()
-
         listOfFeatures.map {
             listOfFeatureCloned.add(it)
         }
@@ -1207,36 +1211,26 @@ class DashboardAgentActivity : AppCompatActivity(),
 
 
     /**
-     * Tuile temporaire de l'Enquete Menage - lot 3, en attendant le role serveur.
+     * Enquetes menage en attente d'envoi, les deux modules confondus.
      *
-     * Le tableau de bord ne montre que ce que les roles renvoyes par l'API autorisent. Le role
-     * ENQUETE_MENAGE n'existe pas encore cote back-office, le module serait donc inatteignable et
-     * impossible a recetter. Cette tuile comble l'attente et ne s'affiche qu'en build debug : en
-     * production, BuildConfig.DEBUG vaut false et la fonction sort immediatement.
-     *
-     * A SUPPRIMER des que le role est accorde. Le reste du cablage - redirections, brouillons,
-     * donnees en attente - est deja en place et fonctionnera sans rien changer d'autre.
+     * L'ancien formulaire n'est plus proposable a la saisie, mais ce qu'il a laisse sur
+     * l'appareil part toujours et doit rester visible dans le compteur.
      */
-    private fun ajouterTuileEnqueteMenageEnDebug() {
-        if (!BuildConfig.DEBUG) return
-        if (listOfFeatures.any { it.type == "ENQUETE_MENAGE" }) return
+    private fun enquetesMenageEnAttente(): Int {
+        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0).toString()
+        val base = ProgBandRoomDatabase.getDatabase(this)
+        val ancien = producteurMenageDao?.getUnSyncedAll(agentID = agent)?.size ?: 0
+        val nouveau = base?.enqueteMenageDao()?.countUnSynced(agent) ?: 0
+        return ancien + nouveau
+    }
 
-        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID, 0)
-        listOfFeatures.add(
-            FeatureModel(
-                "ENQUETE MENAGE",
-                countSync = ProgBandRoomDatabase.getDatabase(this)?.enqueteMenageDao()
-                    ?.countUnSynced(agent.toString()) ?: 0,
-                countDraft = BrouillonPfte.compter(this, BrouillonPfte.TYPE_ENQUETE_MENAGE),
-                type = "ENQUETE_MENAGE",
-                categorie = 3,
-                icon = R.drawable.ssrte_ic,
-                canAdd = true,
-                canEdit = true,
-                canViewDraft = true,
-                canViewSync = true
-            ).apply { this.image = image.plus("ssrte.png") }
-        )
+    /** Brouillons menage, les deux modules confondus. */
+    private fun brouillonsMenage(): Int {
+        val agent = SPUtils.getInstance().getInt(Constants.AGENT_ID).toString()
+        val dao = ProgBandRoomDatabase.getDatabase(this)?.draftedDatasDao()
+        val ancien = dao?.countByType(agentID = agent, type = "menage") ?: 0
+        val nouveau = dao?.countByType(agentID = agent, type = BrouillonPfte.TYPE_ENQUETE_MENAGE) ?: 0
+        return ancien + nouveau
     }
 
     private fun setViewFeatureListing() {
