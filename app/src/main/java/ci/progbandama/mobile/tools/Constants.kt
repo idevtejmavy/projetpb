@@ -30,6 +30,8 @@ object Constants {
     // Types de formulaires marques show=false dans le fichier de reference. Conserves pour
     // que le menu obeisse aussi hors ligne, et des le demarrage.
     const val FORMULAIRES_MASQUES               =                   "formulaires_masques"
+    // Types que le fichier de reference autorise a s afficher sans droit declare cote site.
+    const val FORMULAIRES_SANS_DROIT            =                   "formulaires_sans_droit"
 
     const val APP_FIRST_LAUNCH                  =                   "first_open"
     const val APP_BASE_URL                      =                   "base_url"

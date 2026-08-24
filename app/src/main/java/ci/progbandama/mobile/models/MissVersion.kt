@@ -30,9 +30,14 @@ data class MissVersion(
  *              Il n'est pas utilise par l'application.
  * @param show  false retire le formulaire des deux endroits. Absent, il est considere visible :
  *              un fichier incomplet ne doit jamais faire disparaitre le travail d'un agent.
+ * @param sansDroit true affiche le formulaire meme si l'agent n'en porte pas le droit. Reserve aux
+ *              questionnaires pour lesquels le site ne declare AUCUN droit - Visite Plantation et
+ *              Suivi Enfant Travailleur, ligne N.60 du suivi client. A retirer des que ces droits
+ *              existeront. Absent, le droit de l'agent reste la regle.
  */
 data class FormulaireAffiche(
     val type: String? = null,
     val label: String? = null,
     val show: Boolean? = null,
+    @SerializedName("sansDroit") val sansDroit: Boolean? = null,
 )

@@ -36,6 +36,24 @@ object VisibiliteFormulaires {
         type == null || !masques().contains(type.uppercase())
 
     /**
+     * Types que le fichier autorise a s'afficher SANS droit declare cote site.
+     *
+     * Le site ne declare aucun droit pour les deux questionnaires PFTE ajoutes aux lots 4 et 5 :
+     * sans cette liste, ils n'apparaissent qu'en build debug. Elle disparaitra d'elle-meme le jour
+     * ou ces droits existeront - il suffira de retirer la propriete du fichier.
+     */
+    fun sansDroit(): Set<String> = try {
+        val brut = SPUtils.getInstance().getString(Constants.FORMULAIRES_SANS_DROIT, "")
+        if (brut.isNullOrBlank()) emptySet()
+        else GsonUtils.fromJson<MutableList<String>>(
+            brut, object : TypeToken<MutableList<String>>() {}.type
+        ).orEmpty().toSet()
+    } catch (ex: Exception) {
+        trace("Lecture des formulaires sans droit : ${ex.message}")
+        emptySet()
+    }
+
+    /**
      * Retient la liste relevee dans le fichier de reference.
      *
      * @return true si la selection a CHANGE, pour que l'appelant reconstruise le menu. Une liste
@@ -50,14 +68,22 @@ object VisibiliteFormulaires {
             .map { it.type!!.uppercase() }
             .toSortedSet()
 
-        if (nouveaux == masques().toSortedSet()) return false
+        // Un formulaire masque ne peut evidemment pas etre affiche sans droit : le masquage prime.
+        val affranchis = formulaires
+            .filter { it.sansDroit == true && it.show != false && !it.type.isNullOrBlank() }
+            .map { it.type!!.uppercase() }
+            .toSortedSet()
+
+        if (nouveaux == masques().toSortedSet() && affranchis == sansDroit().toSortedSet()) return false
 
         return try {
             SPUtils.getInstance().put(Constants.FORMULAIRES_MASQUES, GsonUtils.toJson(nouveaux.toList()))
+            SPUtils.getInstance().put(Constants.FORMULAIRES_SANS_DROIT, GsonUtils.toJson(affranchis.toList()))
             trace("Formulaires masques : ${if (nouveaux.isEmpty()) "aucun" else nouveaux.joinToString()}")
+            trace("Formulaires sans droit : ${if (affranchis.isEmpty()) "aucun" else affranchis.joinToString()}")
             true
         } catch (ex: Exception) {
-            trace("Enregistrement des formulaires masques : ${ex.message}")
+            trace("Enregistrement de la visibilite des formulaires : ${ex.message}")
             false
         }
     }

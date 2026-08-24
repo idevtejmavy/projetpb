@@ -1311,8 +1311,12 @@ class DashboardAgentActivity : AppCompatActivity(),
             GsonUtils.fromJson(SPUtils.getInstance().getString("menu"), menuToken)
                 ?: mutableListOf()
 
-        if (BuildConfig.DEBUG && !roles.contains("VISITE_PLANTATION")) roles.add("VISITE_PLANTATION")
-        if (BuildConfig.DEBUG && !roles.contains("SUIVI_ENFANT")) roles.add("SUIVI_ENFANT")
+        // Formulaires que le fichier de reference autorise a s'afficher sans droit declare cote
+        // site. Les questionnaires Visite Plantation et Suivi Enfant Travailleur n'ont AUCUN droit
+        // sur le site - ligne N.60 du suivi client - et n'apparaissaient jusqu'ici qu'en build
+        // debug : ils disparaissaient donc de la version de diffusion. Le jour ou ces droits
+        // existeront, il suffira de retirer la propriete du fichier.
+        VisibiliteFormulaires.sansDroit().forEach { if (!roles.contains(it)) roles.add(it) }
 
         return roles
     }

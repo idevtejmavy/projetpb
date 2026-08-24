@@ -16,13 +16,14 @@
     "Rendez-vous sur le Play Store et effectuez la mise à jour !"
   ],
   "forms": [
+    { "_commentaire": "show=false retire le formulaire des tuiles et du menu lateral. sansDroit=true l'affiche meme sans droit declare cote site - a retirer des que le site declarera les droits VISITE_PLANTATION et SUIVI_ENFANT (ligne N.60 du suivi client)." },
     { "type": "PRODUCTEUR",           "label": "Producteur",                "show": true },
     { "type": "INFOS_PRODUCTEUR",     "label": "Infos producteur",          "show": true },
     { "type": "PARCELLE",             "label": "Identification parcelles",  "show": true },
     { "type": "PARCELLES",            "label": "Suivi parcelle",            "show": true },
     { "type": "MENAGE",               "label": "Enquête ménage",            "show": true },
-    { "type": "VISITE_PLANTATION",    "label": "Visite plantation",         "show": true },
-    { "type": "SUIVI_ENFANT",         "label": "Suivi enfant travailleur",  "show": true },
+    { "type": "VISITE_PLANTATION",    "label": "Visite plantation",         "show": true, "sansDroit": true },
+    { "type": "SUIVI_ENFANT",         "label": "Suivi enfant travailleur",  "show": true, "sansDroit": true },
     { "type": "APPLICATION",          "label": "Applications phytos",       "show": true },
     { "type": "INSPECTION",           "label": "Inspections",               "show": true },
     { "type": "ESTIMATION",           "label": "Estimations",               "show": true },
