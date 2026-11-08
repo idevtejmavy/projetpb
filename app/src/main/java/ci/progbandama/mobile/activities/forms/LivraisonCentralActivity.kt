@@ -63,7 +63,6 @@ class LivraisonCentralActivity : AppCompatActivity() {
     private var staffNomPrenoms: String = ""
     private var staffList: MutableList<ConcernesModel>? = null
     var localiteDao: LocaliteDao? = null
-    var campagneDao: CampagneDao? = null
     var producteurDao: ProducteurDao? = null
     var parcelleDao: ParcelleDao? = null
     var livraisonCentralDao: LivraisonCentralDao? = null
@@ -76,7 +75,6 @@ class LivraisonCentralActivity : AppCompatActivity() {
     //var deleguesList: MutableList<DelegueModel>? = null
     var cponcerneeList: MutableList<ConcernesModel>? = null
     var producteursList: MutableList<ProducteurModel>? = null
-    var campagnesList: MutableList<CampagneModel>? = mutableListOf()
     var parcellesList: MutableList<ParcelleModel>? = mutableListOf()
 
     var localiteSelected = ""
@@ -87,9 +85,6 @@ class LivraisonCentralActivity : AppCompatActivity() {
     var delegueID = ""
     var delegueNom = ""
     var dateLivraisonCentral = ""
-
-    var campagneNom = ""
-    var campagneId = ""
 
     var magasinNom = ""
     var magasinId = ""
@@ -125,26 +120,9 @@ class LivraisonCentralActivity : AppCompatActivity() {
     }
 
 
-    fun setupCampagneSelection() {
-        campagneDao = ProgBandRoomDatabase.getDatabase(applicationContext)?.campagneDao()
-        campagnesList = campagneDao?.getAll()
-
-        val campagneAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, campagnesList!!)
-//        selectCampagneLivraisonCentral!!.adapter = campagneAdapter
-//
-//        selectCampagneLivraisonCentral.setTitle("Choisir la campagne")
-//
-//        selectCampagneLivraisonCentral.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
-//                val campagne = campagnesList!![position]
-//                campagneNom = campagne.campagnesNom!!
-//                campagneId = campagne.id.toString()
-//            }
-//
-//            override fun onNothingSelected(arg0: AdapterView<*>) {
-//            }
-//        }
-    }
+    // Pas de selecteur de campagne : voir la note de LivraisonActivity. Le serveur
+    // rattache la livraison vers le magasin central a la campagne active de la
+    // cooperative (ApilivraisonController:203).
 
 
 //    fun setupConcerneeSelection() {

@@ -56,7 +56,6 @@ class LivraisonActivity : AppCompatActivity() {
     private var staffNomPrenoms: String = ""
     private var staffList: MutableList<ConcernesModel>? = null
     var localiteDao: LocaliteDao? = null
-    var campagneDao: CampagneDao? = null
     var producteurDao: ProducteurDao? = null
     var parcelleDao: ParcelleDao? = null
     var livraisonDao: LivraisonDao? = null
@@ -69,7 +68,6 @@ class LivraisonActivity : AppCompatActivity() {
     //var deleguesList: MutableList<DelegueModel>? = null
     var cponcerneeList: MutableList<ConcernesModel>? = null
     var producteursList: MutableList<ProducteurModel>? = null
-    var campagnesList: MutableList<CampagneModel>? = mutableListOf()
     var parcellesList: MutableList<ParcelleModel>? = mutableListOf()
 
     var localiteSelected = ""
@@ -80,9 +78,6 @@ class LivraisonActivity : AppCompatActivity() {
     var delegueID = ""
     var delegueNom = ""
     var dateLivraison = ""
-
-    var campagneNom = ""
-    var campagneId = ""
 
     var magasinNom = ""
     var magasinId = ""
@@ -155,26 +150,13 @@ class LivraisonActivity : AppCompatActivity() {
     }
 
 
-    fun setupCampagneSelection() {
-        campagneDao = ProgBandRoomDatabase.getDatabase(applicationContext)?.campagneDao()
-        campagnesList = campagneDao?.getAll()
-
-        val campagneAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, campagnesList!!)
-//        selectCampagneLivraison!!.adapter = campagneAdapter
-//
-//        selectCampagneLivraison.setTitle("Choisir la campagne")
-//
-//        selectCampagneLivraison.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
-//                val campagne = campagnesList!![position]
-//                campagneNom = campagne.campagnesNom!!
-//                campagneId = campagne.id.toString()
-//            }
-//
-//            override fun onNothingSelected(arg0: AdapterView<*>) {
-//            }
-//        }
-    }
+    // Pas de selecteur de campagne dans ce module : c'est le serveur qui rattache la
+    // livraison a la campagne active de la cooperative de l'agent
+    // (ApilivraisonController:69, via Campagne::depuisRequete). Et c'est voulu - la
+    // campagne determine la periode, donc le prix champ : laisser l'agent la choisir
+    // permettrait de payer une livraison du jour au prix d'une campagne cloturee.
+    // Le selecteur n'a jamais existe que sous forme de code commente, sans widget dans
+    // activity_livraison.xml ; il a ete retire le 8 novembre 2026.
 
 
     fun setupParcellesProducteurSelection(producteurId: String?) {
@@ -576,7 +558,6 @@ class LivraisonActivity : AppCompatActivity() {
 
         //setProgrammeSpinner()
         //setupConcerneeSelection()
-        //setupCampagneSelection()
         //setupTypeProduitSelection()
         //For RecycleView
         Commons.setListenerForSpinner(this,

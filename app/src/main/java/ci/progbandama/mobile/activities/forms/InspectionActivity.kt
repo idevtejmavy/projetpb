@@ -49,7 +49,6 @@ class InspectionActivity : AppCompatActivity(), SectionCallback,
     private var encadreurList: MutableList<DelegueModel>? = null
     var localitesList: MutableList<LocaliteModel>? = mutableListOf()
     private var producteursList: MutableList<ProducteurModel> = mutableListOf()
-    private var campagnesList: MutableList<CampagneModel> = mutableListOf()
     var cQuestionnaires: MutableList<InspectionQuestionnairesModel>? = mutableListOf()
     //  var cQuestionnaireAdapter: QuestionnaireAdapter? = null
     var cQuestionnaireAdapter: QuestionnaireReviewAdapter? = null
@@ -62,8 +61,11 @@ class InspectionActivity : AppCompatActivity(), SectionCallback,
     var localiteNom = ""
     var localiteId = ""
 
-    var campagneLabel = ""
-    var campagneId = ""
+    // Pas de selecteur de campagne : le serveur rattache l'inspection a la campagne
+    // active de la cooperative de l'encadreur (ApievaluationController:60, via
+    // Campagne::depuisRequete). Les trois variables qui attendaient un selecteur
+    // n'ont jamais ete affectees ni lues ; retirees le 8 novembre 2026. La campagne
+    // affichee dans le recapitulatif descend du serveur (InspectionDTO:27).
 
     var dateInspection = ""
     var draftedDataInspection: DataDraftedModel? = null
