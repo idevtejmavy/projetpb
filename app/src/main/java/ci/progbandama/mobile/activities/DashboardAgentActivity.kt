@@ -1296,14 +1296,14 @@ class DashboardAgentActivity : AppCompatActivity(),
     }
 
     /**
-     * Roles de l'agent, tels que l'API les a renvoyes.
+     * Roles de l'agent : ceux que l'API renvoie, plus les formulaires affiches sans droit.
      *
-     * En build debug, le role de la Visite Plantation est ajoute s'il manque : le back-office ne
-     * l'accorde pas encore, et sans lui le module serait absent de la grille comme du menu
-     * lateral, donc impossible a recetter. En production BuildConfig.DEBUG vaut false et seuls
-     * les roles reellement accordes sont pris en compte.
+     * Le site ne declare aucun droit pour la Visite Plantation ni pour le Suivi Enfant
+     * Travailleur (ligne N.60 du suivi client), alors que les deux modules sont en service. Ils
+     * sont donc ajoutes ici sans condition, et apparaissent dans les tuiles comme dans le menu
+     * lateral au meme titre que l'Enquete Menage.
      *
-     * A RETIRER des que le role existe cote serveur : c'est la seule ligne a supprimer.
+     * Voir VisibiliteFormulaires.SANS_DROIT, a vider des que ces droits existeront cote site.
      */
     private fun rolesDeLAgent(): MutableList<String> {
         val menuToken = object : TypeToken<MutableList<String>>() {}.type
@@ -1311,12 +1311,7 @@ class DashboardAgentActivity : AppCompatActivity(),
             GsonUtils.fromJson(SPUtils.getInstance().getString("menu"), menuToken)
                 ?: mutableListOf()
 
-        // Formulaires que le fichier de reference autorise a s'afficher sans droit declare cote
-        // site. Les questionnaires Visite Plantation et Suivi Enfant Travailleur n'ont AUCUN droit
-        // sur le site - ligne N.60 du suivi client - et n'apparaissaient jusqu'ici qu'en build
-        // debug : ils disparaissaient donc de la version de diffusion. Le jour ou ces droits
-        // existeront, il suffira de retirer la propriete du fichier.
-        VisibiliteFormulaires.sansDroit().forEach { if (!roles.contains(it)) roles.add(it) }
+        VisibiliteFormulaires.SANS_DROIT.forEach { if (!roles.contains(it)) roles.add(it) }
 
         return roles
     }
