@@ -194,13 +194,13 @@ interface ApiService {
     fun getProductEvalList(@Body commonData: CommonData): Call<QuantiteArbrDistribuer>
 
     @POST("gettransporteurs")
-    fun getTransporteurList(): Call<MutableList<TransporteurModel>>
+    fun getTransporteurList(@Body table: CommonData): Call<MutableList<TransporteurModel>>
 
     @POST("getvehicules")
-    fun getVehiculeList(): Call<MutableList<VehiculeModel>>
+    fun getVehiculeList(@Body table: CommonData): Call<MutableList<VehiculeModel>>
 
     @POST("getremorques")
-    fun getRemorqueList(): Call<MutableList<RemorqueModel>>
+    fun getRemorqueList(@Body table: CommonData): Call<MutableList<RemorqueModel>>
 
     @POST("livraisonbroussebymagasinsection")
     fun getLivraisonVerMagCentralList(): Call<MutableList<LivraisonVerMagCentralModel>>

@@ -924,7 +924,11 @@ class ConfigurationActivity : AppCompatActivity() {
             val dataUpdate = async {
 
                 try {
-                    var clientData = ApiClient.apiService.getTransporteurList()
+                    // Referentiel propre a la cooperative : sans son id, le serveur
+                    // renvoie les lignes de toutes les cooperatives.
+                    var clientData = ApiClient.apiService.getTransporteurList(
+                        CommonData(cooperativeIdex = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID))
+                    )
                     var responseData: Response<MutableList<TransporteurModel>> = clientData.execute()
                     val dataList: MutableList<TransporteurModel>? = responseData.body()
                     // Correctif D3 : purge seulement apres reception confirmee
@@ -1071,7 +1075,11 @@ class ConfigurationActivity : AppCompatActivity() {
             val dataUpdate = async {
 
                 try {
-                    var clientData = ApiClient.apiService.getVehiculeList()
+                    // Referentiel propre a la cooperative : sans son id, le serveur
+                    // renvoie les lignes de toutes les cooperatives.
+                    var clientData = ApiClient.apiService.getVehiculeList(
+                        CommonData(cooperativeIdex = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID))
+                    )
                     var responseData: Response<MutableList<VehiculeModel>> = clientData.execute()
                     val dataList: MutableList<VehiculeModel>? = responseData.body()
                     // Correctif D3 : purge seulement apres reception confirmee
@@ -1113,7 +1121,11 @@ class ConfigurationActivity : AppCompatActivity() {
             val dataUpdate = async {
 
                 try {
-                    var clientData = ApiClient.apiService.getRemorqueList()
+                    // Referentiel propre a la cooperative : sans son id, le serveur
+                    // renvoie les lignes de toutes les cooperatives.
+                    var clientData = ApiClient.apiService.getRemorqueList(
+                        CommonData(cooperativeIdex = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID))
+                    )
                     var responseData: Response<MutableList<RemorqueModel>> = clientData.execute()
                     val dataList: MutableList<RemorqueModel>? = responseData.body()
                     // Correctif D3 : purge seulement apres reception confirmee
