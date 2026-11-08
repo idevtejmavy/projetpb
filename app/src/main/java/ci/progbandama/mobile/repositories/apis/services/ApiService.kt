@@ -82,7 +82,7 @@ interface ApiService {
     fun getDatasList(@Body table: CommonData): Call<MutableList<CommonData>>
 
     @POST("getcampagne")
-    fun getCampagnes(): Call<MutableList<CampagneModel>>
+    fun getCampagnes(@Body table: CommonData): Call<MutableList<CampagneModel>>
 
     @POST("getapplicateurs")
     fun getApplicateurs(@Body table: CommonData): Call<MutableList<ApplicateurModel>>

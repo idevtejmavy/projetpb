@@ -89,14 +89,14 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
     /**
      * Campagne a rattacher aux donnees envoyees, ou null si l'appareil n'en connait aucune.
      *
-     * L'endpoint getcampagne ne renvoie que la campagne active : la table locale n'en porte donc
-     * qu'une, et la premiere ligne est la bonne. Elle peut en revanche etre vide - appareil jamais
-     * synchronise, ou aucune campagne active cote serveur - et un acces indexe y levait, faisant
-     * echouer l'envoi entier du module.
+     * getcampagne renvoie les campagnes actives de la cooperative de l'agent : la table locale en
+     * porte autant, la plus recente en tete, et c'est celle-la que l'on retient ici. Elle peut en
+     * revanche etre vide - appareil jamais synchronise, ou aucune campagne active cote serveur -
+     * et un acces indexe y levait, faisant echouer l'envoi entier du module.
      *
-     * Deux modules seulement transmettent cette valeur : le suivi de parcelle, dont le serveur se
-     * sert, et le suivi d'application, dont le serveur la reecrit avec la campagne active. Tous
-     * les autres controleurs estampillent eux-memes.
+     * Cette valeur n'est qu'un repli pour les saisies anterieures au champ Campagne : les
+     * formulaires transmettent le choix de l'agent, et le serveur le retient desormais s'il
+     * appartient bien a la cooperative.
      */
     private fun campagneActive(): CampagneModel? = try {
         campagneDao?.getAll()?.firstOrNull()
@@ -1298,10 +1298,9 @@ class SynchronisationIntentService : IntentService("SynchronisationIntentService
 
 
                     suiviApplication.apply {
-                        // Campagne choisie par l'agent. Le serveur la reecrit encore avec la
-                        // campagne active : la valeur transmise ne sera exploitee que lorsque
-                        // ApiapplicationController lira la requete. Repli sur la campagne active
-                        // pour les saisies anterieures a cette version.
+                        // Campagne choisie par l'agent, desormais retenue par
+                        // ApiapplicationController des lors qu'elle appartient a la cooperative.
+                        // Repli sur la plus recente connue pour les saisies anterieures.
                         if (campagnesId == null || campagnesId == 0) {
                             campagnesId = campagneActive()?.id
                         }

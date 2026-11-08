@@ -1958,7 +1958,11 @@ class ConfigurationActivity : AppCompatActivity() {
             val campagneFetchDatas = async {
 
                 try {
-                    val clientCampagneData = ApiClient.apiService.getCampagnes()
+                    // La cooperative de l'agent borne la liste : sans elle, le serveur
+                    // renvoie la campagne active de n'importe quelle cooperative.
+                    val clientCampagneData = ApiClient.apiService.getCampagnes(
+                        CommonData(cooperativeIdex = SPUtils.getInstance().getInt(Constants.AGENT_COOP_ID))
+                    )
                     val responseCampagneData: Response<MutableList<CampagneModel>> = clientCampagneData.execute()
                     val datasCampagneList: MutableList<CampagneModel>? = responseCampagneData.body()
                     // Correctif D3 : purge seulement apres reception confirmee

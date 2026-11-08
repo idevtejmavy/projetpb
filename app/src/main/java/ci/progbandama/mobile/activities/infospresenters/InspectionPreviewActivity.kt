@@ -100,7 +100,7 @@ class InspectionPreviewActivity : AppCompatActivity(), SectionCallback {
                 draftID = intent.getIntExtra("draft_id", 0)
 
                 inspectionDTO?.let { inspection ->
-                    binding.labelCampagneInspectionPreview.text = ProgBandRoomDatabase.getDatabase(this)?.campagneDao()?.getAll()?.first().let { it?.campagnesNom?.split(" ")?.let {
+                    binding.labelCampagneInspectionPreview.text = ProgBandRoomDatabase.getDatabase(this)?.campagneDao()?.getAll()?.firstOrNull().let { it?.campagnesNom?.split(" ")?.let {
                         var value = ""
                         if(it.size > 1) value = "${it.get(1)}"
                         else value = "N/A"

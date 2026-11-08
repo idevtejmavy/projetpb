@@ -16,10 +16,10 @@ import com.toptoche.searchablespinnerlibrary.SearchableSpinner
  * pose ici une fois : la liste vient de la table locale, alimentee par getcampagne a chaque
  * configuration.
  *
- * ATTENTION - le serveur ne renvoie aujourd'hui QUE la campagne active : la table n'a donc qu'une
- * ligne et le selecteur n'offre qu'un choix, deja positionne. Le telechargement, lui, sait deja
- * recevoir une liste. Le jour ou getcampagne renverra les campagnes de la cooperative, le choix
- * devient reel sans une ligne de plus ici.
+ * Depuis le 8 novembre 2026, getcampagne renvoie les campagnes actives de la cooperative de
+ * l'agent : la table locale en porte autant, la plus recente en tete, et le choix est donc reel.
+ * Une cooperative qui n'en declare qu'une retrouve le cas precedent - un seul choix, deja
+ * positionne.
  */
 object ChoixCampagne {
 
